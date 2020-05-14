@@ -1,0 +1,289 @@
+\begin{theorem}[Feynman-Kac formula, v3]\lesson{11}{02/04/2020} 
+    Assume that $F$ is a solution to the boundary value problem
+    \begin{equation}\label{bvp2}
+        \begin{cases}
+        \pdv{F(t,x)}{t} + K\pdv{F(t,x)}{x} + \dfrac{1}{2}H^2\pdv[2]{F(t,x)}{x}+g(t,x)=0\\
+        F(T,x) = \Phi(x)
+        \end{cases}
+    \end{equation}
+    Then, provided that $$H\pdv{F(t,x)}{x}\in\mathcal{H},$$ 
+    there exists a probability space $(\Omega,\mathcal{F},\mathbb{P})$ on which we can define a Brownian motion $(W_t)_{t\ge0}$ such that
+    \begin{equation}
+        F(t,x) = \mathbb{E}_{x,t}[\Phi(X_T)] + \int^T_t \mathbb{E}_{x,t}[g(s,x_s)]\dd s
+    \end{equation}
+    where $X$ satisfies the SDE
+    \begin{equation}\label{fk2}
+        \begin{cases}
+        \dd X_s = K(s, X_s)\dd s + H(s, X_s)\dd W_s\\
+        X_t = x
+        \end{cases}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Apply Itô's Formula on $F$:
+    \begin{align*}
+        \dd F(t,x) &= \left(\pdv{F}{t} + \pdv{F}{x}K + \dfrac{1}{2}\pdv[2]{F}{x}H^2\right)\dd t + \pdv{F}{x}H\dd W\\
+        \overset{\eqref{bvp2}}&{=}
+        -g(t,x)\dd t + \pdv{F}{x}H\dd W
+    \end{align*}
+    Taking the integral from $t$ to $T$ of both sides we get:
+    \begin{equation*}
+        F(T,x) - F(t,x) = -\int^T_t g(s,x_s)\dd s + \int^T_t \pdv{F}{x}H \dd W_s 
+    \end{equation*}
+    Now we want to remove the stochastic integral, so we take the expected value:
+    \begin{equation*}
+        \mathbb{E}_{t,x}[F(T,x)] - F(t,x) = -\mathbb{E}_{t,x}\left[\int_t^T g(s,x_s)\dd s \right] + \mathbb{E}_{t,x}\left[\int_t^T \pdv{F}{x}H \dd W_s\right]
+    \end{equation*}
+    We know that if $H\pdv{F}{x}\sigma\in\mathcal{H}$ then the stochastic integral is a $\mathbb{P}$-martingale, so by the definition we have that
+    \begin{equation*}
+        \mathbb{E}_{t,x}\left[\int_t^T \pdv{F}{x}H \dd W_u\right] = 0
+    \end{equation*}
+    In the end, we get
+    \begin{equation*}
+        \mathbb{E}_{t,x}[F(T,x)] = F(t,x) - \left[\int_t^T \mathbb{E}_{t,x}[g(s,x_s)]\dd s \right] 
+    \end{equation*}
+    \begin{equation*}
+        F(t,x) = \mathbb{E}_{x,t}[\Phi(X_T)] + \left[\int_t^T \mathbb{E}_{t,x}[g(s,x_s)]\dd s \right].
+    \end{equation*}
+\end{proof}
+\begin{example}{}{}{}
+    Solve the PDE 
+    \begin{equation*}
+        \begin{cases}
+        \pdv{F}{t}(t,x) + \frac{\sigma^2}{2}\pdv[2]{F}{x}(t,x) = 0\\
+        F(T,x) = x^2
+        \end{cases}
+    \end{equation*}
+    where $\sigma$ is constant.\\
+    \textbf{Solution.} In this case $K=0$ and $H=\sigma$, so the process $X$ follows the differential equation 
+    \begin{equation}\label{331}
+        \begin{cases}
+        \dd X = \sigma\dd W_t. \tag{$\ast$}\\
+        X_t = x
+        \end{cases}
+    \end{equation}
+    Integrating \eqref{331} we get:
+    \begin{equation*}
+        X_T - x = \sigma(W_T - W_t) \quad\Rightarrow\quad X_T = x + \sigma(W_T - W_t)
+    \end{equation*}
+    Using the first version of the Feynman-Kac formula we have the solution:
+    \begin{align*}
+        F(t,x) &= \mathbb{E}_{x,t}[X^2_T] \\
+        &=
+        \mathbb{E}_{x,t}[x^2 + \sigma^2(W_T - W_t)^2 + 2x\sigma(W_T-W_t)] \\
+        &= 
+        x^2 + \sigma^2(T-t) + 0 = x^2 + \sigma^2(T-t)
+    \end{align*}
+    where we used the fact that the Brownian increment $(W_T - W_t)$ is independent of the filtration and that $(W_T-W_t)\sim \mathcal{N}(0,T-t)$, so $\dd W^2 = \dd t$ and $(W_T-W_t)=0$. However, we can not say that it is the solution yet, because we first have to check if $F$ satisfies the PDE:
+    \begin{equation*}
+        \begin{cases}
+        \pdv{F}{t}(t,x) + \frac{\sigma^2}{2}\pdv[2]{F}{x}(t,x) = -\sigma^2 + \frac{\sigma^2}{2}2 = 0\\
+        F(T,x) = x^2 + \sigma^2(T-T) = x^2
+        \end{cases}
+    \end{equation*}
+    and then we have to check the regularity condition $\pdv{F}{x}H = 2X_t\sigma\in\mathcal{H}$, i.e. it must be that $\mathbb{E}\left[\int^T_0 (2X_t\sigma)^2\,\dd t\right] < \infty$:
+    \begin{align*}
+        \mathbb{E}\left[\int^T_0 (2X_t\sigma)^2\,\dd t\right] &= \int^T_0 4\sigma^2\mathbb{E}[X_t^2]\,\dd t \\
+        &= 
+        \int^T_0 4\sigma^2\mathbb{E}[(X_0+\sigma W_t)^2]\,\dd t \\
+        &=
+        4\sigma^2 \int^T_0 \mathbb{E}[X_0^2+\sigma^2 W_t^2 + 2X_0\sigma W_t]\,\dd t \\
+        &=
+        4\sigma^2 \int^T_0 (x_0^2+\sigma^2 t + 0)\,\dd t \\
+        &=
+        4\sigma^2\left(x_0^2 t +\frac{\sigma^2 T^2}{2}\right) < \infty \quad \forall T>0.
+    \end{align*}
+\end{example}
+\begin{example}{}{}{}
+    Solve the PDE
+    \begin{equation*}
+        \begin{cases}
+        \pdv{F}{t}(t,x) + \frac{x^2}{2}\pdv[2]{F}{x}(t,x) + x = 0\\
+        F(T,x) = \ln x^2
+        \end{cases}
+    \end{equation*}
+    \textbf{Solution.} In this case $K=0$, $H=x$ and $g(t,x)=x$, so the process $X$ follows the SDE
+    \begin{equation*}
+        \begin{cases}
+        \dd X_t = X_t\dd W_t\\
+        X_t = x
+        \end{cases}
+    \end{equation*}
+    which can be integrated from $t$ to $T$, obtaining:
+    \begin{equation}\label{lin}
+        X_T = X_t e^{-\frac{1}{2}(T-t)+W_T-W_t} \tag{$\star$}
+    \end{equation}
+    Using the Feynman-Kac formula v3 we have the solution
+    \begin{align*}
+        F(t,x) &= \mathbb{E}_{t,x}[\ln x^2] + \int_t^T \mathbb{E}_{t,x}[X_s]\,\dd s \\
+        \overset{(*)}&{=} 
+        \mathbb{E}_{t,x}\left[2\ln x + 2\left(-\frac{1}{2}(T-t)+W_T-W_t\right)\right] +\\
+        &\qquad\qquad\qquad\qquad + \int_t^T \mathbb{E}_{t,x}[X_t e^{-\frac{1}{2}(s-t)+W_s-W_t}]\,\dd s \\
+        \overset{(a)}&{=}
+        2\ln x - (T-t) + x\int^T_t \mathbb{E}_{t,x}\left[e^{-\frac{1}{2}(s-t)+W_s-W_t}\right] \,\dd s \\
+        \overset{(c)}&{=} 
+        2\ln x - (T-t) + x\int^T_t e^{-\frac{1}{2}(s-t)} \mathbb{E}\left[e^{\mathcal{N}(0,s-t)}\right] \,\dd s \\
+        \overset{(b)}&{=} 
+        2\ln x - (T-t) + x\int^T_t e^{-\frac{1}{2}(s-t)}e^{\frac{1}{2}(s-t)} \,\dd s \\
+        &=
+        2\ln x - (T-t) + x(T-t) \\
+        &= 
+        \ln x^2 + (T-t)(x-1)
+    \end{align*}
+    where in (a) we used the fact that the expected value of $W_T-W_t$ is zero and in (b) we used the fact that since $W_s-W_t$ is independent of $\mathcal{F}_t$ we can remove the conditional expected value. In (c) we used the moment generating function formula ${M(t)=\mathbb{E}[e^{tX}]=e^{\mu t}e^{{\frac {1}{2}}\sigma^{2}t^{2}}}$. We also could have used the fact the the exponential in $(*)$ is an exponential martingale.\\
+    Now we have to check that $F$ satisfies the PDF:
+    \begin{equation*}
+        \begin{cases}
+        \pdv{F}{t}(t,x) + \frac{x^2}{2}\pdv[2]{F}{x}(t,x) + x = -x+1+\frac{x^2}{2}\left(-\frac{2}{x^2}\right)+x = 0\\
+        F(T,x) = \ln x^2 + (T-T)(x-1) = \ln x^2
+        \end{cases}
+    \end{equation*}
+    Then we have to check that $\pdv{F}{x}H = \left(\frac{2}{X_t}+T-t\right)X_t\in\mathcal{H}$ \colorbox{cyan}{fai conti}:
+    \begin{equation*}
+        \mathbb{E}\left[\int^T_0 (2 + X_t(T-t))^2\,\dd t\right] \overset{\eqref{lin}}{=} \int^T_0 e^{-linear(t)}\,\dd t < \infty
+    \end{equation*}
+\end{example}
+Let's consider the Black \& Scholes PDE
+\begin{equation}
+    \begin{cases}
+    \pdv{F(t,S(t))}{t} + r\pdv{F(t,S(t))}{S(t)} S(t) + \dfrac{1}{2}\pdv[2]{F(t,S(t))}{S(t)}\sigma^2S(t)^2 - rF(t,S(t))\\
+    F(T,S(T)) = \mbox{payoff}_T
+    \end{cases}
+\end{equation}
+By the Feynman-Kac formula v2 we know that if a function is a solution of the previous equation then we can associate the problem of solving a PDE to the problem of computing an expected value:
+\begin{equation}
+    F(t,S(t)) = e^{-r(T-t)}\mathbb{E}^{\hat{\mathbb{P}}}_{t,S_T}[\pay_T(S_T)]
+\end{equation}
+where $S_T$ is the terminal value of the process which satisfies the stochastic equation
+\begin{equation}
+    \dd S(t) = rS(t)\dd t + \sigma S(t)\dd W^{\hat{\mathbb{P}}}
+\end{equation}
+Notice that our starting point was a probability space with subjective/historical probability measure $\mathbb{P}$. Now the FK formula says that if we start from a deterministic problem we can forget the starting probability space because we have to introduce a new probability space with probability measure $\hat{\mathbb{P}}$. In plain words, under the historical probability measure the dynamics of the risky asset evolves according 
+\begin{equation}
+    \dd S(t) =  \mu S(t)\dd t + \sigma S(t)\dd W^{\mathbb{P}}
+\end{equation}
+but now under the probability $\hat{\mathbb{P}}$ we have a new drift $r$. Now we would like to give some financial meaning to this fact.
+\begin{proposition}[Risk neutral valuation]
+    The arbitrage free price of a general payoff $\Phi(S(T))$ is given by
+    \begin{equation}\label{rnv}
+        F(t,s) = e^{-r(T-t)}\mathbb{E}^{\mathbb{Q}}_t [\Phi(S(T))]
+    \end{equation}
+    where the discounted asset $S_te^{-rt}$ is a $\mathbb{Q}$-martingale.
+\end{proposition}
+\begin{proof}
+    To prove that $S_te^{-rt}$ is a $\mathbb{Q}$-martingale we have to show that the corrisponding drift in the differential equation is equal to zero:
+    \begin{align*}
+        \dd(S_te^{-rt}) &= e^{-rt}\dd S + S\dd e^{-rt} + 0 \\
+        &=
+        (\cancel{rS\dd t} + \sigma S\dd W^{\mathbb{Q}})e^{-rt} + \cancel{S(-r)e^{-rt}\dd t} \\
+        &=
+        \sigma e^{-rt} S\dd W^{\mathbb{Q}}.
+    \end{align*}
+    In alternative, we know the solution of the corresponding stochastic differential equation
+    \begin{equation*}
+        S_t = S_0\exp{\left(r-\frac{\sigma^2}{2}\right)t + \sigma W_t^\mathbb{Q}}
+    \end{equation*}
+    Now multiplying both sides for $e^{-rt}$ we get
+    \begin{align*}
+        e^{-rt}S_t &= S_0\exp{\left(\cancel{r}-\frac{\sigma^2}{2}\right)t + \sigma W_t^\mathbb{Q}}\cancel{e^{-rt}} \\
+        &=
+        S_0\exp{-\frac{\sigma^2}{2}t + \sigma W_t^\mathbb{Q}} \\
+        &= 
+        \mathbb{Q}-martingale
+    \end{align*}
+\end{proof}
+There is a natural economic interpretation of the formula \eqref{rnv}. We see that the price of the derivative, given today’s date $t$ and today’s stock price $s$, is computed by taking the expectation of the final payment $\mathbb{E}^{\mathbb{Q}}_t [\Phi(S(T))]$ and then discounting this expected value to present value using the discount factor $e^{-r(T-t)}$. The important point to note is that when we take the expected value we are not to do this using the objective probability measure $\Pmeas$.\\
+Now we will see that we can find the same results taking a completely different approach.
+
+\section{The martingale approach} % Lamberton 1.2.2, Bjork p. 150 circa
+The starting point of this approach is the continuous case equivalent of the First Fundamental Theorem we introduced in the discrete time framework.
+\begin{theorem}[First Fundamental Theorem]
+    The model is arbitrage free if and only if there exists a (local) martingale measure $\Qmeas$ equivalent to $\Pmeas$, $\Qmeas\sim\Pmeas$, under which 
+    \begin{equation}
+        \dfrac{S^i}{S^0} = \Qmeas-(local)-martingales
+    \end{equation}
+\end{theorem}
+To be honest, this theorem is not perfectly true. A more precise version of the First Fundamental Theorem is the following.
+\begin{theorem}[First Fundamental Theorem]\label{firstfundth}
+    Assume that the asset price process $S$ is bounded. Then there exists an equivalent martingale measure if and only if the model satisfies NFLVR\footnote{No Free Lunch with Vanishing Risk. It is the possibility to exploit an arbitrage not in a finite amount of time but asymptotically. This particular notion of arbitrage is defined ad-hoc in order to establish which is the mathematical condition which ensures the equivalence with the existence of the risk neutral probability measure.}.
+\end{theorem}
+Honestly, this has no real applications in finance (in most applications, the assumption of a bounded S process is far too restrictive), it is only related to mathematical finance.\\
+There is also the equivalent of the Second Fundamental Theorem.
+\begin{theorem}[Second Fundamental Theorem]\label{secondfundth}
+    Assume that the market is arbitrage free and consider a fixed numeraire asset $S_0$. Then the market is complete if and only if the martingale measure $\Qmeas$, corresponding to the numeraire $S_0$, is unique.
+\end{theorem}
+
+\subsection[Application to the Black \& Scholes model]{Application of the martingale approach to the Black \& Scholes model}
+In this model the dynamics of the asset price is given by
+\begin{equation}\label{s}
+    \dfrac{\dd S_t}{S_t} = \mu \dd t + \sigma \dd W_t^{\Pmeas}
+\end{equation}
+and the evolution of the riskless asset is given by
+\begin{equation}
+    \dfrac{\dd B_t}{B_t} = r \dd t.
+\end{equation}
+We want to impose the property that characterizes the no arbitrage. We know that, under the risk neutral measure, the discounted asset $\nicefrac{S_t}{B_t}$ should be a $\Qmeas$-martingale. Let's consider its dynamic under the historical probability measure $\Pmeas$:
+\begin{align}
+    \dd\left(\frac{S_t}{B_t}\right) = \dd (Se^{-rt}) &= e^{-rt}\dd S + S\dd(e^{-rt}) + 0 \\
+    &= 
+    (\mu S \dd t + \sigma S \dd W_t^{\Pmeas})e^{-rt} - rSe^{-rt} \dd t \\
+    &=
+    e^{-rt}(\mu - r)S\dd t + \sigma Se^{-rt} \dd W^{\Pmeas}
+\end{align}
+Notice that the drift is $\mu-S\ne0$, so $\Pmeas$ cannot be the pricing measure. So $\nicefrac{S_t}{B_t}$ is not a $\Pmeas$-martingale and then $\Qmeas\ne\Pmeas$. \\
+In order to find $\Qmeas$ we impose the no arbitrage condition, i.e. $\nicefrac{S_t}{B_t}$ must be a $\Qmeas$-martingale. The only possibility to do that is to absorb the drift into the corresponding Brownian motion:
+\begin{align}\label{drift}
+    \notag \dd\left(\frac{S_t}{B_t}\right) &= e^{-rt}(\mu - r)S\dd t + \sigma Se^{-rt} \dd W^{\Pmeas}\\
+    &=
+    \sigma S e^{-rt}\hlc{mypink}{\left(\dd W^{\Pmeas} + \frac{\mu-r}{\sigma}\dd t\right)}
+\end{align}
+We have to find a probability measure under which the pink term becomes a Brownian motion $\dd W^{\Qmeas}$. In the previous approach this was given by Girsanov theorem: if 
+\begin{equation}\label{gis}
+    \eval{\dv{\mathbb{Q}}{\mathbb{P}}}_t = \exp\left(\int^t_0 \left(\frac{r-\mu}{\sigma}\right)\,\dd W_s^{\mathbb{P}}-\dfrac{1}{2}\int^t_0 \left(\frac{r-\mu}{\sigma}\right)^2 \,\dd s\right)
+\end{equation}
+is a true martingale, then 
+\begin{equation}\label{shift}
+    W^{\Qmeas}_t \coloneqq W_t^{\Pmeas} - \left(\frac{r-\mu}{\sigma}\right)t 
+\end{equation}
+is a $\Qmeas$-Brownian motion. But this is true, in fact the Novikov condition holds
+\begin{equation}
+    \mathbb{E}\left[e^{\frac{1}{2}\int^T_0\left(\frac{r-\mu}{\sigma}\right)^2\dd s}\right] \sim e^{constant\cdot T} < \infty
+\end{equation}
+because the integrand is constant and the whole expression is deterministic. Alternatively, we can use the fact that \eqref{gis} is an exponential martingale. \\
+In the Black \& Scholes model $\sigma$ and $\mu$ are constant, but if we consider a more sophisticated model where the volatility is no more constant, $\sigma=\sigma_t$, then it is quite challenging to find a change of measure because $\sigma_t$ may be very close to zero, so that the integral \eqref{gis} diverges. Moreover, there are some stochastic volatility models in which the Girsanov theorem fails, leading to a loss of probability mass. \\
+Now we can use the shift \eqref{shift} in \eqref{s}:
+\begin{align}
+    \notag \frac{\dd S}{S} &= \mu \dd t + \sigma \dd W_t^{\Pmeas}\\
+    &=
+    \cancel{\mu \dd t} + \sigma \left(\dd W^{\Qmeas} + \frac{r-\cancel{\mu}}{\sigma}\dd t\right) \\
+    &=
+    r\dd t + \sigma e^{-rt}\dd W^{\Qmeas} 
+\end{align}
+So we end up with the same result we found using the PDEs, i.e. we are able to characterize the dynamics of the risky asset under the risk neutral probability measure $\Qmeas$. An important difference with respect to the PDE approach is that here we do not do any Markovianity assumption.\\
+In conclusion, we have that under $\Qmeas$:
+\begin{itemize}
+    \item Discounted assets $e^{-rt}S_t$ are $\Qmeas$-martingales;
+    \item Discounted portfolios $e^{-rt}V_t$ are $\Qmeas$-martingales. In fact, recall the definition of the portfolio:
+    \begin{equation}
+        V_t = \alpha_tS_t + \beta_t B_t
+    \end{equation}
+    and then integrate by part the discounted portfolio:
+    \begin{align}
+        \notag \dd(e^{-rt}V_t) &= e^{-rt}\dd V + V\dd(e^{-rt}) + 0 \\
+        \overset{(a)}&{=}
+        \notag (\alpha \dd S + \beta \dd B)e^{-rt} - r(\alpha \dd S + \beta \dd B)e^{-rt}\dd t \\
+        &=
+        \notag e^{-rt}\left(\alpha(\cancel{rS\dd t} + \sigma S \dd W^{\Qmeas}) + \cancel{\beta r B\dd t} - \cancel{\alpha rS\dd t} + \cancel{r\beta B \dd t} \right) \\
+        &= 
+        \alpha\sigma Se^{-rt}\dd W^{\Qmeas}
+    \end{align}
+    where in (a) we used the self financing condition. Since there is no drift, the discounted portfolio is a $\Qmeas$-martingale. Then, by definition of martingality we have that 
+    \begin{equation}
+        V_te^{-rt} = \mathbb{E}_t^{\Qmeas}[V_T e^{-rT}]
+    \end{equation}
+    If we apply this equality to a special case in which $V_t$ is the replicating portfolio -- such that $V_T = \pay_T$ -- we get again the universal formula
+    \begin{equation}
+        price_t(\pay_T) = e^{-r(T-t)}\mathbb{E}^{\Qmeas}_t [\pay_T].
+    \end{equation}
+    Again, we do not need any Markovianity assumption, so we can consider any payoff, even path-dependent ones.
+\end{itemize}

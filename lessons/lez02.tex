@@ -1,0 +1,179 @@
+%\chapter{Lesson 12.03.2020} % 12 marzo 2020
+\lesson{2}{12/03/2020}
+Now we ask ourselves: which is the fair value of the price of this kind of contracts? In order to find it we need to introduce a probabilistic model. 
+
+\chapter{Discrete time finance}
+\section{Static binomial model}
+The simplest probabilistic model is the \emph{static binomial model}. Suppose that we have an underlying with initial price $S_0$ at $t=0$ and which at time $t=T$ can assume two values, $Su$ and $Sd$ ($u>d$). The randomness arises from the fact that at time $t=0$ we don't know which will be the value at maturity, so we can say that $S_T$ is a two states random variable. \\
+Now we would like to find which is the payoff of the call option, i.e.
+\begin{equation}
+    (S_T-K)^+ = \binom{(Su-K)^+}{(Sd-K)^+}
+\end{equation}
+Let's consider the following toy model: suppose to have an underlying which initial price is $S_0=100$ and $S_T=(Su,Sd)=(110,90)$ and consider a strike price $K=100$\footnote{If $K=S_0$ we say that the strike price is \emph{at the money}. If $K<S_0$ we say that it is \emph{in the money} and if $K>S_0$ it is \emph{out of the money}.}. The call payoff at the end will be
+\begin{equation*}
+    \binom{(110-100)^+}{(90-100)^+}=\binom{10}{0}
+\end{equation*}
+Which is the price of the call option at time $t=0$? Without knowing anything we can assume that the probability to get $Sd$ or $Su$ is the same, i.e. $1/2$, so the expected payoff at time $t=T$ is
+\begin{equation*}
+    10\cdot\dfrac{1}{2} + 0\cdot\dfrac{1}{2} = 5
+\end{equation*}
+Suppose that $T=1$ year. We are interested in the price today, so the natural way to get it is to discount this amount of money today. Assuming that the interest rate is exponential compounding with $R=2\%$ per year we have that the expected payoff at time $t=0$ is
+\begin{equation*}
+    e^{-RT}\mathbb{E}[\mbox{payoff}_T] = e^{-0.02\cdot1}\left(10\cdot\dfrac{1}{2} + 0\cdot\dfrac{1}{2}\right) 
+\end{equation*}
+Financially speaking, \textbf{this is completely wrong} because we are giving just our personal evaluation of the option price. Even using different probabilities for $Sd$ and $Su$ we would not have a price, because we are using a personal evaluation of the probability. A price has to be objective, not subjective. So, we have to completely forget this approach.\\
+We have to find an objective way to determine, if not the price, at least an interval for the price. The idea is to perform the same reasoning we did for the price of the forward contract, i.e. to apply the no arbitrage principle. Let's write the payoff at time $T$ as 
+\begin{equation*}
+    \binom{f^u}{f^d}
+\end{equation*}
+The strategy is the following 
+\begin{enumerate}
+    \item We build up a strategy which replicates state of the nature by state of the nature all the values assumed by the random variable payoff. The idea is that the portfolio strategy has a value $V$ and the value of the portfolio at time $T$ is the payoff, i.e.
+    \begin{equation*}
+        V_T = \mbox{payoff}_T = \binom{f^u}{f^d}
+    \end{equation*}
+    Define $\alpha$ as the number of units of the underlying we have and $\beta$ as the number of obligations we have in the market (the possibility to land or borrow money), for example the \emph{zero coupon bond}, i.e. the contract that -- whatever happens to the market or to the underlying -- it gives the payoff equal to 1. There is not intermediate cash flow in the meanwhile. The terminal amount of money is denoted as \emph{notional}, which is typically computer in one hundred. So, a zero coupon bond is a contract that gives 100 at the end and at the beginning the value of the notional is $100e^{-RT}$. 
+    \begin{example}{}{} 
+    If the price of the zero coupon bond that gives 100 at the end is 99.5 today, and the time period between today and maturity is 3 months, we have
+    \begin{equation*}
+        99.5 = 100e^{-R\cdot3\mbox{ months}\frac{3}{12}}
+    \end{equation*}
+    where $3/12$ is due to the fact that typically the interest rate is computed in years. Inverting we get
+    \begin{equation*}
+        R = -\dfrac{12}{3}\ln\left(\dfrac{99.5}{100}\right)
+    \end{equation*}
+    \end{example}
+    So we can invest in the risky market ($\alpha$) on in the interest rate/riskless market ($\beta$). Defining the portfolio strategy 
+    \begin{equation*}
+        V = \alpha S + \beta B
+    \end{equation*}
+    at the beginning we have 
+    \begin{equation*}
+        V_0 = \alpha S_0 + \beta\cdot1
+    \end{equation*}
+    and at the end we get 
+    \begin{equation}
+        V_T = \alpha S_T + \beta e^{RT} = \alpha\binom{Su}{Sd} + \beta\binom{e^RT}{e^RT}
+    \end{equation}
+    which is a random variable. This leads to a system of two equations:
+    \begin{equation}
+        \begin{cases}
+            \alpha Su + \beta e^{RT} = f^u \\
+            \alpha Sd + \beta e^{RT} = f^d
+        \end{cases}
+    \end{equation}
+    which has solution (just subtract the second by the first)
+    \begin{equation}
+        \alpha = \dfrac{f^u-f^d}{Su-Sd}, \qquad \beta =  e^{RT}\left(f^d-Sd\dfrac{f^u-f^d}{Su-Sd}\right)
+    \end{equation}
+    \item At the end $V_T = \mbox{ payoff}_T$ with probability 1, because state of the nature by state of the nature they are the same. But if in the market there are two contracts with the same value at a certain time then necessarely they must share the same value also at the beginning: 
+    \begin{equation*}
+        V_0 = price_0(\mbox{payoff}_T)
+    \end{equation*}
+    This is due to the absence of arbitrage opportunity. In fact, suppose for example that $V_0>price_0(\mbox{payoff}_T)$. Then we can construct an arbitrary strategy. In order to do that we have to understand which is the anomaly in this situation. If at the beginning the portfolio is more expensive than the option, this means that it is too expensive, because with the option -- which is cheaper -- we can get the same value at the end. So, $V$ is the loser and the option is the winner and we can exploit the arbitrage by going long (buying) in the winner and going short (selling) in the loser.
+    \begin{center}
+        \begin{tabular}{lcc} 
+            \toprule
+                        & $t=0$        & $t=T$          \\\midrule
+            Long option & -price$_0$   & $\alpha$payoff \\
+            Short $V$   & $+V_0$       & $-V_T$         \\
+            \midrule\midrule
+             & $V_0-price_0>0$ & 0              \\\bottomrule
+        \end{tabular}
+    \end{center}
+    If $V_0<price_0(\mbox{payoff}_T)$ we go short in the option and long in the portfolio. In the end, we get:
+    \begin{equation}\label{V0}
+        V_0 = price_0(\mbox{payoff}_T) = \alpha S_0 + \beta = \dfrac{f^u-f^d}{Su-Sd}S_0 + e^{RT}\left(f^d-Sd\dfrac{f^u-f^d}{Su-Sd}\right)
+    \end{equation}\label{eq:bin_model}
+\end{enumerate}
+Notice that if using this simple model we end up with a pretty complicate expression, this means that this methodology doesn't lead to a technology which can be exploited in a realistic and more sophisticated framework. So we have to find a way to manipulate this expression in order to get something more readable.\\
+Let's rewrite \eqref{eq:bin_model} as:
+\begin{align}\label{readable}
+    \notag V_0 
+    &= 
+    \alpha S_0 + \beta = \dfrac{f^u-f^d}{Su-Sd}S_0 + e^{RT}\left(f^d-Sd\dfrac{f^u-f^d}{Su-Sd}\right) \\
+    \notag &=
+    e^{-RT}\left[\dfrac{f^u-f^d}{u-d}+f^d-d\dfrac{f^u-f^d}{u-d}\right] \\
+    \notag &=
+    e^{-RT}\left[f^u\underbrace{\dfrac{e^{RT}-d}{u-d}}_{q}+f^d\underbrace{\dfrac{u-e^{RT}}{u-d}}_{1-q}\right] \\
+    &=
+    e^{-RT}\left[f^u q + f^d(1-q)\right]
+\end{align}
+We need $q>0$, otherwise there is an arbitrage opportunity. In fact, having a risky asset
+\begin{equation*}
+    S = \begin{cases}
+        Su \\ Sd
+    \end{cases} \overset{normalize}{\longrightarrow} \quad
+    1 = \begin{cases}
+        u \\ d
+    \end{cases}
+\end{equation*}
+and a riskless asset
+\begin{equation*}
+    1 = \begin{cases}
+        e^{RT} \\ e^{RT}
+    \end{cases}
+\end{equation*}
+if $e^{RT}\le d$ it means that we can invest in the risky asset and at worst get the return $d$, but in any case -- even in the worst case -- the return is still greater than what we hope to get investing in the riskless asset. The risk asset becomes the winner! So we can exploit the arbitrage opportunity by tanking long position in the winner and short position in the loser.
+\begin{center}
+    \begin{tabular}{lcc} 
+        \toprule
+                            & $t=0$   & $t=T$                    \\\midrule
+        Long S              & $-S_0$  & $+(S_0u,S_0d)$           \\
+        Short \#S riskless   & $+S_0$  & $-(S_0e^{RT},S_0e^{RT})$ \\
+                                                                 \midrule\midrule
+                            & $0$     & $(S_0(u-e^{RT}),S_0(d-e^{RT}))>0$       \\\bottomrule
+    \end{tabular}
+\end{center}
+We need also that $1-q>0$, which leads to $u<e^{RT}$. Again, if this does not hold we have an arbitrage opportunity (where this time the winner is the riskless asset). \\
+So in the end I get eq. \eqref{readable}, which is way more readable now, because what I get is that the price price of the payoff is equal to the discounted value of a convex combination with positive probability weights, which is exactly an expected value:
+\begin{equation}
+    price_0(\mbox{payoff}_T) = e^{-RT}\mathbb{E}[\mbox{payoff}_T]
+\end{equation}
+This expression looks the same as the one we said was completely wrong. Not exactly: the crucial difference is that I don't use my subjective probability but only elements which are present in the market. In particular, the probability weight $q$ is not chosen by us, but it depends on market parameters, i.e. the fact that the underlying goes up and down without touching any probability or interest rate. To stress the fact that the probability is not subjective, we write
+\begin{equation}\label{price}
+    price_0(\mbox{payoff}_T) = e^{-RT}\mathbb{E}^{\Qmeas}[\mbox{payoff}_T]
+\end{equation}
+where 
+\begin{equation}
+    Q \to \binom{q}{1-q}
+\end{equation}
+is known as \emph{risk neutral probability measure}.\\
+So, in the end, we found a metodology for the pricing:
+\begin{enumerate}
+    \item Which is the payoff$_T$ I'm interested to price?
+    \item Compute $q = \frac{e^{RT}-d}{u-d}$;
+    \item Compute the price using \eqref{price}.
+\end{enumerate}
+
+\subsection{Implementation}\label{sec:impl}
+Let's talk about implementation. Even if the model is very stylized, it would be nice to understand if it is possible to apply it concretely is some cases. We need to specify $u$ and $d$, which values are related to the volatility of the price, i.e. to the variability of the underlying. If $u>>d$ we are confident on the fact that future realizations of the underlying will increase, if $u\sim d$ we are not confident on the fact that future realizations of the underlying will increase. \\
+It would be nice to be able to estimate $u$ and $d$ starting from real data. In order to do that we have to consider some historical series of daily closing prices $(S_{-n},\dots,S_0)$ and switch to returns (since we want $u$ and $d$):
+\begin{equation}
+    \mbox{Return}_t = R_t = \dfrac{S_t-S_{t-1}}{S_{t-1}} = \ln\left(\dfrac{S_t}{S_{t-1}}\right)
+\end{equation}
+So we get a vector $(R_{-n-1},\dots,R_0)$. Then we have to compute the standard deviation
+\begin{equation}
+    \sigma_{daily} = \sqrt{\dfrac{\sum^{n-1}_{i=0}(R_i-\Bar{R})^2}{n-1}}
+\end{equation}
+which is called \emph{daily volatility}. $u$ and $d$ are given by
+\begin{equation}
+    u = e^{\sigma_{year}\sqrt{T}}, \qquad d = e^{-\sigma_{year}\sqrt{T}}
+\end{equation}
+where $\sigma_{year} = \sigma_{daily}\sqrt{250}$ (250 are the opening days in the market) and $T$ is measured is years (so if we have $T=3$ months we have to put $T=3/12$). Once we have $u$ and $d$ we can implement our binomial model
+\begin{remark}\label{remark}
+    In principle we can price whatever. If we consider that the payoff is the underlying itself
+    \begin{equation}
+        \mbox{payoff}_T = S_T
+    \end{equation}
+    i.e. the payoff gives one unit of underlying at the end, the corresponding price of this particular payoff is given by    \eqref{price}:
+    \begin{align}
+        \notag e^{-RT}\mathbb{E}^{\Qmeas}[(S_T)] &= e^{-RT}(qSu+(1-q)Sd) = e^{-RT}S(qu+(1-q)d) \\
+        &= e^{-RT}S\left(u\frac{e^{RT}-d}{u-d}+d\frac{u-e^{RT}}{u-d}\right) = S_0
+    \end{align}
+    which makes sense, because the market value of the underlying today is exactly what we observe today, i.e. the quoted price of the underlying. So we can say the methodology is consistent. But there is something more, in the sense that if we write
+    \begin{equation}\label{S0}
+        \mathbb{E}^{\Qmeas}[e^{-RT}(S_T)] = S_0e^{-R\cdot0} = S_0
+    \end{equation}
+    we see that the expected value is the same as the value that we observe. This is a very stylized case of the property of a \emph{martingale}. However, this is not properly a martingale (since there is no stochasticity), but just a preliminary intuition of the fact that ``the process $S_te^{-RT}$, i.e. the discounted asset, will be a $\Qmeas$-martingale".
+\end{remark}

@@ -1,0 +1,9 @@
+TODO
+
+- Fix S_t e S(t) everywhere
+
+- Stochastic interest rate: ricontrolla tutto guardando il libro e le note.
+
+- Sostituire le immagini vecchie con quelle prese dalle note.
+
+

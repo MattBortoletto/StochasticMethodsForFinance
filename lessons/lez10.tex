@@ -1,0 +1,278 @@
+\section{Portfolio dynamics}\lesson{10}{01/04/2020} % ch. 6 Bjork
+Let us consider a financial market consisting of different assets such as stocks, bonds with different maturities, or various kinds of financial derivatives. In this section we will take the price dynamics of the various assets as given, and the main objetive is that of deriving the dynamics of (the value of) a so-called \emph{self financing portfolio}. In continuous time this turns out to be a fairly delicate task, so we start by studying a model in discrete time. We will then let the length of the time step tend to zero, thus obtaining the continuous time analogs. \\
+Let us thus study a financial market, where time is divided into periods of length $\Delta t$, and where trading only takes place at the discrete points in time $n\Delta t$, $n = 0, 1,\dots$. We consider a fixed period $[t, t + \Delta t)$. This period is henceforth referred to as “period $t$”. 
+\begin{definition} Let's define the following notation:
+    \begin{itemize}
+    \item $N =$ the number of different types of stocks.
+    \item $h_i(t) =$ number of shares of type $i$ held during the period $[t, t + \Delta t)$.
+    \item $h(t) =$ the portfolio $[h_1(t),\dots,h_N(t)]$ held during period $t$.
+    \item $c(t) =$ the amount of money spent on consumption per unit time during the period $[t, t + \Delta t)$.
+    \item $S_i(t) =$ the price of one share of type $i$ during the period $[t, t + \Delta t)$.
+    \item $V(t) =$ the value of the portfolio $h$ at time $t$.
+    \end{itemize}
+\end{definition}
+The information and the decisions in the model are structured as follows:
+\begin{itemize}
+    \item At time $t$, i.e. at the start of period $t$, we bring with us an “old” portfolio $h(t - \Delta t) = \{h_i(t - \Delta t), i = 1,\dots,N\}$ from the previous period $t - \Delta t$.
+    \item At time $t$ we can observe the price vector $S(t)=(S_1(t),\dots,S_N(t))$.
+    \item At time $t$, after having observed $S(t)$, we choose a new portfolio $h(t)$, to be held during period $t$. At the same time we also choose the consumption rate $c(t)$ for the period $t$. Both $h(t)$ and $c(t)$ are assumed to be constant over the period $t$.
+\end{itemize}
+\begin{remark}
+    We only consider non-dividend paying assets.
+\end{remark}
+To start the analysis we observe that the wealth at the
+start of period $t$, $V(t)$, equals the value of the old portfolio $h(t - \Delta t)$. Thus we have:
+\begin{equation}\label{6.1}
+    V(t) = \sum^N_{i=1}h_i(t-\Delta t)S_i(t) = h(t-\Delta t)S(t)
+\end{equation}
+This equation simply says that at the beginning of period $t$ our wealth equals what we get if we sell our old portfolio at today's
+prices. We may now use the proceeds of this sale for two purposes:
+\begin{enumerate}
+    \item Reinvest in a new portfolio $h(t)$.
+    \item Consume at the rate $c(t)$ over the period $t$
+\end{enumerate}
+The cost of the new portfolio $h(t)$, which has to be bought at today’s prices, is given by
+\begin{equation}
+    \sum^N_{i=1} h_i(t)S_i(t) = h(t)S(t)
+\end{equation}
+whereas the cost for the consumption rate $c(t)$ is given by $c(t)\Delta t$. The \emph{budget equation} for period $t$ thus reads
+\begin{equation}
+    h(t-\Delta t)S(t) = h(t)S(t) + c(t)\Delta t
+\end{equation}
+\begin{equation*}
+    (h(t)-h(t-\Delta t)S(t) + c(t)\Delta t = 0
+\end{equation*}
+\begin{equation}\label{6.3}
+    \Delta h(t)S(t) + c(t)\Delta t = 0
+\end{equation}
+Since our goal is to obtain the budget equation in continuous time it is now tempting to let $\Delta t \to 0$ in eq. \eqref{6.3} to obtain the formal expression
+\begin{equation}
+    S(t)\dd h(t) + c(t)\dd t = 0.
+\end{equation}
+This procedure is, however, \textbf{not correct}. In fact, all the stochastic differentials are to be interpreted in the Itô sense and the Itô integral $\int H(t)\dd W(t)$ was defined as the limit of sums of the type $\sum H(t_n)[W(t_{n+1})-W(t_n)]$ where it was essential that the $W$-increments were forward differences. But in eq. \eqref{6.3} we have a backward $h$-difference.\\
+In order to get Itô differentials we thus have to reformulate eq. \eqref{6.3}. This is done by adding and subtracting the term $S(t- \Delta t)\Delta h(t)$ to the left-hand side:
+\begin{align*}
+    \Delta h(t)S(t) + c(t)\Delta t + S(t- \Delta t)\Delta h(t) - S(t- \Delta t)\Delta h(t) = 0
+\end{align*}
+\begin{equation*}\label{6.4}
+    S(t - \Delta t)\Delta h(t)+\Delta S(t)\Delta h(t) + c(t)\Delta t = 0
+\end{equation*}
+Now, at last, we may let $\Delta t \to 0$ in the budget eq. \eqref{6.4}, giving us
+\begin{equation}\label{6.7}
+    S(t)\dd h(t) + \dd h(t)\dd S(t) + c(t)\dd t = 0.
+\end{equation}
+Letting $\Delta t \to 0$ in eq. \eqref{6.1} gives us 
+\begin{equation}
+    V(t) = h(t)S(t)
+\end{equation}
+and if we take the Itô differential of this expression we get
+\begin{align}
+    \notag \dd V(t) &= h(t)\dd S(t) + S(t)\dd h(t) + \dd S(t)\dd h(t) \\
+    \overset{\eqref{6.7}}&{=}
+    \notag h(t)\dd S(t) + S(t)\dd h(t) - c(t)\dd t - S(t)\dd h(t) \\
+    &=
+    S(t)\dd h(t) - c(t)\dd t
+\end{align}
+In particular, in a situation without any consumption we have the following V-dynamics:
+\begin{equation}\label{6.9}
+    \dd V(t) = h(t)\dd S(t).
+\end{equation}
+This is the so called \emph{self-financing portfolio}, i.e. a portfolio with no exogenous infusion or withdrawal of money. In other words, the purchase of a new portfolio, as well as all consumption, must be financed solely by selling assets already in the portfolio.\\
+The natural economic interpretation of eq. \eqref{6.9}) is that in a model without any exogenous income, all change of wealth is due to changes in asset prices. In other words, the fact that the portfolio fluctuates does not depend on our strategy $h$ but only on the fact that in a infinitesimal interval there has been a fluctuation in the market due to a shock in the risky asset.
+
+\section{Option pricing in the Black \& Scholes model} % ch. 7 Bjork
+Let us consider a financial market consisting of only two assets: 
+\begin{enumerate}
+    \item A savings account (risk free asset) with price process $B$
+    that evolves according to the deterministic equation
+    \begin{equation}
+        \dfrac{\dd B_t}{B_t} = r \dd t;
+    \end{equation}
+    \item A stock with price process (risky asset) $S$, evolving according to the Brownian motion SDE
+    \begin{equation}\label{bmsde}
+        \dfrac{\dd S_t}{S_t} = \mu \dd t + \sigma \dd W_t
+    \end{equation}
+    where $\sigma\ne0$, otherwise if $\mu\ne r$ there is an arbitrage opportunity.
+\end{enumerate}
+In the Black \& Scholes model $\mu,\sigma$ and $r$ are constant. We make the following assumptions:
+\begin{itemize}
+    \item The derivative can be bought or sold without any restriction;
+    \item There is no arbitrage opportunity;
+    \item The price can be written as a function of the underlying:
+    \begin{equation}
+        price_t = p(t) = F(t,S(t))\in C^{1,2}.
+    \end{equation}
+    This is a Markovian-like assumption, which is quite strong because it says that the price depends only on the current value of the underlying $S(t)$, which is not true in general. 
+\end{itemize}
+The idea is to repeat the same argument we used in the discrete time framework. So we want to construct the replicating portfolio of the payoff at time $T$ and it must be self-financing, otherwise the initial value of the option may be different from the value of our portfolio if in the meanwhile we receive something else. We write the value of the replicating portfolio at time $t$ as 
+\begin{equation}\label{v}
+    V(t) = \alpha(t)S(t) + \beta(t)B(t) = F(t,S(t))
+\end{equation}
+At maturity we have
+\begin{equation}
+    V(T) = \mbox{payoff}_T
+\end{equation}
+Then, by absence of arbitrage opportunity it must be that
+\begin{equation}
+    V(0) = price_0(\mbox{payoff}_T) = p(0) = F(0,S(0))
+\end{equation}
+and this must hold also for all the intermediate times
+\begin{equation}
+    V(t) = F(0,S(0))
+\end{equation}
+So our constructed portfolio and the option have the same value at any time. This means that also the fluctuations, i.e. their differentials, are the same:
+\begin{align}
+    \dd V(t) = \dd F(t,S(t))
+\end{align}
+According to \eqref{6.9} we have that 
+\begin{align}
+    \notag \dd V(t) &= h(t)\dd S(t) = (\alpha, \beta)\binom{\dd S}{\dd B} \\ &=
+    \notag \alpha\dd S+\beta\dd B\\
+    &=
+    \alpha(\mu S\dd t+\hlc{mypink}{\sigma\dd W})+\beta rB\dd t
+\end{align}
+and $\dd F(t,S(t))$ is given by the Itô's Formula:
+\begin{align}
+    \notag \dd F &= \pdv{F}{t}\dd t + \pdv{F}{S}\dd S + \dfrac{1}{2}\pdv[2]{F}{S}\dd\expval{S} \\
+    \overset{\eqref{bmsde}}&{=} 
+    \left(\pdv{F}{t} + \pdv{F}{S}\mu S + \dfrac{1}{2}\pdv[2]{F}{S}\sigma^2S^2\right)\dd t + \hlc{mypink}{\pdv{F}{S}\sigma S\dd W}
+\end{align}
+Comparing the two terms in pink we find that
+\begin{equation}
+    \alpha(t) = \pdv{F}{S} = \Delta(t)
+\end{equation} 
+so $\alpha$ is the equivalent of the difference in the value the option divided by the difference of the underlying ($\Delta$) in the discrete time framework.\\
+Comparing the remaining terms we get:
+\begin{equation}\label{342}
+    \alpha(t)\mu S + \beta rB = \pdv{F}{t} + \pdv{F}{S}\mu S + \dfrac{1}{2}\pdv[2]{F}{S}\sigma^2S^2
+\end{equation}
+Multiply both sides of eq. \eqref{v} for $r$:
+\begin{equation*}
+    rV = r\alpha S + r\beta B
+\end{equation*}
+and then substitute in eq. \eqref{342}, recalling that $\alpha(t) = \pdv{F}{S}$ and $V(t)=F(t,S(t))\,\,\forall t$:
+\begin{equation*}
+    \cancel{\pdv{F}{S}\mu S} + rF - r\pdv{F}{S} S = \pdv{F}{t} + \cancel{\pdv{F}{S}\mu S} + \dfrac{1}{2}\pdv[2]{F}{S}\sigma^2S^2
+\end{equation*}
+We obtained the so called \emph{Black \& Scholes partial differential equation}:
+\begin{equation}\label{BSpde}
+    \begin{cases}
+    \pdv{F(t,S(t))}{t} + r\pdv{F(t,S(t))}{S(t)} S(t) + \dfrac{1}{2}\pdv[2]{F(t,S(t))}{S(t)}\sigma^2S(t)^2 - rF(t,S(t))\\
+    F(T,S(T)) = \mbox{payoff}_T
+    \end{cases}
+\end{equation}
+We started with a generic derivative and we assumed that the price was a function $F(t,S(t))$ of the time and the current value of the underlying. Now we have found that -- in order to satisfy the absence of arbitrage opportunity -- $F$ obeys to the Black \& Scholes PDE. The only thing that characterizes a specific payoff is the terminal condition
+\begin{equation}
+    F(T,S(T)) = \mbox{payoff}_T
+\end{equation}
+So, for example, if we want to price a call option we have to solve the PDE \eqref{BSpde} with the terminal condition $F(T,S(T))=(S(T)-K)^+$.
+\begin{remark}
+    Notice that eq. \eqref{BSpde} is a deterministic equation. Of course, the solution fluctuates according to the Brownian motion but at any fixed time it is deterministic.
+\end{remark}
+By a change of variable, there is the possibility to reduce \eqref{BSpde} to the heat equation. However, we will use a different approach, which involves the \emph{Feynman-Kac formula}.
+\begin{theorem}[Feynman-Kac formula, v1]
+    Assume that $F\in C^{1,2}$ is a solution to the boundary value problem
+    \begin{equation}\label{bvp}
+        \begin{cases}
+        \pdv{F(t,x)}{t} + \mu\pdv{F(t,x)}{x} + \dfrac{1}{2}\sigma^2\pdv[2]{F(t,x)}{x}=0\\
+        F(T,x) = \Phi(x)
+        \end{cases}
+    \end{equation}
+    where $x\in\mathbb{R}$ and $t\in[0,T]$. Then, provided that $\sigma\pdv{F(t,x)}{x}\in\mathcal{H}$, there exists a probability space $(\Omega,\mathcal{F},\mathbb{P})$ on which we can define a Brownian motion $(W_t)_{t\ge0}$ such that
+    \begin{equation}
+        F(t,x) = \mathbb{E}_{x,t}[\Phi(X_T)]
+    \end{equation}
+    where $X$ satisfies the SDE
+    \begin{equation}\label{fk}
+        \begin{cases}
+        \dd X_s = \mu(s, X_s)\dd s + \sigma(s, X_s)\dd W_s\\
+        X_t = x
+        \end{cases}
+    \end{equation}
+\end{theorem}  
+\begin{proof}
+    We have that $F$ evolves according the Itô's Formula:
+    \begin{align*}
+        \dd F(t,x) &= \pdv{F}{t}\dd t + \pdv{F}{x}\dd x + \dfrac{1}{2}\pdv[2]{F}{x}\dd\expval{x}\\
+        \overset{\eqref{fk}}&{=}
+        \pdv{F}{t}\dd t + \pdv{F}{x}(\mu\dd t + \sigma \dd W) + \dfrac{1}{2}\pdv[2]{F}{x}\sigma^2 \dd t
+    \end{align*}
+    Taking the integral from $t$ to $T$ of both sides we get:
+    \begin{align*}
+        F(T,x) - F(t,x) &= \int^T_t \left(\pdv{F}{u} + \mu\pdv{F}{x} + \dfrac{1}{2}\pdv[2]{F}{x}\sigma^2 \right)\dd u + \int^T_t \pdv{F}{x}\sigma \dd W_u \\
+        \overset{\eqref{bvp}}&{=}
+        F(T,x) - F(t,x) = \int^T_t \pdv{F}{x}\sigma \dd W_u
+    \end{align*}
+    Now we want to remove the stochastic integral, so we take the expected value:
+    \begin{equation*}
+        \mathbb{E}_{t,x}[F(T,x)] - \mathbb{E}_{t,x}[F(t,x)] = \mathbb{E}_{t,x}\left[\int_t^T \pdv{F}{x}\sigma \dd W_u\right]
+    \end{equation*}
+    \begin{equation*}
+        \mathbb{E}_{t,x}[F(T,x)] - F(t,x) = \mathbb{E}_{t,x}\left[\int_t^T \pdv{F}{x}\sigma \dd W_u\right]
+    \end{equation*}
+    We know that if $\pdv{F}{x}\sigma\in\mathcal{H}$ then the stochastic integral is a $\mathbb{P}$-martingale, so by the definition we have that
+    \begin{equation*}
+        \mathbb{E}_{t,x}\left[\int_t^T \pdv{F}{x}\sigma \dd W_u\right] = \int^t_t \pdv{F}{x}\sigma \dd W_u = 0
+    \end{equation*}
+    In the end, we get
+    \begin{equation*}
+        \mathbb{E}_{t,x}[F(T,x)] = F(t,x) \qquad\Rightarrow\qquad F(t,x) = \mathbb{E}_{x,t}[\Phi(X_T)].
+    \end{equation*}
+\end{proof}
+We consider also another version which appears over and over again in the study of pricing problems for financial derivatives.
+\begin{theorem}[Feynman-Kac formula, v2]
+    Assume that F is a solution to the boundary value problem
+    \begin{equation}\label{bvp1}
+        \begin{cases}
+        \pdv{F(t,x)}{t} + K\pdv{F(t,x)}{x} + \dfrac{1}{2}H^2\pdv[2]{F(t,x)}{x}-rF(t,x)=0\\
+        F(T,x) = \Phi(x)
+        \end{cases}
+    \end{equation}
+    where $x\in\mathbb{R}$, $t\in[0,T]$ and $r$ is a given real number. Then, provided that $$e^{-rt}H\pdv{F(t,x)}{x}\in\mathcal{H},$$ 
+    there exists a probability space $(\Omega,\mathcal{F},\mathbb{P})$ on which we can define a Brownian motion $(W_t)_{t\ge0}$ such that
+    \begin{equation}
+        F(t,x) = e^{-r(T-t)}\mathbb{E}_{x,t}[\Phi(X_T)]
+    \end{equation}
+    where $X$ satisfies the SDE
+    \begin{equation}\label{fk1}
+        \begin{cases}
+        \dd X_s = K(s, X_s)\dd s + H(s, X_s)\dd W_s\\
+        X_t = x
+        \end{cases}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Let's consider the Itô development of the discounted value of $F$:
+    \begin{align*}
+        \dd(e^{-rt}F(t,x)) &= (-re^{-rt}\dd t)F + e^{-rt}F + \order{\dd t\dd W}\\
+        &= 
+        -re^{-rt}\dd tF + e^{-rt}F \\
+        &=
+        -re^{-rt}\dd tF + e^{-rt}\left(\pdv{F}{t}\dd t + \pdv{F}{x}\dd x + \dfrac{1}{2}\pdv[2]{F}{x}\dd\expval{x}\right) \\
+        &=
+        -re^{-rt}\dd tF + e^{-rt}\left(\pdv{F}{t}\dd t + \pdv{F}{x}K + \dfrac{1}{2}\pdv[2]{F}{x}H^2\right)\dd t + e^{-rt}\pdv{F}{x}H\dd W \\
+        &=
+        e^{-rt}\dd t\left(-rF + \pdv{F}{t}\dd t + \pdv{F}{x}K + \dfrac{1}{2}\pdv[2]{F}{x}H^2\right) + e^{-rt}\pdv{F}{x}H\dd W \\
+        \overset{\eqref{bvp1}}&{=}
+        e^{-rt}\pdv{F}{x}H\dd W
+    \end{align*}
+    Taking the integral from $t$ to $T$ of both sides we get:
+    \begin{align*}
+        e^{-rT}F(T,x) - e^{-rt}F(t,x) = \int^T_t e^{-rt}\pdv{F}{x}H \dd W_u
+    \end{align*}
+    Now we want to remove the stochastic integral, so we take the expected value:
+    \begin{equation*}
+        \mathbb{E}_{t,x}[e^{-rT}F(T,x)] - \mathbb{E}_{t,x}[e^{-rt}F(t,x)] = \mathbb{E}_{t,x}\left[\int_t^T e^{-rt}\pdv{F}{x}H \dd W_u\right]
+    \end{equation*}
+    \begin{equation*}
+        \mathbb{E}_{t,x}[e^{-rT}F(T,x)] - e^{-rt}F(t,x) = \mathbb{E}_{t,x}\left[\int_t^T e^{-rt}\pdv{F}{x}H \dd W_u\right]
+    \end{equation*}
+    We know that if $e^{-rt}\pdv{F}{x}H\in\mathcal{H}$ then the stochastic integral is a $\mathbb{P}$-martingale, so by the definition we have that
+    \begin{equation*}
+        \mathbb{E}_{t,x}\left[\int_t^T e^{-rt}\pdv{F}{x}H \dd W_u\right] = 0
+    \end{equation*}
+    In the end, we get
+    \begin{equation*}
+        \mathbb{E}_{t,x}[e^{-rT}F(T,x)] = e^{-rt}F(t,x) \qquad\Rightarrow\qquad F(t,x) = e^{-r(T-t)}\mathbb{E}_{x,t}[\Phi(X_T)].
+    \end{equation*}
+\end{proof}

@@ -1,0 +1,190 @@
+\subsection[The Black \& Scholes formula]{Call option price in binomial model: the Black \& Scholes formula}\lesson{6}{20/03/2020}
+The call option price in a $n$ steps binomial model is given by the one shot discounted value of the risk neutral expectation of the payoff:
+\begin{equation}\label{pr0}
+    p_0(call)=e^{-RT}\sum^{n}_{j=0}\binom{n}{j}q^j(1-q)^{n-j}(Su^j d^{n-j}-K)^+
+\end{equation}
+We would like to remove the non-linearity in the positive part. In order to do that we have to find when $(Su^j d^{n-j}-K)^+\ge0$, so that we can remove the positive part. So we look for the smallest index $j$ such that $(Su^j d^{n-j}-K)^+\ge0$:
+\begin{equation}
+    \hat{\jmath} = \inf\{j:S_0u^2d^{n-j}\ge K\}
+\end{equation}
+Taking the logarithm of $S_0u^2d^{n-j}\ge K$ we get:
+\begin{equation}
+    \ln S_0 + j\ln n + (n-j)\ln d \ge \ln K
+\end{equation}
+\begin{equation}
+    j(\ln n - \ln d) \ge \ln\dfrac{K}{S_0}-n\ln d
+\end{equation}
+\begin{equation}\label{jhat}
+    \hat{\jmath} = \floor*{\dfrac{\ln\frac{K}{S_0}-n\ln d}{\ln n - \ln d}} \overset{\eqref{undn}}{=} \floor*{\dfrac{\ln\frac{K}{S_0}+n\sigma\sqrt{\frac{T}{n}}}{2\sigma\sqrt{\frac{T}{n}}}}=
+    \floor*{\dfrac{n}{2}-\dfrac{\ln\frac{S_0}{K}}{2\sigma\sqrt{\frac{T}{n}}}}
+\end{equation}
+Now we can rewrite \eqref{pr0} as:
+\begin{align}\label{pr01}
+    \notag p_0(call)
+    &=
+    e^{-RT}\sum^{n}_{j=\hat{\jmath}}\binom{n}{j}q^j(1-q)^{n-j}Su^j d^{n-j}- Ke^{-RT}\sum^{n}_{j=\hat{\jmath}}\binom{n}{j}q^j(1-q)^{n-j}\\
+    &=
+    S\sum^{n}_{j=\hat{\jmath}}\binom{n}{j}\left(e^{-\frac{RT}{n}}qu\right)^j\left(e^{-\frac{RT}{n}}(1-q)d\right)^{n-j} - Ke^{-RT}\sum^{n}_{j=\hat{\jmath}}\binom{n}{j}q^j(1-q)^{n-j}
+\end{align}
+where we took $S$ out of the sum, $e^{RT}$ inside it and split the resulting sum in two components. Notice that 
+\begin{equation*}
+    e^{-\frac{RT}{n}}qu + e^{-\frac{RT}{n}}(1-q)d=1, \qquad\Rightarrow\qquad q + 1-q = 1
+\end{equation*}
+so we can interpret them as probability weights. In particular we can see them as the expansion of the binomial distribution, in fact the cumulated risk neutral probability of a binomial random variable parametrized by $p$ and $n$ is\footnote{Recall that a binomial random variable is the sum of $n$ Bernoulli independent random variables with parameter $p$.}
+\begin{equation}
+    Q(\mathcal{B}(p,n)\ge a) = \sum_{j=n}^a\binom{n}{j}p^j(1-p)^{n-j}
+\end{equation}
+and the terms in eq. \eqref{pr01} have the same structure. So we get the intuition that applying carefully the CLT we can say that
+\begin{equation}
+    e^{-\frac{RT}{n}}qu \ovun{\longrightarrow}{``CLT"}{n\to\infty}\mathcal{N}(ne^{-\frac{RT}{n}}qu;ne^{-\frac{RT}{n}}qu(1-e^{-\frac{RT}{n}}qn))
+\end{equation}
+\begin{equation}
+    e^{-\frac{RT}{n}}(1-q)d \ovun{\longrightarrow}{``CLT"}{n\to\infty} \mathcal{N}(nq;nq(1-q))
+\end{equation}
+Now \eqref{pr01} becomes
+\begin{equation}\label{pr02}
+    p_0(call) = SQ(\mathcal{B}(e^{-\frac{RT}{n}}qu;n)\ge\hat{\jmath})-KQ(\mathcal{B}(q;n)\ge\hat{\jmath})
+\end{equation}
+This is the so called \emph{Black \& Scholes forumula}. Then we consider the second part. Recall that
+\begin{align}
+    \notag \prob(\mathcal{N}(\mu,\sigma^2)>\hat{\jmath}) 
+    &=
+    \prob\left(\mathcal{N}(0,1)>\dfrac{\hat{\jmath}-\mu}{\sigma}\right) \\
+    &\overset{(a)}{=} \notag \prob\left(\mathcal{N}(0,1)<\dfrac{\mu-\hat{\jmath}}{\sigma}\right) \\
+    &\overset{(b)}{=} \Phi\left(\dfrac{\mu-\hat{\jmath}}{\sigma}\right)
+\end{align}
+where in (a) we used the symmetry of the standardized gaussian and in (b) we recognized the \emph{cumulative probability function}
+\begin{equation}
+\Phi(x)=\int^{x}_{-\infty}\frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}}\,\dd z
+\end{equation}
+In our case $\mu=nq$ and $\sigma=\sqrt{nq(1-q)}$, so we get:
+\begin{align}
+    \notag\Phi\left(\dfrac{nq-\hat{\jmath}}{\sqrt{nq(1-q)}}\right) 
+    &= \Phi\left(\left(nq-\dfrac{n}{2}-\dfrac{\ln\frac{S_0}{K}}{2\sigma\sqrt{\frac{T}{n}}}\right)\dfrac{1}{\sqrt{nq(1-q)}}\right) \\
+    &= 
+    \notag\Phi\left(
+    \dfrac{\sqrt{n}\left(q-\frac{1}{2}\right)}{\sqrt{q(1-q)}} + \dfrac{\ln\frac{S_0}{K}}{2\sigma\sqrt{T}\sqrt{q(1-q)}}
+    \right)\\
+    &=
+    \Phi\left(
+    \dfrac{\ln\frac{S_0}{K}+\left(r-\frac{\sigma^2}{2}\right)T}{\sigma\sqrt{T}}
+    \right)
+\end{align}
+where in the first step we used the definiton of $\hat{\jmath}$ \eqref{jhat} and in the last we used the following limits:
+\begin{align}\label{lim}
+    q(1-q)\overset{n\to\infty}{\longrightarrow}\frac{1}{4}, \qquad
+    \sqrt{n}\left(q-\frac{1}{2}\right) \overset{n\to\infty}{\longrightarrow}\frac{\left(r-\frac{\sigma}{2}\sqrt{T}\right)}{2\sigma}
+\end{align}
+\colorbox{cyan}{dimostra.} So the gaussian cumulative probability function can be written in terms of the continuous time variables. The same argument holds for the the first term of \eqref{pr01}, so that with this limit procedure we recovered the Black \& Scholes formula \eqref{pr02}.\\
+This is just an intuition in order to understand that not only the underlying but also the call option price is quite robust in this procedure. So the binomial model approximates very well the continuous time pricing model and this is the reason why nowadays this model is widely used in the banking industry.\\
+We will came back to the Black \& Scholes formula after introducing the stochastic calculus in continuous time.
+
+\section{American options} %vedi libro per riscrivere meglio
+So far we considered the cases in which the payoff was $(S_T-K)^+$ and in which we can exercise the option to buy/sell only at the maturity. These options are called \emph{European options}. On the contrary, in \emph{American options} we can exercise the option -- i.e. the possibility -- at any time $t\le T$. It is now obvious to compute the payoff $(S_{\tau}-K)^+$ in American options, since we don't know the time $\tau$ at which we will be interested to exercise. So, in order to compute the initial price of an American call we need an information involving future time, which is not measurable. The time $\tau$ is a random variable called \emph{stopping time}.
+
+\subsection{Call option with no dividends and $R>0$}
+Now, consider a special case in which we have a call option on a non-dividend paying. In this case the American call price at any time $t$ will be always greater than the price of an European contract:
+\begin{equation*}
+    C^{AM}(t,S_t)\ge C^{EU}(t,S_t)
+\end{equation*}
+because the American option includes the opportunity to exercise at the end but also at any time $t$, so it is better than the European one. Furthermore, we have that
+\begin{equation*}
+    C^{AM}(t,S_t) \ge S_t - Ke^{-R(T-t)}
+\end{equation*}
+This is due to the absence of an arbitrage opportunity. In fact, if we consider a long call we buy the call option at price $C_t$ and at the end we get the corresponding payoff $(S_T-K)^+$. Then we go short today, receiving the corresponding market price $S_t$ and engaging ourselves to re-buy at the end at price $-S_T$. Finally we go long on the riskless asset investing $Ke^{-R(T-t)}$ and getting $K$ at the end.
+\begin{center}
+    \begin{tabular}{lcc}\toprule
+        Action & $t=0$ & $t=T$ \\\midrule
+        Long call & $-C_t$ & $(S_T-K)^+$ \\
+        Sell short & $+S_t$ & $-S_T$ \\
+        Invest in the riskless market & $-Ke^{-R(T-t)}$ & $+K$ \\ \midrule\midrule
+         & $S_t-C_t-Ke^{-RT}$ & $(S_T-K)^+-(S_T-K)\ge 0$ \\\bottomrule
+    \end{tabular}
+\end{center}
+In order to avoid an arbitrage opportunity it must be:
+\begin{equation*}
+    S_t-C_t-Ke^{-RT} \le 0 \qquad\Rightarrow\qquad C^{AM}(t,S_t)\ge S_t-Ke^{-RT}
+\end{equation*}
+Of course, if the interest rate is positive -- which is not always the case -- then 
+\begin{equation*}
+    C^{AM}(t,S_t) \ge S_t - K \qquad\forall t<T
+\end{equation*}
+Since $C^{AM}(t,S_t)\ge0$, then 
+\begin{equation*}
+    C^{AM}(t,S_t)\ge \max(0,S_t-K)=(S_t-K)^+
+\end{equation*}
+This means that if there are no dividends and the interest rate is positive it is always better to wait because what we get if we decide to exercise today is always less than the value of the American option. In other words, in this case the European option is better, so there will be no differences between American and European options:
+\begin{equation*}
+    C^{AM}(t,S_t)=C^{EU}(t,S_t)
+\end{equation*}
+
+\subsection{General discrete time case with no dividends and \texorpdfstring{$R=0$}{R=0}}
+% subsection o section? 
+% Bjork ch. 21 or Lamberton
+Now we consider the general discrete time case with no dividends and $R=0$. Let's start with some definitions.
+\begin{definition}[Stopping time]
+A non-negative random variable $\tau$ is called \emph{(optional) stopping time} with respect to the \emph{filtration}\footnote{A family $\{G_t:t\ge0\}$ of sub-$\sigma$-algebras is called a \emph{filtration} if $s < t$ implies $G_s \subseteq G_t$.} $\mathcal{F}$ if 
+\begin{equation}
+    \{\tau \le n\}\in\mathcal{F}_n \qquad\forall n\ge0
+\end{equation}
+Since we are considering a discret time framework, this is equivalent to
+\begin{equation}
+    \{\tau \le n\}\in\mathcal{F}_n \qquad\forall n\ge0
+\end{equation}
+\end{definition}
+\noindent So if a random variable is a stopping time we are able to state that the event $\tau\le n$ is true or false on the basis of the information available at time $n$. This means that $\tau$ is a \emph{non-anticipative} random value.
+\begin{definition}[Optimal stopping time]
+Given a real number $T<\infty$, consider a family $Z_n\in L^1$ of random variables. If $\hat{\tau}$ is a stopping time such that 
+\begin{equation}
+    \sup_{0\le\tau\le T}\mathbb{E}[Z_{\tau}] = \mathbb{E} [Z_{\hat{\tau}}]
+\end{equation}
+then $\hat{\tau}$ is called \emph{optimal stopping time}.
+\end{definition}
+\noindent Now we ask ourselves: does $\hat{\tau}$ exist? Is $\hat{\tau}$ unique? Even if $\hat{\tau}$ exists and is unique, how can we compute it? We try to answer these questions using a preliminary result.
+\begin{proposition}\label{martingales}
+Consider a random variable $Z$ and $T<\infty$. 
+\begin{enumerate}
+    \item If $Z$ is a sub-martingale, i.e. its expected value increases in time, then $\hat{\tau}=T$.
+    \item If $Z$ is a super-martingale, i.e. its expected value decreases in time, then $\hat{\tau}=0$.
+    \item If $Z$ is a martingale, i.e. its expected value is constant in time, then all times $\tau$ are optimal.
+\end{enumerate}
+\end{proposition}
+\begin{definition}[Value process]
+Fix $n\le T$ and consider a stopping time $n\le\tau\le T$. The \emph{value process} is defined as 
+\begin{equation}
+    J_n(\tau) \coloneqq \mathbb{E}[Z_{\tau}|\mathcal{F}_n]
+\end{equation}
+and the \emph{optimal value process} is
+\begin{equation}\label{Vn}
+    V_n \coloneqq \ess\sup_{0\le\tau\le T} \mathbb{E}[Z_{\tau}|\mathcal{F}_n]
+\end{equation}
+\end{definition}
+\noindent In eq. \eqref{Vn} we are taking the essential supremum, which intuitively is the value that is larger or equal than the function values everywhere when allowing for ignoring what the function does at a set of points of measure zero. 
+\begin{definition}
+The \emph{optimal stopping time} at time $n$ is $\hat{\tau}_n$ such that $V_n=V_{\hat{\tau}_n}$.
+\end{definition}
+\begin{example}{}{}
+Consider 
+\begin{equation*}
+    f(x)=\begin{cases}
+    5 & x=1 \\
+    -4 & x=-1 \\
+    2 & \mbox{otherwise}
+    \end{cases}
+\end{equation*}
+In this case $\sup f(x)=5$ and $\inf f(x)=-4$, but notice that they are points of zero measure (with respect to the Lebesgue measure), since the function is almost everywhere equal to 2. So, in this case 
+\begin{equation*}
+    \ess\sup f(x) = \ess\inf f(x) = 2
+\end{equation*}
+\end{example}
+\begin{example}{}{}
+Consider 
+\begin{equation*}
+    f(x)=\begin{cases}
+    \frac{1}{x} & x\in\mathbb{Q}\setminus\{0\} \\
+    0 & x=0 \\
+    2 & x\in\mathbb{R}\setminus\mathbb{Q}
+    \end{cases}
+\end{equation*}
+In this case $\sup f(x)=\infty$ but $\ess\sup f(x)=0$ since the Lebesgue measure of the set of rational points is zero.
+\end{example}

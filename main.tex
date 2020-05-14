@@ -1,0 +1,178 @@
+\documentclass[a4paper,11pt]{book}
+
+\usepackage[a4paper,inner=25mm,outer=44mm,top=25mm,bottom=25mm,%
+            marginparsep=6mm,marginparwidth=30mm]{geometry}
+\usepackage[pdftex]{graphicx} %per poter inserire le figure
+\usepackage{tikz}
+\usetikzlibrary{trees,arrows}
+\usepackage{amssymb,amsmath,amsthm,amsfonts} % per ma matematica
+\usepackage{tabularx} % per le tabelle
+\usepackage{xcolor} % per i colori
+\usepackage{eucal} % mathcal variant
+\usepackage{url} % per gli url
+\usepackage{booktabs} % per migliorare il design delle tabelle
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{textcomp} % for symbols
+%\usepackage{cite}
+\usepackage{multirow}
+\usepackage[utf8]{inputenc}   %per riuscire a scrivere gli accenti
+\usepackage[english]{babel}   %per riuscire a scrivere gli accenti
+\usepackage{fancyhdr} %necessary to set your own header and footer style
+\usepackage{comment}
+\usepackage{subfiles}
+
+%\usepackage{setspace}
+%\usepackage[Bjornstrup]{fncychap}
+\usepackage[labelfont=sf,textfont=normalfont,font=small]{caption}
+\captionsetup{width=0.7\textwidth}
+
+\usepackage[hyperref,backref]{biblatex}
+\usepackage[babel]{csquotes}
+\bibliography{Biblio}
+\usepackage[symbol=$\wedge$,numberlinked=false]{footnotebackref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}[section]
+%\newtheorem{example}{Example}[section]
+\usepackage[most]{tcolorbox}
+\newtcbtheorem[number within=section]{example}{Example}%
+{ % frame stuff
+    breakable,
+    enhanced,
+    %frame empty,
+    %interior empty,
+    colback=white,
+    colframe=black,
+    %borderline west={1pt}{0pt}{black},
+    boxrule=0.4pt,
+    left=0.2cm,
+    % title stuff
+    attach boxed title to top left={yshift=-2mm,xshift=-2mm},
+    coltitle=black,
+    fonttitle=\bfseries,
+    colbacktitle=white,
+    boxed title style={boxrule=.4pt}}{example}
+
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{eurosym}
+\usepackage{nicefrac}
+\usepackage{dsfont}
+\usepackage{cancel}
+\usepackage{enumerate}
+\usepackage{aligned-overset}
+\DeclareMathOperator{\low}{Low}
+\DeclareMathOperator{\prob}{Prob}
+\DeclareMathOperator{\ess}{ess}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\pay}{payoff}
+\DeclareMathOperator{\call}{Call}
+\DeclareMathOperator{\putt}{Put}
+\DeclareMathOperator{\fwd}{FWD}
+\DeclareMathOperator{\num}{NUM}
+\DeclareMathOperator{\fut}{futures}
+\DeclareMathOperator{\forward}{forward}
+\DeclareMathOperator{\uoc}{UOC}
+\newcommand{\Pmeas}{\mathbb{P}}
+\newcommand{\Qmeas}{\mathbb{Q}}
+\newcommand{\expect}{\mathbb{E}^{\mathbb{Q}}}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\ovun}[3]{\overset{#2}{\underset{#3}{#1}}} % over and under
+\newcommand{\indep}{\raisebox{0.05em}{\rotatebox[origin=c]{90}{$\models$}}}
+
+\usepackage{marginnote}
+\newcommand{\lesson}[2]{\marginnote{\footnotesize\textsl{Lesson #1 of \\ #2}}}
+
+\newcommand{\hlc}[2]{%
+  \colorbox{#1!50}{$\displaystyle#2$}}
+  
+\definecolor{mypink}{RGB}{221, 197, 209}
+\definecolor{mylightblue}{RGB}{205, 218, 233}
+\definecolor{mytweed}{RGB}{180, 198, 186}
+
+\allowdisplaybreaks %allow pagebreaks in align enviroments
+
+\author{Matteo Bortoletto}
+\title{\textsc{Stochastic Methods for Finance}}
+
+% custom chapter style 
+\usepackage{titlesec, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{$\mid$}\hsp}{0pt}{\Huge\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\thispagestyle{empty}
+\newgeometry{total={170mm,257mm}, left=20mm, top=20mm}
+\vspace*{3cm}
+\begin{center}
+                \line (1,0){350} \\
+                \huge{\textsc{Stochastic Methods for Finance}}\\
+                [2mm]
+                \textsc{\normalsize Prof. Martino Grasselli}
+                \vspace{-0.5em}\\
+                \textsc{\normalsize University of Padova}\\
+                \vspace{-0.7em}
+                \line (1,0){350} \\
+        [0.2cm]
+        \textsc{\normalsize Written by: Matteo Bortoletto}\\
+                \textsc{\normalsize Academic Year 2019/20}\\ 
+        {\scriptsize Compiled on \today}\\
+        \vspace*{1.5cm}
+        \includegraphics[scale=0.2]{fig/cover.png}
+\end{center}
+%---Frontpage End---%
+
+\restoregeometry
+
+\frontmatter
+\tableofcontents
+\vspace*{1cm}
+\noindent {\small If you find any mistake or typo, please write at \href{mailto:matteo.bortoletto.2@studenti.unipd.it}{matteo.bortoletto.2@studenti.unipd.it}.
+\begin{flushright}
+{\small Matteo Bortoletto, 07/03/2020}
+\end{flushright}}
+
+\mainmatter
+\input{lessons/lez01}
+\input{lessons/lez02}
+\input{lessons/lez03}
+\input{lessons/lez04}
+\input{lessons/lez05}
+\input{lessons/lez06}
+\input{lessons/lez07}
+\input{lessons/lez08}
+\input{lessons/lez09}
+\input{lessons/lez10}
+\input{lessons/lez11}
+\input{lessons/lez12}
+\input{lessons/lez13}
+\input{lessons/lez14}
+\input{lessons/lez15}
+\input{lessons/lez16}
+\input{lessons/lez17}
+\input{lessons/lez18}
+\input{lessons/lez19}
+\input{lessons/lez20}
+\input{lessons/lez21}
+\input{lessons/lez22}
+\input{lessons/lez23}
+\input{lessons/lez24}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\nocite{*}
+\printbibliography
+\end{document}

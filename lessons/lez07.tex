@@ -1,0 +1,186 @@
+\subsection{Possible strategies at time \texorpdfstring{$n$}{n}}\lesson{7}{25/03/2020}
+We want to study which are the possible strategies to use at time $n$, dealing with American options. Essentially, we have three possibilities:
+\begin{enumerate}
+    \item Use $\hat{\tau}_n$ and get the corresponding optimal value process $V_n$;
+    \item Stop now, getting the corresponding payoff $Z_n$;
+    \item Wait untill $n+1$ and adopt the corresponding stopping time $\hat{\tau}_n$, getting nothing at time $n$ and $Z_{\hat{\tau}_{n+1}}$ at time $n+1$. According to the neutral risk methodology, the value of $Z_{\hat{\tau}_{n+1}}$ at time $n$ is given by 
+    \begin{equation}
+        \mathbb{E}^{\Qmeas}[Z_{\hat{\tau}_{n+1}}\mid\mathcal{F}_n] \overset{(a)}{=} \mathbb{E}^{\Qmeas}[\mathbb{E}^{\Qmeas}[Z_{\hat{\tau}_{n+1}}\mid\mathcal{F}_{n+1}]\mid\mathcal{F}_n] = \mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_{n+1}]\mid\mathcal{F}_n]
+    \end{equation}
+    where in (a) we used the so called tower property of the conditional expected value\footnote{The tower property of the conditional expected value states that if $\mathcal{F}_{1}\subset\cdots \subset\mathcal{F}_{n}\subset\mathcal{F}_{m}\subset\cdots\subset\mathcal{F}_{N}$ is a family of sub-$\sigma$-algebras, we have $E[X\mid\mathcal{F}_{n}] = E[E[X\mid \mathcal{F}_{n+m}]\mid\mathcal{F}_{n}]$.}. So the market value at time $n$ is given by the conditional expected value up to the current available information $\mathcal{F}_n$ of what will become optimal at time $n+1$
+\end{enumerate}
+Since option 1 is optimal, it is better than options 2 and 3:
+\begin{equation}\label{Vndis}
+    \begin{cases}
+    V_n \ge Z_n \\
+    V_n \ge \mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_{n}]
+    \end{cases}
+\end{equation}
+This represents a simple control problem in which we have only two possibilities at time $n$: stop or wait.
+\begin{itemize}
+    \item If we stop it means that it is optimal to stop, so $\hat{\tau}_n=n$ and $V_n=Z_n$;
+    \item If we wait it means that it is not optimal to stop, so $\hat{\tau}_n=\hat{\tau}_{n+1}$ and $V_n=\mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_{n}]$
+\end{itemize}
+According to these possibilities we can characterize the \emph{optimal rule}, which maximizes them.
+\begin{theorem}
+\hfill
+\begin{enumerate}[i.]
+    \item The optimal value process $V$ solves the \emph{backward equation}
+    \begin{equation}
+        \begin{cases}
+        V_n = \max\{Z_n,\mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_{n}]\}\\
+        V_T = Z_T = \mbox{payoff}_T
+        \end{cases}
+    \end{equation}
+    \item $\hat{\tau}_{n}=n \Leftrightarrow V_n=Z_n$;
+    \item If $\hat{\tau}>n$ then $V_n>Z_n$ and $V_n=\mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_{n}]$.
+\end{enumerate}
+\end{theorem}
+\begin{corollary}
+\hfill
+\begin{enumerate}[i.]
+    \item The optimal stopping rule is given by $\hat{\tau}=\min\{n\ge0:V_n=Z_n\}$;
+    \item For $n$ fixed, $\hat{\tau}_n=\min\{k\ge n:V_k=Z_k\}$;
+\end{enumerate}
+\end{corollary}
+
+\subsection{Snell envelope}
+Let $X$ and $Y$ be two adopted processes and let $\mathcal{F}_n$, $n\ge0$, be a given information structure.
+\begin{definition}[Domination]
+    $X$ \emph{dominates} $Y$ if $X_n\ge Y_n$ almost surely for all $n\ge0$.
+\end{definition}
+\begin{definition}[Snell envelope]
+    If $Y\in L^1$, i.e. if $\mathbb{E}^{\Qmeas}[Y_n]<\infty$ $\forall n\le T$, the \emph{Snell envelope} of $Y$ is the smallest super-martingale dominating $Y$.
+\end{definition}
+\noindent So, the Snell envelope is the smallest super-martingale dominating a stochastic process. 
+\begin{lemma}\label{lemma_snell}
+    Let $\{D^{\alpha}\}_{\alpha\in A}$ be a family of super-martingales. Then $X_n\coloneqq\inf_{\alpha\in A}D_n^{\alpha}$ is a super-martingale.
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        \mathbb{E}^{\Qmeas}[X_{n+1}\mid\mathcal{F}_{n}] 
+        &= 
+        \mathbb{E}^{\Qmeas}[\inf_{\alpha\in A}D_{n+1}^{\alpha}\mid\mathcal{F}_{n}] \\
+        &\le
+        \inf_{\alpha\in A}\mathbb{E}^{\Qmeas}[D_{n+1}^{\alpha}\mid\mathcal{F}_{n}] \\
+        &\le
+        \inf_{\alpha\in A}D_{\bm{n}}^{\alpha} = X_n
+    \end{align*}
+    where the last inequality is true because $\{D^{\alpha}\}_{\alpha\in A}$ is a family of super-martingales.
+\end{proof}
+\begin{proposition}
+    Consider a process $Y\in L^1$. Then there exists a Snell envelope of $Y$.
+\end{proposition}
+\begin{proof}
+    If we take the family of super-martingales $\{D^{\alpha}\}_{\alpha\in A}$ dominating $Y$. Then $\forall n$
+    \begin{equation*}
+        D^{\alpha}_n \overset{a.s.}{\ge} Y_n
+    \end{equation*}
+    Now define $S_n\coloneqq\inf_{\alpha}D_n^{\alpha}$, which -- according to the lemma \eqref{lemma_snell} -- is a super-martingale and it is minimal. But $S_n$ dominates $Y$, so $S_n$ is a Snell envelope.
+\end{proof}
+\begin{theorem}[Snell envelope theorem]
+    The optimal value process $V$ is the Snell envelope of the payoff process $Z$.
+\end{theorem}
+\begin{proof}
+    From \eqref{Vndis} we have that $V_n$ is a super-martingale. Then we have to show that $V_n$ is minimal. Suppose that $X$ is a super-martingale dominating $Z$. Being X a super-martingale, we have that
+    \begin{equation*}
+        V_T=Z_T \quad\Rightarrow\quad X_T\ge Z_T = V_T, \qquad X_{n+1}\ge V_{n+1}
+    \end{equation*}
+    But for the same reason we also have 
+    \begin{equation}\label{1}
+        X_n \ge \mathbb{E}^{\Qmeas}[X_{n+1}\mid\mathcal{F}_n] \ge \mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_n]
+    \end{equation}
+    $X$ dominates $Z$, so we have 
+    \begin{equation}\label{2}
+        X_n \ge Z_n
+    \end{equation}
+    Using \eqref{1} toghether with \eqref{2} we have that 
+    \begin{equation*}
+        X_n\ge \max\{Z_n,\mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_n]\} \overset{def.}{=} V_n
+    \end{equation*}
+    So $X_n\ge V_n$, meaning that $V$ is minimal. 
+\end{proof}
+\begin{remark}
+    If $R\ne0$ then $V_n e^{-Rn}$, with 
+    \begin{equation}
+        V_n = \max\{Z_n, e^{-R}\mathbb{E}^{\Qmeas}[V_{n+1}\mid\mathcal{F}_n]\}
+    \end{equation}
+    is a Snell envelope for the process $e^{Rn}Z_n$.\footnote{Fore more insight see \cite{lamberton}, page 22.} 
+\end{remark}
+Now let's see a example in which we see that without dividends and positive interest rate it is never optimal to exercise a call option before maturity.
+\begin{example}{}{}
+    Consider an American call option with no dividends and interest rate $R\ge0$. The payoff function is given by 
+    \begin{equation*}
+        Z_n = e^{-Rn}(S_n-K)^+ = (S_n e^{-Rn} - Ke^{-Rn})^+
+    \end{equation*}
+    By absence of arbitrage opportunity we have that $S_n e^{-Rn}$ is a ${\Qmeas}$-martingale. Then, since $R\ge0$ and $K=constant$ we have that $-Ke^{-Rn}$ is an increasing term. The sum of a ${\Qmeas}$-martingale with an increasing process is a ${\Qmeas}$-sub-martingale. But if $S_n e^{-Rn} - Ke^{-Rn}$ is a sub-martingale, then also $Z_n=(S_n e^{-Rn} - Ke^{-Rn})^+$ is a sub-martingale (the positive part is a convex transformation) and so -- according to prop. \ref{martingales} -- it is never optimal to exercise before $T$. 
+\end{example}
+
+\section{General one period model} % chapter 3 Bjork
+We want to provide a general multi-asset model under the condition of absence of arbitrage opportunity in order to understand the relation between completeness and uniqueness of the risk neutral probability measure.\\
+We consider a financial market with $N$ different financial assets. The market only exists at the two points in time $t = 0$ and $t = 1$, and the price per unit of asset at time $t$ will be denoted by $S_t$. We thus have a price vector process
+\begin{equation*}
+    S_t = \left(
+    \begin{matrix}
+        S_t^1 \\ \vdots \\ S_t^N
+    \end{matrix}
+    \right)
+\end{equation*}
+The randomness in the system is modeled by assuming that we have a finite sample space 
+\begin{equation*}
+    \Omega = \{\omega_1,\dots,\omega_M\}
+\end{equation*}
+and that the probabilities $P(\omega_j)$, $j=1,\dots,M$, are all strictly positive. The price vector $S_0$ is assumed to be deterministic and known to us, but the price vector at time $t = 1$ depends upon the outcome $\omega\in\Omega$, and $S^i_1(\omega_j)$ denotes the price per unit of asset at time $t = 1$ if $\omega_j$ has occurred. We may therefore define the matrix $D$ by
+\begin{equation}
+    D = \left(
+    \begin{matrix}
+    S^1_1(\omega_1) & S^1_1(\omega_2) & \dots & S^1_1(\omega_M) \\
+    S^2_1(\omega_1) & S^2_1(\omega_2) & \dots & S^2_1(\omega_M) \\
+    \vdots          & \vdots          &       & \vdots          \\
+    S^N_1(\omega_1) & S^N_1(\omega_2) & \dots & S^N_1(\omega_M)
+    \end{matrix}
+    \right)
+\end{equation}
+Here we assume that the first asset is always positive 
+\begin{equation*}
+    S_0^1 > 0, \qquad S_1^1(\omega_j) > 0 \quad \forall j
+\end{equation*}
+so that it is possible to discount any asset with respect to the first one. \\
+We now define a portfolio as a N-dimensional row vector $h = (h_l,\dots,h_N)$, where $h_i$ is the number of units of the asset that we buy at time $t = 0$ and keep until time $t = 1$.
+Since we are buying the assets with deterministic prices at time $t = 0$ and selling them at time $t = 1$ at stochastic prices, the value process of our portfolio will be a stochastic process $V$, defined by
+\begin{align}
+    V_0^h &= hS_0 = \sum^N_{i=1}h^i S^i_0 \\
+    V_1^h &= hS_1(\omega_j) = \sum^N_{i=1}h^i S^i_1(\omega_j) = (h^TD)_j
+\end{align}
+We now define the concept of arbitrage portfolio.
+\begin{definition}
+    The portfolio $h$ is an \emph{arbitrage portfolio} if it satisfies the conditions:
+    \begin{itemize}
+        \item $V_0^h < 0$;
+        \item with probability 1, $V_1^h(\omega_j)\ge0$ for $i=1,\dots,M$;
+        \item with probability $>0$, $V_1^h(\omega_j)>0$ for some $j$.
+    \end{itemize}
+\end{definition}
+\noindent Now from the nominal prices $S^1,\dots,S^N$ we normalize in terms of the numéraire\footnote{A \emph{numéraire} is a tradable economic entity in terms of whose price the relative prices of all other tradables are expressed.} $S^1$:
+\begin{equation}
+    Z^i = \dfrac{S^i}{S^1}
+\end{equation}
+that is 
+\begin{equation*}
+    Z^i_0 = \dfrac{S^i_0}{S^1_0}, \qquad Z^i_1(\omega_j) = \dfrac{S^i_1(\omega_j)}{S^1_1(\omega_j)}
+\end{equation*}
+The corresponding normalized matrix is 
+\begin{equation}
+    D^Z = \left(
+    \begin{matrix}
+    1               & 1               & \dots & 1               \\
+    Z^2_1(\omega_1) & Z^2_1(\omega_2) & \dots & Z^2_1(\omega_M) \\
+    \vdots          & \vdots          &       & \vdots          \\
+    Z^N_1(\omega_1) & Z^N_1(\omega_2) & \dots & Z^N_1(\omega_M)
+    \end{matrix}
+    \right)
+\end{equation}
+The economic interpretation of the fact that $Z^1 = 1$ is that in the normalized price system, the numéraire asset is risk free corresponding to a bank with zero interest rate. This is the main reason why the normalized prices system is so much easier to analyze than the nominal one. The normalized portfolio will be:
+\begin{align}
+    V_t^{h,Z} = \dfrac{V_t^h}{S_t^1}, \qquad t=0,1
+\end{align} 
