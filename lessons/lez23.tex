@@ -181,6 +181,81 @@ We can now formulate the basic result.
         \overset{\ref{clo}}&{=}
         \cancel{F(t,s,\Phi_L)} + F(t,s,\Phi^L) - \left[\cancel{F(t,s,\Phi_L)} - \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F(t,s,\Phi_L)\right] \\
         &=
-        \left[F(t,s,\Phi^L) - \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F\left(t,\frac{L^2}{s},\Phi^L\right)\right]
+        \left[F(t,s,\Phi^L) - \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F\left(t,\frac{L^2}{s},\Phi^L\right)\right].
     \end{align*}
 \end{proof}
+The treatment of up-and-in contracts is of course parallel to down-and-in contracts.
+\begin{proposition}[Up-and-in pricing]
+    Consider a fixed $T$-contract $Z = \Phi(S(T))$. Then the price of the corresponding up-and-in contract $Z^{LI}$ is given by
+    \begin{equation}
+        F^{LI}(t,s,\Phi) = \left[F(t,s,\Phi_L) - \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F\left(t,\frac{L^2}{s},\Phi_L\right)\right]\mathds{1}_{s<L}.
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    Same argument as before.
+\end{proof}
+As an example, we give the pricing formula for a \textbf{down-and-in European call} with strike price $K$.
+\begin{proposition}[Down-and-in call pricing]
+    For $s > L$ the down-and-in European call option is priced as follows. For $L<K$
+    \begin{equation}
+        C_{LI}(t,s,\Phi) = \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} C\left(t,\frac{L^2}{s},K\right).
+    \end{equation}
+    For $L>K$:
+    \begin{equation}
+        C_{LI}(t,s,\Phi) = \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} \left[C\left(t,\frac{L^2}{s},K\right) + (L-K)H\left(t,\frac{L^2}{s},L\right)\right] - (L-K)H(t,s,L).
+    \end{equation}
+\end{proposition}
+
+\subsubsection{Lookbacks}
+Lookback options are contracts which at the delivery time T allow us to take advantage of the realized maximum or minimum of the underlying price process over the entire contract period. Typical examples are:
+\begin{align*}
+    \Phi(T) = (S(T)-\min_{t\le T}S(t)) \qquad &\text{Lookback call} \\
+    \Phi(T) = \max_{t\le T}S(t) - S(t) \qquad &\text{Lookback put} \\
+    \Phi(T) = \left(\max_{t\le T}S(t) - K\right)^+ \qquad &\text{Forward lookback call}
+    \Phi(T) = \left(K-\min_{t\le T}S(t)\right)^+ \qquad &\text{Forward lookback put}
+\end{align*}
+In order to price this kind of contracts, we need the distribution of the maximum
+\begin{equation}
+    M_S(t) = \max_{t\le T} S(t)
+\end{equation}
+and of the minimum
+\begin{equation}
+    m_S(t) = \min_{t\le T} S(t)
+\end{equation}
+Recall that
+\begin{equation*}
+    S(t) = e^{\ln s + \tilde{r} t + \sigma W(t)} = e^{X(t)}
+\end{equation*}
+where
+\begin{equation*}
+    \begin{cases}
+        \dd X(t) = \tilde{r}\,\dd t + \sigma\,\dd W(t) \\
+        X(0) = \ln s
+    \end{cases}
+\end{equation*}
+Thus we see that
+\begin{equation*}
+    M_S(t) = e^{M_X(t)}
+\end{equation*}
+The distribution for $M_X(T)$ is known to us from Proposition \ref{f}. Thanks to this proposition we obtain the distribution function, $F$, for $M_X(T)$:
+\begin{equation}
+    F_{\max_{s\le t}X_s}(x) = \left[
+    N\left(\frac{x-\alpha-\mu t}{\sigma\sqrt{t}}\right)
+    -\exp{-\frac{2\mu(\alpha-\beta)}{\sigma^2}}N\left(-\frac{x-\alpha+\mu t}{\sigma\sqrt{t}}\right)
+    \right]\mathds{1}_{x\ge\ln s}
+\end{equation}
+From this expression we may compute the density function $f=F'$ and then the expected value
+\begin{equation}
+    \expect\left[\max_{t\le T}S(t)\right] = \expect\left[e^{M_X(T)}\right] = \int_{\ln s}^{\infty}e^x f(x)\,\dd x
+\end{equation}
+After a series of elementary, but extremely tedious, partial integrations we end up with the following result.
+\begin{proposition}
+    The price, at $t=0$, of the lookback put is given by
+    \begin{equation}
+        price_0(\mbox{\emph{lookback put}}) = -sN(-d) + se^{-rT}N\left(-d+\sigma\sqrt{T}\right)\left(1-\frac{\sigma^2}{2r}+ \frac{s\sigma^2}{2r}N(d)\right)
+    \end{equation}
+    where
+    \begin{equation}
+        d = \frac{rT + \tfrac{1}{2}\sigma^2 T}{\sigma\sqrt{T}}.
+    \end{equation}
+\end{proposition}
