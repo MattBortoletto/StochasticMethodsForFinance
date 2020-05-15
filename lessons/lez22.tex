@@ -6,7 +6,7 @@ Let's consider a Wiener process with drift $\mu$ and diffusion $\sigma$ starting
     X(0) = \alpha
     \end{cases}
 \end{equation}
-and a hitting time 
+and a hitting time
 \begin{equation}
     T_{\beta} = \inf\{t\ge0:X(t)=\beta\}
 \end{equation}
@@ -30,7 +30,7 @@ We are primarily interested in the one-dimensional marginal distribution for $X(
 \begin{equation}
     f_{X(t\wedge T_{\beta})} = \text{density} + \text{mass in }X= \beta
 \end{equation}
-This density has its support on the interval $(\beta,\infty)$ if $\alpha > \beta$, whereas the support is the interval $(-\infty,\beta)$ if $\alpha < \beta$. 
+This density has its support on the interval $(\beta,\infty)$ if $\alpha > \beta$, whereas the support is the interval $(-\infty,\beta)$ if $\alpha < \beta$.
 \begin{definition}[Density of a normal distribution]
     Let $\varphi(x;\mu, \sigma)$ denote the density of a normal distribution with mean $\mu$ and variance $\sigma^2$, i.e.
     \begin{equation}
@@ -46,7 +46,7 @@ This density has its support on the interval $(\beta,\infty)$ if $\alpha > \beta
 \end{proposition}
 
 \subsubsection{Down-and-out contracts}
-Let's apply this result in a B\&S market with 
+Let's apply this result in a B\&S market with
 \begin{equation}
     \begin{cases}
     \frac{\dd S(t)}{S(t)} = r\,\dd t + \sigma\, \dd W^{\Qmeas}(t) \\
@@ -71,12 +71,12 @@ Concerning the notation, $L$ as a subscript indicates a ``down"-type contract, w
     \begin{equation}
         F_{LO}(t,S(t)=s,\Phi) = \left[F(t,s,\Phi_L) - \left(\dfrac{L}{s}\right)^{\frac{2\left(r-\frac{\sigma^2}{2}\right)}{\sigma^2}}F\left(t,\frac{L^2}{s},\Phi_L\right)\right]\mathds{1}_{s>L}
     \end{equation}
-    where 
+    where
     \begin{equation}
         \Phi_L(X) = \Phi(X)\mathds{1}_{x>L}. % Phi = payoff
     \end{equation}
 \end{theorem}
-Notice that the indicator function $(X)\mathds{1}_{x>L}$ represents an European-style 
+Notice that the indicator function $(X)\mathds{1}_{x>L}$ represents an European-style
 barrier, because it involves the terminal value of the underlying. So, this theorem tells us that the price of the barrier option can be written as a combination of price of the usual European options.
 \begin{proof}
     Without loss of generality we may set $t = 0$. Assume then that $S(0) = s > L$, and recall that $S(T\wedge T_L)$ denotes the process $S$ with (possible) absorption at $L$. Using risk neutral valuation we have:
@@ -87,13 +87,13 @@ barrier, because it involves the terminal value of the underlying. So, this theo
         &=
         e^{-rT}\expect_{0,s}[\Phi_L(S(T\wedge T_L))] \\
         \overset{(a)}&{=}
-        e^{-rT}\int_L^{\infty}\Phi_L(x)h(x)\,\dd x 
+        e^{-rT}\int_L^{\infty}\Phi_L(x)h(x)\,\dd x
     \end{align*}
-    where $h(x)$ is the density function for the stochastic variable $S(T\wedge T_L)$. From the theory we know that 
+    where $h(x)$ is the density function for the stochastic variable $S(T\wedge T_L)$. From the theory we know that
     \begin{align*}
         S(T) &= se^{\left(r-\frac{\sigma^2}{2}\right)T+\sigma W^{\Qmeas}(T)} \\
         &=
-        e^{\ln s + \Tilde{r}T + \sigma W^{\Qmeas}(T)} = e^{X(T)} 
+        e^{\ln s + \Tilde{r}T + \sigma W^{\Qmeas}(T)} = e^{X(T)}
     \end{align*}
     where we used the notation $\Tilde{r} = r - \frac{\sigma^2}{2}$ and where the process $X$ is defined by
     \begin{equation*}
@@ -102,9 +102,9 @@ barrier, because it involves the terminal value of the underlying. So, this theo
         X(0) = \ln s
         \end{cases}
     \end{equation*}
-    Thus we have 
+    Thus we have
     \begin{equation*}
-        S(T\wedge T_L) = e^{X(t\wedge T_{\ln L})} 
+        S(T\wedge T_L) = e^{X(t\wedge T_{\ln L})}
     \end{equation*}
     so we may write
     \begin{equation*}
@@ -122,13 +122,13 @@ barrier, because it involves the terminal value of the underlying. So, this theo
         \expect_{0,s}[\Phi_L(S(T\wedge T_L))] &= \int_{\ln L}^{\infty} \Phi_L(e^x)f(x)\,\dd x \\
         &=
         \int_{\ln L}^{\infty}\Phi_L(e^x)\varphi\left(x;\Tilde{r}T+\ln s,\sigma\sqrt{T}\right) - \\ % fine parte 1
-        &\qquad\qquad 
+        &\qquad\qquad
         - \left(\frac{L}{s}\right)^{\frac{2\Tilde{r}}{\sigma^2}} \int_{\ln L}^{\infty}\Phi_L(e^x) \varphi\left(x;\Tilde{r}T+\ln \left(\frac{L^2}{s}\right), \sigma\sqrt{T}\right)\,\dd x \\
         &=
         % i can extend the integral in R thanks to the presence of the indicator function
         \int_{\mathbb{R}} \Phi_L(e^x) \varphi\left(x;\Tilde{r}T+\ln s,\sigma\sqrt{T}\right) \,\dd x - \\
-        &\qquad\qquad 
-        - \left(\frac{L}{s}\right)^{\frac{2\Tilde{r}}{\sigma^2}} \int_{\mathbb{R}} \Phi_L(e^x) \varphi\left(x;\Tilde{r}T+\ln \left(\frac{L^2}{s}\right), \sigma\sqrt{T}\right)\,\dd x 
+        &\qquad\qquad
+        - \left(\frac{L}{s}\right)^{\frac{2\Tilde{r}}{\sigma^2}} \int_{\mathbb{R}} \Phi_L(e^x) \varphi\left(x;\Tilde{r}T+\ln \left(\frac{L^2}{s}\right), \sigma\sqrt{T}\right)\,\dd x
     \end{align*}
     Inspecting the last two lines we see that the density in the first integral is the density of $X(T)$ under the usual martingale measure $\Qmeas$, given the starting value $S(0) = s$. The density in the second integral is, in the same way, the density (under $\Qmeas$) of $X(T)$, given the starting point $S(0) = L^2/s$. Thus we have
     \begin{equation*}
@@ -170,25 +170,25 @@ We now describe the up-and-out version of $Z$. This is the contract which at the
     \end{cases}
 \end{equation}
 The pricing functional for $Z^{LO}$ is denoted by $F^{LO}(t,s,\Phi)$.\\
-$L$ as a superscript indicates an ``up"-type contract, whereas the superscript $O$ indicates that the contract is an ``out" contract. As in the previous section we will relate the up-and-out contract to an associated standard contract. 
+$L$ as a superscript indicates an ``up"-type contract, whereas the superscript $O$ indicates that the contract is an ``out" contract. As in the previous section we will relate the up-and-out contract to an associated standard contract.
 \begin{theorem}[Pricing up-and-out contracts]
     Consider a fixed $T$-claim $Z = \Phi(S(T))$. Then the pricing function, $F^{LO}$, of the corresponding up-and-out contract $Z^{LO}$ is given by
     \begin{equation}\label{uaoprice}
         F_{LO}(0,s,\Phi) =
         \left[F(t,s,\Phi^L) - \left(\dfrac{L}{s}\right)^{\frac{2\Tilde{r}}{\sigma^2}}F\left(t,\frac{L^2}{s},\Phi^L\right)\right]\mathds{1}_{s<L}
     \end{equation}
-    with 
+    with
     \begin{equation}
-        \Phi^L = 
+        \Phi^L =
         \begin{cases}
         \Phi(x) & \text{for }x<L \\
         0 & \text{for }x\ge L
-        \end{cases}, 
+        \end{cases},
         \qquad \Tilde{r} = r - \frac{\sigma^2}{2}.
     \end{equation}
 \end{theorem}
 \begin{remark}
-    From eqs. \eqref{daoprice} and \eqref{uaoprice} we see that the price of a barrier option is given by a difference between the price of a contract and the price of a modified version of the same contract, which is positive. This means that a barrier option is cheaper than the corresponding vanilla option (for example a barrier call option will be cheaper than a vanilla call). On the other hand, entering a barrier option in order to hedge is dangerous, because if the underlying touches the barrier then there every possibility to hedge is lost.  
+    From eqs. \eqref{daoprice} and \eqref{uaoprice} we see that the price of a barrier option is given by a difference between the price of a contract and the price of a modified version of the same contract, which is positive. This means that a barrier option is cheaper than the corresponding vanilla option (for example a barrier call option will be cheaper than a vanilla call). On the other hand, entering a barrier option in order to hedge is dangerous, because if the underlying touches the barrier then there every possibility to hedge is lost.
 \end{remark}
 
 \subsubsection{Examples}
@@ -201,12 +201,12 @@ Let us define the following standard contracts, which will be the basic building
 \end{itemize}
 We now list the pricing functions for the standard contracts above.
 \begin{itemize}
-    \item the value of $ST$ at time $t$ is equal to the value of the 
+    \item the value of $ST$ at time $t$ is equal to the value of the
     underlying stock at the same time:
     \begin{equation}
         ST(t,S(t)=s) = price_t(ST) = e^{-r(T-t)}\expect_{t,s}[S(T)] = S(t) = s
     \end{equation}
-    \item the value of $BO$ at time $t$ is 
+    \item the value of $BO$ at time $t$ is
     \begin{equation}
         BO(t,s) = price_t(BO) = e^{-r(T-t)}
     \end{equation}
@@ -218,5 +218,5 @@ We now list the pricing functions for the standard contracts above.
     \end{align}
     \item The value of $C$ is given by the B\&S formula.
 \end{itemize}
-Notice that 
-$$BO_L(x) = 1\cdot\mathds{1}_{x>L} = H(x,L)$$.
+Notice that
+$$BO_L(x) = 1\cdot\mathds{1}_{x>L} = H(x,L).$$
