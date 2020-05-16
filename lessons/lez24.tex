@@ -83,5 +83,17 @@ So, the forward price (i.e. the strike price that at the inception of a forward 
     \begin{equation}
         F(t,S,T) = \mathbb{E}^{\Qmeas^T}_t[F(S,S,T)] = \frac{1}{T-S}\left(\frac{p(t,S)}{p(t,T)}-1\right)
     \end{equation}
-\end{proposition} % fine prima parte 
+\end{proposition} % fine prima parte
 So, there is an exact relation between forward rates and bond prices.
+
+\subsection{The crisis of 2007}
+\subsubsection{Before the crisis}
+Before the crisis there were some quoted simple spot rates called XBOR, where X changes according to the country. For example, in the US there was the LIBOR rate, which is the standard simple spot rate:
+\begin{equation}
+    \text{LIBOR} = F(S,S,T) = \frac{1}{T-S}\left(\frac{1}{p(S,T)}-1\right)
+\end{equation}
+LIBOR stands for London Inter-Bank Offered Rate, and it is the interest rate at which different investment banks can lend or borrow money each other. The LIBOR is managed by the Intercontinental Exchange (ICE), which in turn is managed and regulated by the British Bankers Association (BBA) and the ICE Benchmark Administration (IBA).\\
+In the European market there were the EURIBOR, which is managed by the European Money Markets Institute (EMMI).\\
+All these instituions were created in order to manage the behavior of the XBORs, in order to avoid manipulations of these rates, which were quoted in the market. In order to construct the LIBOR (for example) every day at 11:30 AM the banks were asked to declare which was their typical offer rate. Once they collected all these information they cut the 25\% of the lower value and of the higher and they considered the middle offer in the banks panel and the LIBOR was obtained by computing a ponderation of these values. The problem is that this methodology was based only on the declarations of the banks and not on traded contracts. If fact, some banks created a ``cartel" and were able to manipulate the rate.
+
+6:45 
