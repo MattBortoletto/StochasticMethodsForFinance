@@ -1,1 +1,87 @@
-\section{Bonds and interest rates}\lesson{24}{06/05/2020}
+\section{Bonds and interest rates} % Bjork ch. 22
+\begin{definition}[Zero coupon bond]\lesson{24}{06/05/2020}
+    A zero coupon bond with maturity date $T$, also called a $T$-bond, is a contract which guarantees the holder 1 unit of money to be paid on the date $T$. The price at time $t$ of a bond with maturity date $T$ is denoted by $p(t, T)$.
+\end{definition}
+In the real market not all maturities are traded, in fact there are some fixed maturities. According to the particular maturity we can invert the zero coupon bond in order to deduce the corrisponding interest rate. So, the quantity which is traded is the zero coupon bond price, not the interest rate. However, here we assume that there are quoted bonds for any maturity.
+\begin{assumption}
+    We assume the following:
+    \begin{itemize}
+        \item There exists a market for $T$-bonds for every $T > 0$.
+        \item The relation $p(t, t) = 1$ holds for all $t$.
+        \item For each fixed $t$, the bond price $p(t, T)$ is differentiable w.r.t. time of maturity $T$.
+    \end{itemize}
+\end{assumption}
+Given this bond market, we may now define a number of interest rates, and the basic construction is as follows. Suppose that we are standing at time $t$, and let us fix two other points in time, $S$ and $T$, with $t < S < T$. The immediate project is to write a contract at time $t$ which allows us to make an investment of one unit for money at time $S$, and to have a deterministic rate of return, determined at the contract time $t$, over the interval $[S,T]$. This can easily be achieved as follows:
+\begin{enumerate}
+    \item Go short: at time $t$ we sell one $S$-bond. This will give us $p(t,S)$ dollars (for example).
+    \item Go long: we use this income to buy exactly $p(t,S)/p(t,T)$ $T$-bonds. Thus our net investment at time $t$ equals zero.
+    \item At time $S$ the $S$-bond matures, so we are obliged to pay out one dollar.
+    \item At time $T$ the $T$-bonds mature at one dollar a piece, so we will receive the amount $p(t, S)/p(t, T)$ dollars.
+    \item The net effect of all this is that, based on a contract at $t$, an investment of one dollar at time $S$ has yielded $p(t, S)/p(t, T)$ dollars at time $T$.
+    \item Thus, at time $t$, we have made a contract guaranteeing a riskless rate of interest over the future interval $[S,T]$. Such an interest rate is called a \emph{forward rate}.
+\end{enumerate}
+\begin{center}
+    \begin{tabular}{lccc}
+        \toprule
+           & $t=0$ & $t=T$ \\\midrule
+        1) & $+p(t,S)$ & $-1$ & 0 \\
+        2) & $-p(t,T)\tfrac{p(t,S)}{p(t,T)}$ & $0$ & $\tfrac{p(t,S)}{p(t,T)}$ \\
+        \midrule\midrule
+           & $0$ & $-1$ & $\tfrac{p(t,S)}{p(t,T)}\in\mathcal{F}_t$ \\\bottomrule
+    \end{tabular}
+\end{center}
+We now go on to compute the relevant interest rates implied by the construction above. The \emph{simple forward rate} $F(t,S,T)$, is the solution to the equation
+\begin{equation}
+    1 + F(t,S,T)(T-S) = \frac{p(t,S)}{p(t,T)}
+\end{equation}
+that is
+\begin{equation}
+    F(t,S,T) = \frac{1}{T-S}\left(\frac{p(t,S)}{p(t,T)}-1\right)
+\end{equation}
+where $(T-S)$ is called \emph{tenor}. If $t=S$ we are considering a particular forward interest rate for which the capitalization starts immediately, the so called \emph{simple spot rate}:
+\begin{equation}
+    F(S,S,T) = \frac{1}{T-S}\left(\frac{1}{p(S,T)}-1\right)
+\end{equation}
+The simple spot rate is alsa called \emph{yield to maturity}.\\
+At the beginning of the course we defined the forward contract as a linear contract which gives the obbligation to exchange one asset against a fixed strike. Here the notion is the same, in the sense that we exchange an interest rate with respect to the corresponding strike rate.\\
+Let's introduce the notion of \emph{forward rate agreement}, which is the analog of forward contracts for the interest rates. A forward rate agreement (FRA) is a contract, by convention entered into at $t = 0$, where the parties (a lender and a borrower) fix the rate of interest $R$ to be paid on an agreed upon date in the future period $[S,T]$.
+\begin{equation}
+    \pay_T(\text{FRA}) = (T-S)(F(S,S,T)-R)
+\end{equation}
+So, in this case, $R$ plays the role of the strike of the forward. If we suppose that the payoff of the FRA is delivered at time $S$, the price of the FRA at time $t$ is given by the risk neutral methodology
+\begin{equation*}
+    price_{t,FRA}(t,S,T,R) = ``e^{-r(T-t)}"\expect_t[\pay_T(\text{FRA})]
+\end{equation*}
+However, we don't know both the interest rate to put in the discounting factor and the probability measure $\Qmeas$. Moreover, we know that in presence of a generic interest rate we have to keep the discounting factor insider the expected value
+\begin{equation*}
+    price_{t,FRA}(t,S,T,R) = \expect_t\left[``e^{-\int^T_t r_s\,\dd s}"\pay_T(\text{FRA})\right]
+\end{equation*}
+In order to disentangle this product, we can consider a change of numéraire using the zero coupon bond expiring at maturity
+\begin{align*}
+    price_{t,FRA}(t,S,T,R) &= p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[\pay_T(\text{FRA})\right] \\
+    &=
+    p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[(T-S)(F(S,S,T)-R)\right]
+\end{align*}
+where $\Qmeas^T$ is the forward risk neutral probability measure. Now the discounting problem is no more present and we go on with the calculation:
+\begin{align*}
+    price_{t,FRA}(t,S,T,R) &= p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[(T-S)(F(S,S,T)-R)\right] \\
+    &=
+    p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[\cancel{(T-S)}(\cancel{\frac{1}{T-S}} \left(\frac{1}{p(S,T)}-1\right)-R)\right] \\
+    &=
+    p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[\left(\frac{p(S,S)}{p(S,T)}-1\right)-(T-S)R\right] \\
+    \overset{(a)}&{=}
+    p(t,T)\left(\left(\frac{p(t,S)}{p(t,T)}-1\right)-(T-S)R\right)
+\end{align*}
+where in (a) we use the fact that $\tfrac{p(S,S)}{p(S,T)}$ is a $\Qmeas^T$ martingale (it is divided by the numéraire $p(t,T)$). \\
+Now we can find the value of $R$ that makes zero the value of the FRA contract (i.e. that makes the FRA a fair contract):
+\begin{equation}
+    price_{t,\text{FRA}} = 0 \quad\Leftrightarrow\quad R = \frac{1}{(T-S)}\left(\frac{p(t,S)}{p(t,T)}-1\right) = F(t,S,T)
+\end{equation}
+So, the forward price (i.e. the strike price that at the inception of a forward contract makes the value of the contract zero) of the FRA is given by the forward interest rate. This leads to the following proposition.
+\begin{proposition}
+    The simple forward rate is given by
+    \begin{equation}
+        F(t,S,T) = \mathbb{E}^{\Qmeas^T}_t[F(S,S,T)] = \frac{1}{T-S}\left(\frac{p(t,S)}{p(t,T)}-1\right)
+    \end{equation}
+\end{proposition} % fine prima parte 
+So, there is an exact relation between forward rates and bond prices.
