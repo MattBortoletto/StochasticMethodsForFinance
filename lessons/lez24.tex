@@ -86,7 +86,7 @@ So, the forward price (i.e. the strike price that at the inception of a forward 
 \end{proposition} % fine prima parte
 So, there is an exact relation between forward rates and bond prices.
 
-\subsection{The crisis of 2007} % non ho capito molto bene
+\subsection{The crisis of 2007} % non ho capito molto bene, molto poco chiaro, lo stesso prof ha detto che non ha spiegato bene e di informarsi su Google
 Before the crisis there were some quoted simple spot rates called XBOR, where X changes according to the country. For example, in the US there was the LIBOR rate, which is the standard simple spot rate:
 \begin{equation}
     \text{LIBOR} = F(S,S,T) = \frac{1}{T-S}\left(\frac{1}{p(S,T)}-1\right)
@@ -119,4 +119,33 @@ Of course, it holds that
 So, the LIBOR is quoted for some fixed tenors (one/two weeks, one/two/three/six/nine/twelve months). \\
 The LIBOR is too risky in order to be considered as the corresponding interest rate used to discount or capitalize cash flows, because there is a bias introduced by the credit risk. Then, what can we choose as ``riskless" proxy? In general, it depends on the reputation of the istitution that issues the obbligation. However, in the interbank market there is no ``riskless" proxy. What is typically used as proxy is the so called \emph{overnight rate}, which is the interest rate for operations with maturity one day (the idea is that since the spreas is smaller for smaller tenors, we consider the smallest maturity in order to have the less risky proxy). In the EU zone the overnight rate is called Euro Overnight Index Average (EONIA) while in the US zone it is called Federal Fund (FF). Another important quantity is the Overnight Index Swap (OIS), which is an interest rate swap involving the overnight rate (floating leg) being exchanged for a fixed interest rate (fixed leg). \\ % non ho capito bene il disegno + le formule che ha scritto, lui ha consigliato di leggere l'Hull
 % "the OIS rate is the corresponding rate when you construct a swap by taking a portfolio of FRAs which are typically determined by the fact that you roll over the position of one night over the number of days required to fill the gap in the tenor. (1+r_1)(1+r_2)...(1+r_n) = \Delta"
-27:15
+We can also define different spreads, for example:
+\begin{equation*}
+    (\text{LIBOR swap rate}) - (\text{OIS}) = \text{LIBOR-OIS spread}
+\end{equation*}
+(this was supposed to be zero before the crisis) or
+\begin{equation*}
+    (\text{EURIBOR swap rate}) - (\text{EONIA swap rate}) = \text{EURIBOR-EONIA swap spread}
+\end{equation*}
+\begin{equation*}
+    (\text{LIBOR swap rate 6 months}) - (\text{LIBOR swap rate 3 months}) = \text{basis swap spread}
+\end{equation*}
+The basis swap spread represents the fact that is is more risky to borrow money in 6 moths than in 3 months.\\
+However, our general assumption is that the forwar rate can be considered as a proxy of the OIS and can be written in term of zero coupon bond prices:
+\begin{equation}
+    F(t,S,T) = L^{\text{OIS}}(t,S,T) = \frac{1}{T-S}\left(\frac{p(t,S)}{p(t,T)}-1\right)
+\end{equation}
+On the contrary, the forward LIBOR rate can only be expressed as an exprected value under the forward risk measure:
+\begin{equation}
+    L(t,S,T) = \mathbb{E}^{\Qmeas^T}_t[L(S,S,T)] \ne F(t,S,T)
+\end{equation}
+\begin{remark}
+    Since we know that $L(t,S,T) > F(t,S,T)$, we might think of adjusting the definition of LIBOR defining an artifical zero coupon bond $\bar{p}(S,T)$ -- called \emph{fictitious zero coupon bond} -- such that
+    \begin{equation*}
+        L(S,S,T) = \frac{1}{T-S}\left(\frac{1}{\bar{p}(S,T)}-1\right)
+    \end{equation*}
+    The problem is that, since $\bar{p}(S,T)$ is an artifical quantity, it is not quoted in the market and therefore it cannot be a numéraire under the forward probability measure $\Qmeas^T$. This means that if we use the fictitious zero coupon bond we cannot compute forward contracts.
+\end{remark}
+\begin{remark}
+    In 2021 the LIBOR rate will be replaced by a more reliable rate, which will be no more based on banks' declarations but on traded and certified contracts. It is called Secured Overnight Financing Rate (SOFR) and it basically is an overnight rate\footnote{\url{https://www.investopedia.com/secured-overnight-financing-rate-sofr-4683954}}.
+\end{remark}
