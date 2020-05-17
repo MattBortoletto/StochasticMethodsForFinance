@@ -86,14 +86,37 @@ So, the forward price (i.e. the strike price that at the inception of a forward 
 \end{proposition} % fine prima parte
 So, there is an exact relation between forward rates and bond prices.
 
-\subsection{The crisis of 2007}
-\subsubsection{Before the crisis}
+\subsection{The crisis of 2007} % non ho capito molto bene
 Before the crisis there were some quoted simple spot rates called XBOR, where X changes according to the country. For example, in the US there was the LIBOR rate, which is the standard simple spot rate:
 \begin{equation}
     \text{LIBOR} = F(S,S,T) = \frac{1}{T-S}\left(\frac{1}{p(S,T)}-1\right)
 \end{equation}
 LIBOR stands for London Inter-Bank Offered Rate, and it is the interest rate at which different investment banks can lend or borrow money each other. The LIBOR is managed by the Intercontinental Exchange (ICE), which in turn is managed and regulated by the British Bankers Association (BBA) and the ICE Benchmark Administration (IBA).\\
 In the European market there were the EURIBOR, which is managed by the European Money Markets Institute (EMMI).\\
-All these instituions were created in order to manage the behavior of the XBORs, in order to avoid manipulations of these rates, which were quoted in the market. The problem is that the LIBOR was an average interest rate calculated through submissions of interest rates by major banks across the world\footnote{Every day at 11:30 AM the banks were asked to declare which was their typical offer rate. Once they collected all these information they cut the 25\% of the lower value and of the higher and they considered the middle offer in the banks panel and the LIBOR was obtained by computing a ponderation of these values.}. Since this methodology was based only on the declarations of the banks and not on traded contracts, some banks were able to manipulate this rate. In fact, there were a series of fraudulent actions connected to the LIBOR: the scandal arose when it was discovered that banks were falsely inflating or deflating their rates so as to profit from trades, or to give the impression that they were more creditworthy than they were.
-
-6:45
+All these instituions were created in order to manage the behavior of the XBORs, in order to avoid manipulations of these rates, which were quoted in the market. The problem is that the LIBOR was an average interest rate calculated through submissions of interest rates by major banks across the world\footnote{Every day at 11:30 AM the banks were asked to declare which was their typical offer rate. Once they collected all these information they cut the 25\% of the lower value and of the higher and they considered the middle offer in the banks panel and the LIBOR was obtained by computing a ponderation of these values.}. Since this methodology was based only on the declarations of the banks and not on traded contracts, some banks were able to manipulate this rate. In fact, there were a series of fraudulent actions connected to the LIBOR: the scandal arose when it was discovered that banks were falsely inflating or deflating their rates so as to profit from trades, or to give the impression that they were more creditworthy than they were. \\
+If for example we consider a forward LIBOR, before the crisis it was possible to express it in terms of the zero coupon bond price, i.e. the usual forward rates
+\begin{equation*}
+    L(t,S,T) = \mathbb{E}^{\Qmeas^T}_t(L(S,S,T)) = \frac{1}{T-S}\left(\frac{p(t,S)}{p(t,T)}-1\right) = F(t,S,T)
+\end{equation*}
+So, by construction, LIBOR rates were related to zero coupon bonds prices. The problem is that if we have two maturities, $S$ and $T$, at time $t$ our counterpart may have a certain credibility but at time $S$ it can change, so the counterpart may not be able to onorate its debt at time $T$. This issue becomes bigger as the tenor $T-S$ becomes larger. \\
+After the crisis nobody was testing its counterpart, so it was not possible to express the LIBOR in terms of the zero coupond price. However, it is still possible to introduce the notion of forward LIBOR rate as
+\begin{equation*}
+    L(t,S,T) \coloneqq \mathbb{E}^{\Qmeas^T}_t[L(S,S,T)]
+\end{equation*}
+but now it is no more related to the price of the zero coupon bond. In fact, now we have that
+\begin{equation*}
+    L(t,S,T) > F(t,S,T)
+\end{equation*} % la morale è che per fidarsi ora serve un bonus
+So, now the LIBOR rate becomes very risky, because in addition to the variability of the market there is also the variability in the possible degradation of the credit scoring of the firm issuing the bond. Moreover, there is the so called \emph{rollover effect}: if for example we borrow an amount of money today for a three months operation we have a certain LABOR rate, but after three months the condition of both counterparts can be different, so we cannot deduce the corresponding LIBOR is six months by putting a rollover position in terms of a spot times a forward. \\ % ???
+In other words, there is a \emph{spread} between the forward LIBOR and the usual forward rate associated to a riskless operation, which typically is a function of the tenor $\Delta\equiv T-S$:
+\begin{equation}
+    s(t,\Delta) = L(t,S,T) - F(t,S,T)
+\end{equation}
+Of course, it holds that
+\begin{equation*}
+    s(t, \text{3 months}) < s(t, \text{6 months}) < \dots
+\end{equation*}
+So, the LIBOR is quoted for some fixed tenors (one/two weeks, one/two/three/six/nine/twelve months). \\
+The LIBOR is too risky in order to be considered as the corresponding interest rate used to discount or capitalize cash flows, because there is a bias introduced by the credit risk. Then, what can we choose as ``riskless" proxy? In general, it depends on the reputation of the istitution that issues the obbligation. However, in the interbank market there is no ``riskless" proxy. What is typically used as proxy is the so called \emph{overnight rate}, which is the interest rate for operations with maturity one day (the idea is that since the spreas is smaller for smaller tenors, we consider the smallest maturity in order to have the less risky proxy). In the EU zone the overnight rate is called Euro Overnight Index Average (EONIA) while in the US zone it is called Federal Fund (FF). Another important quantity is the Overnight Index Swap (OIS), which is an interest rate swap involving the overnight rate (floating leg) being exchanged for a fixed interest rate (fixed leg). \\ % non ho capito bene il disegno + le formule che ha scritto, lui ha consigliato di leggere l'Hull
+% "the OIS rate is the corresponding rate when you construct a swap by taking a portfolio of FRAs which are typically determined by the fact that you roll over the position of one night over the number of days required to fill the gap in the tenor. (1+r_1)(1+r_2)...(1+r_n) = \Delta"
+27:15
