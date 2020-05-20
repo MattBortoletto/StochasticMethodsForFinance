@@ -1,0 +1,99 @@
+\section{Relations between forward rate, zero coupon bond and short rate}
+\begin{remark}\lesson{24}{07/05/2020} % Bjork ch. 22.2
+    For $S-T=\Delta\to 0$, the LIBOR rate tends to the \emph{spot short rate}, $L(t,t,t+\Delta)$.
+\end{remark}
+So, we can recover the notion of short rate in terms of LIBOR, we just need a change of notation.
+\begin{definition}[Continuously compounded forward rate]
+    The continuously compounded forward rate is defined by the equation
+    \begin{equation}
+        e^{R(t,S,T)(T-S)} = \frac{p(t,S)}{p(t,T)}
+    \end{equation}
+    from which we get
+    \begin{equation}
+        R(t,S,T) = \frac{1}{T-S}\ln\left(\frac{p(t,S)}{p(t,T)}\right).
+    \end{equation}
+\end{definition}
+\begin{definition}[Continuously compounded spot rate]
+    The continuously compounded spot rate is defined as
+    \begin{equation}
+        R(S,T) = \frac{1}{T-S}\ln p(S,T).
+    \end{equation}
+\end{definition}
+The continuously compounded spot rate plays the role of the yield in this different notation.
+\begin{definition}[Instantaneous forward rate]
+    The instantaneous forward rate is defined as
+    \begin{equation}\label{forwrate}
+        f(t,T) = -\pdv{\ln p(t,T)}{T}
+    \end{equation}
+\end{definition}
+Basically,
+\begin{equation}
+    f(t,T) = \lim_{\Delta \to 0} (\ln p(t,T) + \ln p(t, T+\Delta))
+\end{equation}
+In order to well define the relation between the zero coupon bond and the instantaneous forward rate, we can express the price of the zero coupon bond as follows:
+\begin{equation}
+    p(t,T) = \exp{-\int_t^T f(t,u)\,\dd u}
+\end{equation}
+Of course, we can introduce also the instantaneous short interest rate.
+\begin{definition}[Instantaneous interest rate]
+    The instantaneous short interest rate is defined as
+    \begin{equation}
+        r(t) = f(t,t).
+    \end{equation}
+\end{definition}
+Now, we can write the evolution of the riskless asset (i.e. the savings account) as
+\begin{equation}
+    B(t) = e^{\int_0^t} e^{r(s)\,\dd s}
+\end{equation}
+where $r(s)$ is the instantaneous interest rate. This riskless asset can be seen as the self financing ``rolling-over" trading strategy where for all $t$ we invest in a zero coupon bond starting at time $t$ with maturity $t+\dd t$. In other words, the savings account corresponds to infinite operations of capitalization from time $t$ to time $t+\dd t$ where for each of them we introduce a spot rate $r(s)$ and we immediately reinvest the cash we get. \\
+Now, since
+\begin{equation}
+    p(t,T) = \expect_t\left[e^{-\int_t^T r(s)\,\dd s}\right] = e^{-\int_t^T f(t,u)\,\dd u}
+\end{equation}
+we are able to link a deterministic expression to a stochastic one. So, the zero coupon bond $p(t,T)$, the short rate $r(t)$ and the forward rate $f(t,T)$ are closely related. This ``static" relationship of couse leads to a ``dynamic" relationship. Therefore, we want to understand which is the relation between $\dd p(t,T)$, $\dd f(t,T)$ and $\dd r(t)$.\\
+Let's start from the following general dynamics:
+\begin{align}
+    \dd \dd r(t) = a(t)\,\dd t + b(t)\cdot \dd W(t) \\
+    \frac{\dd p(t,T)}{p(t,T)} &= m(t,T)\,\dd t + v(t,T)\cdot \dd W(t) \label{zcbdyn} \\
+    \dd \dd f(t,T) &= \alpha(t,T)\,\dd t + \sigma(t,T)\cdot \dd W(t)
+\end{align}
+where $W(t)$ is the Brownian motion driving the three processes, which can be a vector (we can use the same Brownian motion because all the three processes are responsible for the fluctuations of the interest rate). The only assumptions we make are:
+\begin{itemize}
+    \item $m, v, \alpha, \sigma \in C^1$ with respect to $T$;
+    \item All the processes are regular enough to allow differentiation under integral and to interchange the order of integration.
+\end{itemize}
+Under these regularity assumptions we have the following result.
+\begin{theorem}
+    \begin{itemize}
+        \item If we know the dynamics of $p(t,T)$, then:
+        \begin{align}
+            \alpha(t,T) &= \pdv{v(t,T)}{T}v(t,T) - \pdv{m(t,T)}{T} \\
+            \sigma(t,T) &= -\pdv{v(t,T)}{T}
+        \end{align}
+        \item If we know the dynamics of $f(t,T)$, then:
+        \begin{align}
+            a(t) &= \pdv{f(t,T)}{T} + \alpha(t,T) \\
+            b(t) &= \sigma(t,t)
+        \end{align}
+        \item If we know the dynamics of $f(t,T)$, then:
+        \begin{align}
+            \frac{p(t,T)}{p(t,T)} = \left(r(t) + A(t,T) + \frac{1}{2}\norm{S(t,T)}^2\right)\,\dd t + S(t,T)\cdot \dd W(t)
+        \end{align}
+        where
+        \begin{align}
+            A(t,T) &= -\int_t^T \alpha(t,s)\,\dd s \\
+            S(t,T) &= -\int_t^T \sigma(t,s)\,\dd s.
+        \end{align}
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    1. From eqs. \eqref{zcbdyn} and \eqref{forwrate}, by applying the Itô formula we have that
+    \begin{align*}
+        \dd f(t,T) &= - \pdv{(\dd\ln p(t,T))}{T}\\
+        &=
+        - \pdv{}{T} \left(\left(m(t,T) - \frac{1}{2}v^2(t,T)\right)\dd t + v(t,T)\cdot\dd W(t)\right) \\
+        &=
+        \left(- \pdv{m(t,T)}{T} + \pdv{v(t,T)}{T}\cdot v(t,T)\right)\dd t - \pdv{v(t,T)}{T}\,\dd W(t)
+    \end{align*} % fine parte 1
+    2. 
+\end{proof}
