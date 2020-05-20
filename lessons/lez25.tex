@@ -1,5 +1,5 @@
 \section{Relations between forward rate, zero coupon bond and short rate}
-\begin{remark}\lesson{24}{07/05/2020} % Bjork ch. 22.2
+\begin{remark}\lesson{25}{07/05/2020} % Bjork ch. 22.2
     For $S-T=\Delta\to 0$, the LIBOR rate tends to the \emph{spot short rate}, $L(t,t,t+\Delta)$.
 \end{remark}
 So, we can recover the notion of short rate in terms of LIBOR, we just need a change of notation.
@@ -41,7 +41,8 @@ Of course, we can introduce also the instantaneous short interest rate.
         r(t) = f(t,t).
     \end{equation}
 \end{definition}
-Now, we can write the evolution of the riskless asset (i.e. the savings account) as
+We note that spot rates are forward rates where the time of contracting coincides with the start of the interval over which the interest rate is effective, i.e. $t = S$. The instantaneous forward rate is the limit of the continuously compounded forward rate when $S \to T$. It can thus be interpreted as the riskless rate of interest, contracted at $t$, over the infinitesimal interval $[T,T +\dd T]$.\\
+We now go on to define the money account process $B$:
 \begin{equation}
     B(t) = e^{\int_0^t} e^{r(s)\,\dd s}
 \end{equation}
@@ -53,17 +54,18 @@ Now, since
 we are able to link a deterministic expression to a stochastic one. So, the zero coupon bond $p(t,T)$, the short rate $r(t)$ and the forward rate $f(t,T)$ are closely related. This ``static" relationship of couse leads to a ``dynamic" relationship. Therefore, we want to understand which is the relation between $\dd p(t,T)$, $\dd f(t,T)$ and $\dd r(t)$.\\
 Let's start from the following general dynamics:
 \begin{align}
-    \dd \dd r(t) = a(t)\,\dd t + b(t)\cdot \dd W(t) \\
+    \dd r(t) &= a(t)\,\dd t + b(t)\cdot \dd W(t) \\
     \frac{\dd p(t,T)}{p(t,T)} &= m(t,T)\,\dd t + v(t,T)\cdot \dd W(t) \label{zcbdyn} \\
-    \dd \dd f(t,T) &= \alpha(t,T)\,\dd t + \sigma(t,T)\cdot \dd W(t)
+    \dd f(t,T) &= \alpha(t,T)\,\dd t + \sigma(t,T)\cdot \dd W(t)
 \end{align}
 where $W(t)$ is the Brownian motion driving the three processes, which can be a vector (we can use the same Brownian motion because all the three processes are responsible for the fluctuations of the interest rate). The only assumptions we make are:
 \begin{itemize}
     \item $m, v, \alpha, \sigma \in C^1$ with respect to $T$;
-    \item All the processes are regular enough to allow differentiation under integral and to interchange the order of integration.
+    \item all processes are assumed to be regular enough to allow us to differentiate under the integral sign as well as to interchange the order of integration.
 \end{itemize}
 Under these regularity assumptions we have the following result.
 \begin{theorem}
+    The following relationships hold:
     \begin{itemize}
         \item If we know the dynamics of $p(t,T)$, then:
         \begin{align}
@@ -95,5 +97,5 @@ Under these regularity assumptions we have the following result.
         &=
         \left(- \pdv{m(t,T)}{T} + \pdv{v(t,T)}{T}\cdot v(t,T)\right)\dd t - \pdv{v(t,T)}{T}\,\dd W(t)
     \end{align*} % fine parte 1
-    2. 
+    2.
 \end{proof}
