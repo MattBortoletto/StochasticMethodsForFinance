@@ -26,7 +26,7 @@ Now we can rewrite \eqref{pr0} as:
     &=
     S\sum^{n}_{j=\hat{\jmath}}\binom{n}{j}\left(e^{-\frac{RT}{n}}qu\right)^j\left(e^{-\frac{RT}{n}}(1-q)d\right)^{n-j} - Ke^{-RT}\sum^{n}_{j=\hat{\jmath}}\binom{n}{j}q^j(1-q)^{n-j}
 \end{align}
-where we took $S$ out of the sum, $e^{RT}$ inside it and split the resulting sum in two components. Notice that 
+where we took $S$ out of the sum, $e^{RT}$ inside it and split the resulting sum in two components. Notice that
 \begin{equation*}
     e^{-\frac{RT}{n}}qu + e^{-\frac{RT}{n}}(1-q)d=1, \qquad\Rightarrow\qquad q + 1-q = 1
 \end{equation*}
@@ -47,7 +47,7 @@ Now \eqref{pr01} becomes
 \end{equation}
 This is the so called \emph{Black \& Scholes forumula}. Then we consider the second part. Recall that
 \begin{align}
-    \notag \prob(\mathcal{N}(\mu,\sigma^2)>\hat{\jmath}) 
+    \notag \prob(\mathcal{N}(\mu,\sigma^2)>\hat{\jmath})
     &=
     \prob\left(\mathcal{N}(0,1)>\dfrac{\hat{\jmath}-\mu}{\sigma}\right) \\
     &\overset{(a)}{=} \notag \prob\left(\mathcal{N}(0,1)<\dfrac{\mu-\hat{\jmath}}{\sigma}\right) \\
@@ -59,9 +59,9 @@ where in (a) we used the symmetry of the standardized gaussian and in (b) we rec
 \end{equation}
 In our case $\mu=nq$ and $\sigma=\sqrt{nq(1-q)}$, so we get:
 \begin{align}
-    \notag\Phi\left(\dfrac{nq-\hat{\jmath}}{\sqrt{nq(1-q)}}\right) 
+    \notag\Phi\left(\dfrac{nq-\hat{\jmath}}{\sqrt{nq(1-q)}}\right)
     &= \Phi\left(\left(nq-\dfrac{n}{2}-\dfrac{\ln\frac{S_0}{K}}{2\sigma\sqrt{\frac{T}{n}}}\right)\dfrac{1}{\sqrt{nq(1-q)}}\right) \\
-    &= 
+    &=
     \notag\Phi\left(
     \dfrac{\sqrt{n}\left(q-\frac{1}{2}\right)}{\sqrt{q(1-q)}} + \dfrac{\ln\frac{S_0}{K}}{2\sigma\sqrt{T}\sqrt{q(1-q)}}
     \right)\\
@@ -82,7 +82,7 @@ We will came back to the Black \& Scholes formula after introducing the stochast
 \section{American options} %vedi libro per riscrivere meglio
 So far we considered the cases in which the payoff was $(S_T-K)^+$ and in which we can exercise the option to buy/sell only at the maturity. These options are called \emph{European options}. On the contrary, in \emph{American options} we can exercise the option -- i.e. the possibility -- at any time $t\le T$. It is now obvious to compute the payoff $(S_{\tau}-K)^+$ in American options, since we don't know the time $\tau$ at which we will be interested to exercise. So, in order to compute the initial price of an American call we need an information involving future time, which is not measurable. The time $\tau$ is a random variable called \emph{stopping time}.
 
-\subsection{Call option with no dividends and $R>0$}
+\subsection{Call option with no dividends and \texorpdfstring{$R>0$}{R>0}}
 Now, consider a special case in which we have a call option on a non-dividend paying. In this case the American call price at any time $t$ will be always greater than the price of an European contract:
 \begin{equation*}
     C^{AM}(t,S_t)\ge C^{EU}(t,S_t)
@@ -105,11 +105,11 @@ In order to avoid an arbitrage opportunity it must be:
 \begin{equation*}
     S_t-C_t-Ke^{-RT} \le 0 \qquad\Rightarrow\qquad C^{AM}(t,S_t)\ge S_t-Ke^{-RT}
 \end{equation*}
-Of course, if the interest rate is positive -- which is not always the case -- then 
+Of course, if the interest rate is positive -- which is not always the case -- then
 \begin{equation*}
     C^{AM}(t,S_t) \ge S_t - K \qquad\forall t<T
 \end{equation*}
-Since $C^{AM}(t,S_t)\ge0$, then 
+Since $C^{AM}(t,S_t)\ge0$, then
 \begin{equation*}
     C^{AM}(t,S_t)\ge \max(0,S_t-K)=(S_t-K)^+
 \end{equation*}
@@ -119,11 +119,11 @@ This means that if there are no dividends and the interest rate is positive it i
 \end{equation*}
 
 \subsection{General discrete time case with no dividends and \texorpdfstring{$R=0$}{R=0}}
-% subsection o section? 
+% subsection o section?
 % Bjork ch. 21 or Lamberton
 Now we consider the general discrete time case with no dividends and $R=0$. Let's start with some definitions.
 \begin{definition}[Stopping time]
-A non-negative random variable $\tau$ is called \emph{(optional) stopping time} with respect to the \emph{filtration}\footnote{A family $\{G_t:t\ge0\}$ of sub-$\sigma$-algebras is called a \emph{filtration} if $s < t$ implies $G_s \subseteq G_t$.} $\mathcal{F}$ if 
+A non-negative random variable $\tau$ is called \emph{(optional) stopping time} with respect to the \emph{filtration}\footnote{A family $\{G_t:t\ge0\}$ of sub-$\sigma$-algebras is called a \emph{filtration} if $s < t$ implies $G_s \subseteq G_t$.} $\mathcal{F}$ if
 \begin{equation}
     \{\tau \le n\}\in\mathcal{F}_n \qquad\forall n\ge0
 \end{equation}
@@ -134,7 +134,7 @@ Since we are considering a discret time framework, this is equivalent to
 \end{definition}
 \noindent So if a random variable is a stopping time we are able to state that the event $\tau\le n$ is true or false on the basis of the information available at time $n$. This means that $\tau$ is a \emph{non-anticipative} random value.
 \begin{definition}[Optimal stopping time]
-Given a real number $T<\infty$, consider a family $Z_n\in L^1$ of random variables. If $\hat{\tau}$ is a stopping time such that 
+Given a real number $T<\infty$, consider a family $Z_n\in L^1$ of random variables. If $\hat{\tau}$ is a stopping time such that
 \begin{equation}
     \sup_{0\le\tau\le T}\mathbb{E}[Z_{\tau}] = \mathbb{E} [Z_{\hat{\tau}}]
 \end{equation}
@@ -142,7 +142,7 @@ then $\hat{\tau}$ is called \emph{optimal stopping time}.
 \end{definition}
 \noindent Now we ask ourselves: does $\hat{\tau}$ exist? Is $\hat{\tau}$ unique? Even if $\hat{\tau}$ exists and is unique, how can we compute it? We try to answer these questions using a preliminary result.
 \begin{proposition}\label{martingales}
-Consider a random variable $Z$ and $T<\infty$. 
+Consider a random variable $Z$ and $T<\infty$.
 \begin{enumerate}
     \item If $Z$ is a sub-martingale, i.e. its expected value increases in time, then $\hat{\tau}=T$.
     \item If $Z$ is a super-martingale, i.e. its expected value decreases in time, then $\hat{\tau}=0$.
@@ -150,7 +150,7 @@ Consider a random variable $Z$ and $T<\infty$.
 \end{enumerate}
 \end{proposition}
 \begin{definition}[Value process]
-Fix $n\le T$ and consider a stopping time $n\le\tau\le T$. The \emph{value process} is defined as 
+Fix $n\le T$ and consider a stopping time $n\le\tau\le T$. The \emph{value process} is defined as
 \begin{equation}
     J_n(\tau) \coloneqq \mathbb{E}[Z_{\tau}|\mathcal{F}_n]
 \end{equation}
@@ -159,12 +159,12 @@ and the \emph{optimal value process} is
     V_n \coloneqq \ess\sup_{0\le\tau\le T} \mathbb{E}[Z_{\tau}|\mathcal{F}_n]
 \end{equation}
 \end{definition}
-\noindent In eq. \eqref{Vn} we are taking the essential supremum, which intuitively is the value that is larger or equal than the function values everywhere when allowing for ignoring what the function does at a set of points of measure zero. 
+\noindent In eq. \eqref{Vn} we are taking the essential supremum, which intuitively is the value that is larger or equal than the function values everywhere when allowing for ignoring what the function does at a set of points of measure zero.
 \begin{definition}
 The \emph{optimal stopping time} at time $n$ is $\hat{\tau}_n$ such that $V_n=V_{\hat{\tau}_n}$.
 \end{definition}
 \begin{example}{}{}
-Consider 
+Consider
 \begin{equation*}
     f(x)=\begin{cases}
     5 & x=1 \\
@@ -172,13 +172,13 @@ Consider
     2 & \mbox{otherwise}
     \end{cases}
 \end{equation*}
-In this case $\sup f(x)=5$ and $\inf f(x)=-4$, but notice that they are points of zero measure (with respect to the Lebesgue measure), since the function is almost everywhere equal to 2. So, in this case 
+In this case $\sup f(x)=5$ and $\inf f(x)=-4$, but notice that they are points of zero measure (with respect to the Lebesgue measure), since the function is almost everywhere equal to 2. So, in this case
 \begin{equation*}
     \ess\sup f(x) = \ess\inf f(x) = 2
 \end{equation*}
 \end{example}
 \begin{example}{}{}
-Consider 
+Consider
 \begin{equation*}
     f(x)=\begin{cases}
     \frac{1}{x} & x\in\mathbb{Q}\setminus\{0\} \\

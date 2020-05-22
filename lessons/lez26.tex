@@ -1,2 +1,25 @@
-    \item \lesson{25}{07/05/2020} After the crisis
+    \item \lesson{26}{08/05/2020} After the crisis, keeping for simplicity $K=1$ and $\delta = T_i - T_{i-1}$, the price is given by
+    \begin{align}
+        \notag price_t^{\text{FLOAT}} &= p(t,T_n) + \sum_{i=1}^n p(t,T_i)\mathbb{E}^{\Qmeas^T}_t [\delta L(T_{i-1}, T_{i-1}, T_i)] \\
+        &=
+        p(t,T_n) + \sum_{i=1}^n p(t,T_i)\delta L(t, T_{i-1}, T_i)
+    \end{align}
+    where $L(t, T_{i-1}, T_i)$ is the forward LIBOR. In order to price floating coupon bonds we need a model which is able to describe the evolution of the forward LIBOR. Before the crisis all the models were based on the description of the short interest rate were all LIBORs (3 months, 6 months and so on) evolved according to the same stochastic process. After the crisis the behavior of LIBORs for different tenors is different, due to the spread between rates, leading to multiple yield curves.
 \end{itemize}
+
+\section{Yield and duration}
+Consider a zero coupon bond with market price $p(t,T)$. We now look for the bond's ``internal rate of interest", i.e. the constant short rate of interest which will give the same value to this bond as the value given by the market. Denoting this value of the short rate by $y$, we thus want to solve the equation
+\begin{equation}
+    p(t,T) = e^{-y(T-t)}\cdot 1
+\end{equation}
+We are thus led to the following definition.
+\begin{definition}[Continuously compounded zero coupon yield]
+The continuously compounded zero coupon yield, $y(t, T )$, is given by
+\begin{equation}
+    y(t,T) = -\frac{\log p(t,T)}{T-t}
+\end{equation}
+and, for a fixed $t$, the function $T \to y(t,T)$ is called the (zero coupon) \emph{yield curve}.
+\end{definition} % spiegazione delle varie yield curves 9:30
+The standard behavior of the yield curve is increasing, but in different historical periods we can see also decreasing or humped yield curves.
+
+10:20

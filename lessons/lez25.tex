@@ -1,4 +1,4 @@
-\section{Relations between forward rate, zero coupon bond and short rate}
+\section[Relations between \texorpdfstring{$f(t,T)$}{f(t,T)}, \texorpdfstring{$p(t,T)$}{p(t,T)} and \texorpdfstring{$r(t)$}{r(t)}]{Relations between forward rate, zero coupon bond and short rate}
 \begin{remark}\lesson{25}{07/05/2020} % Bjork ch. 22.2
     For $S-T=\Delta\to 0$, the LIBOR rate tends to the \emph{spot short rate}, $L(t,t,t+\Delta)$.
 \end{remark}
@@ -170,7 +170,7 @@ Under these regularity assumptions we have the following result.
     which is the result.
 \end{proof}
 
-\subsection{Linear fixed income products}
+\section{Linear fixed income products}
 Linear fixed income products are interest market's products for which the income is fixed by a certain rate if return, even if we know that the return can vary over time due to the randomness of the interest rate. The basic products that we know are the zero coupon bond and the FRA, which are the building blocks that allow to construct the first non trivial product that we consider: the \emph{fixed coupon bond}. This is a bond which, at some intermediary points in time, will provide predetermined payments (coupons) to the holder of the bond. The formal description is as follows.
 \begin{itemize}
     \item Fix a number of dates, i.e. points in time, $T_0, \dots, T_n$. Here $T_0$ is interpreted as the emission date of the bond, whereas $T_1, \dots, T_n$ are the coupon dates.
@@ -196,7 +196,7 @@ price of such a bond will, for $t \le T_1$, be given by
     price_t^{\text{FIX}}(t) = K\left(p(t,T_n) + r\delta\sum_{i=1}^n c_i\cdot p(t,T_i)\right)
 \end{equation}
 
-\subsection{Floating rate bonds}
+\section{Floating rate bonds}
 There are various coupon bonds for which the value of the coupon is not fixed at the time the bond is issued, but rather reset for every coupon period. As an example, we will confine ourselves to discussing one of the simplest floating rate bonds, where the coupon rate $r_i$ is set to the spot LIBOR rate $L(T_i-1,T_i)$. Thus
 \begin{equation*}
     c_i = (T_i - T_i-1)L(T_i1, T_i)K,
