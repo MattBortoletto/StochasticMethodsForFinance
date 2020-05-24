@@ -47,7 +47,14 @@ Thus we see that duration is essentially for bonds (w.r.t. yield) what delta is 
 Notice that in the trivial case of a zero coupon bond the duration coincides with the maturity.
 
 \section{Interest rate swaps} % Bjork 22.3.3
-The interest rate swap is a scheme where we exchange a payment stream at a fixed rate of interest, known as the \emph{swap rate}, for a payment stream at a floating rate (typically a LIBOR rate). Basically, a interest rate swap is a portfolio of FRAs. There are many versions of interest rate swaps, and we will study the \emph{forward swap settled in arrears}, which is defined as follows. We denote the principal by $K$, and the swap rate by $R$. By assumption we have a number of equally spaced dates $T_0,\dots,T_n$, and payment occurs at the dates $T_1,\dots,T_n$ (not at $T_0$). If we swap a fixed rate for a floating rate (in this case the LIBOR spot rate), then, at time $T_i$, we will receive the amount
+The interest rate swap is a scheme where we exchange a payment stream at a fixed rate of interest, known as the \emph{swap rate}, for a payment stream at a floating rate (typically a LIBOR rate). Basically, a interest rate swap is a portfolio of FRAs.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.22]{fig/tmp/fig41}
+    \label{fig:swap}
+    \caption{Interest rate swaps}
+\end{figure}
+There are many versions of interest rate swaps, and we will study the \emph{forward swap settled in arrears}, which is defined as follows. We denote the principal by $K$, and the swap rate by $R$. By assumption we have a number of equally spaced dates $T_0,\dots,T_n$, and payment occurs at the dates $T_1,\dots,T_n$ (not at $T_0$). If we swap a fixed rate for a floating rate (in this case the LIBOR spot rate), then, at time $T_i$, we will receive the amount
 \begin{equation*}
     K\delta L(T_{i-1},T_i)
 \end{equation*}
@@ -128,4 +135,65 @@ we obtain the following differential equation for the evolution of the price wit
         F(T,x) = \Phi(x)
     \end{cases}
 \end{equation}
-22:20
+The solution is given by \colorbox{cyan}{homework}
+\begin{equation}
+    F(t,x) = \mathbb{E}_{t,x}\left[\Phi(x_T)e^{-\int_t^T r(s,x)\,\dd s}\right]
+\end{equation}
+where
+\begin{equation}
+    \dd X = K\,\dd t + H\,\dd W
+\end{equation}
+Let's consider, for example, the case $r(t,x) = x$. The dynamics under the risk neutral probability measure $\Qmeas$ is
+\begin{equation}
+    \dd r(t) = \mu(t,r(t))\,\dd t + \sigma(t,r(t))\,\dd W^{\Qmeas}(t)
+\end{equation}
+In principle, we should start from the probability measure $\Pmeas$ and then try to understand which is the change of measure that leads to $\Qmeas$. However, this is a quite complicated problem because it is not clear what to impose to be a martingale, in fact the interest rate is not a traded asset. Practically, the fact that we do not know $\Pmeas$ does not matter because we want to work under $\Qmeas$, which is the probability measure that generate the prices in the market. From now on, we will consider every Brownian motion under the measure $\Qmeas$.
+
+\subsubsection{Vašíček model}
+The dynamics of the short interest rate follows the equation
+\begin{equation}
+    \dd r(t) = (b-ar(t))\,\dd t + \sigma\,\dd W(t), \qquad a>0
+\end{equation}
+This dynamics is \emph{affine}, that is the drift and the diffusion coefficients are linear combinations of the state variable (plus a constant). The short rate $r(t)$ is gaussian distributed and introducing an auxiliary process we are able to find it.
+
+\subsubsection{Cox-Ingersoll-Ross model}
+The CIR model was introduced in order to prevent the negativity of $r(t)$. It is defined by the equation
+\begin{equation}
+    \dd r(t) = a(b-r(t))\,\dd t + \sigma\sqrt{r(t)}\,\dd W(t)
+\end{equation}
+and it is an affine model (the first term and the square root of the second terms are affine). A process that evolves according this equation is called \emph{squared Bessel process} and it is possible to prove that is has a strong unique solution and that if $ab>\nicefrac{\sigma}{2}$ then $\Pmeas(r(t)>0)=1$. It also holds that CIR $\sim$ Vašíček $\sim \chi^2$.
+
+\subsubsection{Dothan model}
+The dynamics is given by
+\begin{equation}
+    \dd r(t) = ar(t)\,\dd t + \sigma r(t)\,\dd W(t)
+\end{equation}
+The dynamics is not affine because the diffusive term is not the square of an affine term. The rate $r(t)$ is log-normal distributed. There are some problem in pricing the zero coupon bond because if we consider the expected value of the exponential of the integral of $r(t)$ (i.e. the zero coupon price) it can explode.
+
+\subsubsection{Black-Derman-Toy model}
+The dynamics is given by
+\begin{equation}
+    \dd r(t) = \theta(t)r(t)\,\dd t + \sigma(t)r(t)\,\dd W(t)
+\end{equation}
+where $\theta(t)$ and $\sigma(t)$ are deterministic functions that allow more flexibility to describe the process. This model is not affine.
+
+\subsubsection{Ho-Lee model}
+The dynamics is given by
+\begin{equation}
+    \dd r(t) = \theta(t)\,\dd t + \sigma\,\dd W(t)
+\end{equation}
+where $\theta(t)$ is a deterministic function and $\sigma$ is a constant. This model is the simplest specification of a more general framework -- the Heath–Jarrow–Morton framework -- which describes the dynamics of forward interest rates. The rate $r(t)$ is gaussian. There can be some stationarity issues.
+
+\subsubsection{Hull-White model}
+The dynamics is given by
+\begin{equation}
+    \dd r(t) = (\theta(t)-a(t)r(t))\,\dd t + \sigma(t)\,\dd W(t)
+\end{equation}
+The function $\theta(t)$ allows a fine calibration of the model to perfectly fit the initial yield curve.
+\begin{remark}
+    We will prove that $r(t)$ is affine if and only if the moment generating function is such that $\mathbb{E}[e^{r(t)}] = e^{A+Br(0)}$, where $A$ and $B$ are two deterministic functions. This has as a consequence the fact that the price of the zero coupon bond can be written in terms of $A$ and $B$:
+    \begin{equation*}
+        \expect_t\left[e^{-\int_t^T r(s)\,\dd s}\right] = e^{A(t,T)+r(t)B(t,T)}
+    \end{equation*}
+    The problem is: are we able to find the functions $A$ and $B$ for all the models above? The answer is positive, but we need to use the extension of the Feynman-Kac methodology.
+\end{remark}
