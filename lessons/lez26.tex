@@ -20,6 +20,112 @@ The continuously compounded zero coupon yield, $y(t, T )$, is given by
 \end{equation}
 and, for a fixed $t$, the function $T \to y(t,T)$ is called the (zero coupon) \emph{yield curve}.
 \end{definition} % spiegazione delle varie yield curves 9:30
-The standard behavior of the yield curve is increasing, but in different historical periods we can see also decreasing or humped yield curves.
+The standard behavior of the yield curve is increasing, but in different historical periods we can see also decreasing or humped yield curves.\\
+Now let us consider a fixed coupon bond where, for simplicity of notation, we include the face value in the coupon $c_n$. We denote its market value at $t$ by $p(t)$. In the same spirit as above we now look for its internal rate of interest, i.e. the constant value of the short rate, which will give the market value of the coupon bond.
+\begin{definition}[Yield to maturity]
+    The yield to maturity, $y(t,T)$, of a fixed coupon bond at time $t$, with market price $p$, and payments $c_i$ at $T_i$ for $i = 1,\dots,n$, is defined as the value of $y$ which solves the equation
+    \begin{equation}
+        p(t) = \sum^n_{i=1} c_i e^{-y(T_i-t)}.
+    \end{equation}
+\end{definition}
+In other words, the yield to maturity corresponds to the barticenter of the interest rate such that the cash flow corresponding to the coupon is delivered according to a certain interest rate. %?????\\
+An important concept in bond portfolio management is the duration. Without loss of generality we may assume that $t = 0$.
+\begin{definition}[Duration]
+    For the fixed coupon bond above, with price $p$ at $t = 0$, and yield to maturity $y$, the duration, $D$, is defined as
+    \begin{equation}
+        D = \frac{\sum_{i=1}^n T_i c_i e{-yT_i}}{p}.
+    \end{equation}
+\end{definition}
+The duration is thus a weighted average of the coupon dates of the bond, where the discounted values of the coupon payments are used as weights, and it will in a sense provide you with the ``mean time to coupon payment". As such it is an important concept, and it also acts a measure of the sensitivity of the bond price w.r.t. changes in the yield:
+\begin{equation*}
+    \frac{\dd p}{\dd y} = -Dp
+\end{equation*}
+Thus we see that duration is essentially for bonds (w.r.t. yield) what delta is for derivatives (w.r.t. the underlying price)
+\begin{equation}
+    D = \text{-\% sensitivity to a parallel shift of the yield curve.}
+\end{equation}
+Notice that in the trivial case of a zero coupon bond the duration coincides with the maturity.
 
-10:20
+\section{Interest rate swaps} % Bjork 22.3.3
+The interest rate swap is a scheme where we exchange a payment stream at a fixed rate of interest, known as the \emph{swap rate}, for a payment stream at a floating rate (typically a LIBOR rate). Basically, a interest rate swap is a portfolio of FRAs. There are many versions of interest rate swaps, and we will study the \emph{forward swap settled in arrears}, which is defined as follows. We denote the principal by $K$, and the swap rate by $R$. By assumption we have a number of equally spaced dates $T_0,\dots,T_n$, and payment occurs at the dates $T_1,\dots,T_n$ (not at $T_0$). If we swap a fixed rate for a floating rate (in this case the LIBOR spot rate), then, at time $T_i$, we will receive the amount
+\begin{equation*}
+    K\delta L(T_{i-1},T_i)
+\end{equation*}
+At $T_i$ we will pay the amount
+\begin{equation*}
+    K\delta R
+\end{equation*}
+so che net cash flow at $T_i$ is thus given by
+\begin{equation}
+    K\delta [L(T_{i-1}, T_i) - R].
+\end{equation}
+Basically, this is a floating bond minus a fixed bond. So, the corresponding price is given by
+\begin{align*}
+    price_t^{\text{SWAP}} = price_t^{\text{FLOAT}} - price_t^{\text{FIXED}}.
+\end{align*}
+Before the crisis this price is given by:
+\begin{align}
+    price_t^{\text{SWAP}} = Kp(t,T_0) - K\left(p(t,T_n) + \sum_i^n R\delta p(t,T_i)\right)
+\end{align}
+The swap rate $R$, which makes the whole contract fair ($price_0^{\text{SWAP}} = 0$), is different from the strike prices of the FRAs, which are fair only for the single component of the contract, and is given by
+\begin{equation}
+    R = \frac{p(t,T_0)-p(0,T_n)}{\delta\sum_i^n p(0,T_i)}.
+\end{equation}
+After the crisis, we have to adapt the formula by considering the aftermath in terms of floating and fixed bonds:
+\begin{equation}
+    price_t^{\text{SWAP}} = K \sum^n_{i=1}p(t,T_i) \delta (L(t,T_{i-1},T_i)-R)
+\end{equation}
+and the swap rate is given by a convex combination of forward LIBOR rates:
+\begin{equation}
+    R = \frac{\sum_{i=1}^n p(t,T_i)}{\delta\sum_{j=1}^n p(0,T_j)}L(t,T_{i-1},T_i).
+\end{equation}% end part 1
+
+\section{Non linear contracts: caps and floors} % Bjork ch. 26.8
+An \emph{interest rate cap} is a financial insurance contract which protects us from having to pay more than a prespecified rate, the \emph{cap rate}, even though we have a loan at a floating rate of interest. Technically speaking, a cap is the sum of a number of basic contracts, known as \emph{caplets}, which are defined as follows:
+\begin{itemize}
+    \item The interval $[0,T]$ is subdivided by the equidistant points $0 = T_0,T_1,\dots,T_n = T$. We use the notation $\delta$ for the length of an elementary interval, i.e. $\delta=T_i - T_{i-1}$.
+    \item The cap is working on some principal amount of money, denoted by $K$, and the cap rate is denoted by $R$.
+    \item The floating rate of interest underlying the cap is not the short rate $r$, but rather some market rate, and we will assume that over the interval $[T_{i-1}, T_i]$ it is the LIBOR spot rate $L(T_{i-1}, T_i)$.
+    \item Caplet $i$ is now defined as the contingent claim that has payoff at $T_i$:
+    \begin{equation}\label{caplet-payoff}
+        K\delta(L(T_{i-1},T_i)-R)^+
+    \end{equation}
+\end{itemize}
+There are also \emph{floor contracts} which guarantee that the interest paid on a floating rate loan will never be below some predetermined floor rate. We now turn to the problem of pricing the caplet, and without loss of generality we may assume that $K = 1$.
+
+\subsubsection{Before the crisis}
+Before the crisis it is possible to write the LIBOR in terms of discount factor:
+\begin{equation*}
+    L(T_{i-1},T_i) = \frac{1-p(T_{i-1},T_i)}{\delta p(T_{i-1},T_i)}.
+\end{equation*}
+Substituting in eq. \eqref{caplet-payoff} (with $K=1$) we get
+\begin{equation*}
+    \delta(L(T_{i-1},T_i)-R)^+ = \delta\left(\frac{1-p(T_{i-1},T_i)}{\delta p(T_{i-1},T_i)}-R\right)^+
+\end{equation*}
+Now the idea is to collect the collect the factor $\frac{1-\delta R}{p(T_{i-1},T_i)}$ so that the payoff will correspond to a certain number of put options on the zero coupon bond:
+\begin{equation}
+    \frac{1-\delta R}{p(T_{i-1},T_i)}\left(\frac{1}{1+\delta R} - p(T_{i-1},T_i)\right)^+
+\end{equation}
+This payoff is paid at time $T_i$ but it involves quantities that are measurable with respect to the filtration at time $T_{i-1}$, $\mathcal{F}_{T_{i-1}}$. In other words, at time $T_{i-1}$ this quantity is deterministic, so in order to find the price of the caplet we only have to discount the cash flow:
+\begin{equation}
+    \cancel{p(T_{i-1},T_i)}\frac{1-\delta R}{\cancel{p(T_{i-1},T_i)}}\left(\frac{1}{1+\delta R}-p(T_{i-1},T_i)\right)^+ = (1+\delta R)(\text{put on } p(T_{i-1},T_i))
+\end{equation}
+So, in the end, the cap is a portfolio of put options on zero coupon bonds. % to continue we need a model to simulate the evolution of the discount factor, for example the B&S.
+
+\subsubsection{After the crisis}
+After the crisis we cannot consider the discount factor, so there will be a conditional expected value of the future realizations of the forward LIBOR, which in general are different for different tenors. Then, we would need a model to descrive the LIBOR.
+
+\section{Short interest rates}
+We now consider different possible specification for the short interest rate. We altready introduced the Vašíček model, which describes the evolution of the short rate using a Brownian motion plus a drift and for which the distribution of the interest rate is gaussian. We also were able to find the price of the corresponding zero coupon bond (at least the diffusive part). Now we would like to consider other short interest rate models. \\
+First, we need to extend the Feynman-Kac methodology to stochastic interest rates. If we define the infinitesimal generator
+\begin{equation*}
+    \mathcal{A} = \pdv{}{x}K + \frac{1}{2}\pdv[2]{}{x}H^2
+\end{equation*}
+we obtain the following differential equation for the evolution of the price with stochastic interest rate $r(t,x)$:
+\begin{equation}
+    \begin{cases}
+        \pdv{F}{t} + \mathcal{A} + r(t,x)F = 0 \\
+        F(T,x) = \Phi(x)
+    \end{cases}
+\end{equation}
+22:20
