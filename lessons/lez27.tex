@@ -134,3 +134,49 @@ Once we know the solution $B(t,T)$, solving the ODE for a is trivial.
         A(t,T) &= \int_t^T \Theta(s)(s-T)\dd s + \frac{\sigma^2(T-t)^3}{6}
     \end{align*}
 \end{example} % fine parte 1
+\begin{example}{CIR model}{}{}
+    In the CIR model
+    \begin{equation*}
+        \dd r(t) = a(b-r(t))\dd t + \sigma\sqrt{r(t)}\,\dd W(t)
+    \end{equation*}
+    Notice that even if $\sqrt{r(t)}$ is not Lipschitz, the existence of a strong solution is guaranteed by the fact that it is Hölder continuous, so the Yamada condition can be applied. Since $\gamma = 1$, we get a true Riccati equation:
+    \begin{equation*}
+    \begin{cases}
+        \dot{B} - aB - \frac{1}{2}\sigma^2 B^2 = -1 \\
+        B(T,T) = 0
+    \end{cases}
+    \begin{cases}
+    \dot{A} = a b B\\
+    A(T,T) = 0
+    \end{cases}
+    \end{equation*}
+    where $\sigma = \sqrt{\gamma r + \delta}$. The solution of the Riccati equation is
+    \begin{equation*}
+        B(t,T) = \frac{2(e^{\epsilon(T-t)}-1)}{(\epsilon-a)(e^{\epsilon(T-t)}-1)+2\epsilon}
+    \end{equation*}
+    with
+    \begin{equation*}
+        \epsilon = \sqrt{a^2 + 2\sigma^2}
+    \end{equation*}
+\end{example}
+
+\section{Stochastic volatility}
+We already know that the B\&S model is not exact, in the sense that it is not able to reproduce the volatility smile. In order to go beyond, the idea is to assume the volatility to be random, driven by a stochastic process which in principle is (partically) correlated with the asset. Keeping the interest rate constant (we are not interest in the its fluctuations in the short term) and considering a stochastic volatility we can write the B\&S equation as
+\begin{equation}
+    \frac{\dd S}{S} = r\,\dd t + \sigma(t)\,\dd W^{\Qmeas}(t)
+\end{equation}
+It is possible to use the square root of the instantaneous variance instead of the volatility:
+\begin{equation}
+    \frac{\dd S}{S} = r\,\dd t + \sqrt{V(t)}\,\dd W^{\Qmeas}(t)
+\end{equation}
+One of the pioneering models for stochastic volatility is due to Heston (1993), who borrowed the CIR process for the interest rate and applied to the volatility:
+\begin{equation}
+    \dd V(t) = k(V(\infty)-V(t))\dd t + \eta\sqrt{V(t)}(\rho\,\dd W^{\Qmeas}(t) + \sqrt{1-\rho^2}\,\dd W^{\perp}(t))
+\end{equation}% 14:00 ho skippato tutto il discorso che ha fatto
+where $W^{\Qmeas}\indep W^{\perp}$. The parameter $\eta$ is called \emph{volatility of volatility parameter} and the parameter $\rho$ is called \emph{correlation parameter}. One interesting feature of this model is that the quadratic covariation between the asset returns and the instantaneous variance we get
+\begin{equation*}
+    \expval{\frac{\dd S}{S}, V} = V\eta\rho
+\end{equation*}
+which is positive or negative according to $\rho$ and can range from $-1$ to $+1$. Typically we have $\eta>0$, $V>0$ and $\rho<0$. The fact that $\rho<0$ is the explanation of the leverage effect of the volatility (when the asset value is growing the volatility is low and when the market crash the volatility is high).
+
+20:18
