@@ -177,6 +177,12 @@ where $W^{\Qmeas}\indep W^{\perp}$. The parameter $\eta$ is called \emph{volatil
 \begin{equation*}
     \expval{\frac{\dd S}{S}, V} = V\eta\rho
 \end{equation*}
-which is positive or negative according to $\rho$ and can range from $-1$ to $+1$. Typically we have $\eta>0$, $V>0$ and $\rho<0$. The fact that $\rho<0$ is the explanation of the leverage effect of the volatility (when the asset value is growing the volatility is low and when the market crash the volatility is high).
-
-20:18
+which is positive or negative according to $\rho$ and can range from $-1$ to $+1$. Typically we have $\eta>0$, $V>0$ and $\rho<0$. The fact that $\rho<0$ is the explanation of the leverage effect of the volatility (when the asset value is growing the volatility is low and when the market crash the volatility is high). $\rho<0$ is also responsible for the negative slope of the smile effect, that is the skew. \\ % discorso 23:00 circa
+The main advantage of this model is that it is analytically tractable, in the sense that we are able to do pricing even if we loose the log-normal property of the asset price. In other words, we are not able to compute prices as conditional expected value but through an analytical methodology which involves the Feynman-Kac formula and the Fourier transform. In order to introduce this methodology, we need some preliminary results on squared Bessel processes. Let $V(t)$ be a time changed Bessel squared process (BESQ).
+\begin{proposition}[Feller condition]
+    If $2kV(\infty) \ge \eta^2$, then
+    \begin{equation*}
+        \text{Prob}(V(t)>0\,\forall t) = 1.
+    \end{equation*}
+\end{proposition}
+This condition is very important because it guarantees the strict positivity of the volatility process.
