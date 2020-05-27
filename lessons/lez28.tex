@@ -1,0 +1,64 @@
+\lesson{28}{14/05/2020} Recall that a BESQ process is characterized by an infinitesimal generator
+\begin{equation}
+    \mathcal{A} = 2x\dv[2]{}{x} + \delta\dv{}{x}
+\end{equation}
+We define the BESQ process parametrized by $\delta$ and starting from the value $x$ such that it satisfies
+\begin{align}
+    \dd\rho(t) &= \delta\,\dd t + 2\sqrt{\rho(t)}\,\dd W(t)
+    \rho(0) &= x \ge 0
+\end{align}
+(where $\rho$ has nothing to do with the correlation parameter). The parameter $\delta\ge 0$ is related to the dimension of the BESQ. Another way to parametrize the process is to define the \emph{index} $\nu = \tfrac{\delta}{2}-1$:
+\begin{equation*}
+    \text{BESQ}^{\delta}_x = \text{BESQ}^{(\nu)}_x.
+\end{equation*}
+\begin{remark}
+    If $\delta = n \in \mathbb{N}$ and $(W_1,\dots,W_n)$ are $n$ independent Brownian motions, then
+    \begin{equation*}
+        \text{BESQ}^{\delta}_x = \norm{(W_1,\dots,W_n)}
+    \end{equation*}
+    i.e. the BESQ is the radial distance from the origin. In fact, if we set $R(t) = \norm{W(t)}$, then
+    \begin{equation*}
+        R^2(t) = \sum_{i=1}^n W_i^2
+    \end{equation*}
+    and then
+    \begin{align*}
+        \dd R^2 &= n\,\dd t + \sum_{i=1}^n 2W_i\,\dd W_i \\
+        &=
+        n\,\dd t + 2R(t)\,\dd\bar{W}(t)
+    \end{align*}
+    where $\bar{W}(t)$ is the scalar Brownian motion defined as
+    \begin{equation*}
+        \bar{W}(t) = \frac{1}{R(t)}\sum_{i=1}^n W_i\,\dd W_i
+    \end{equation*}
+\end{remark} %discorso 7:00
+Now, let's consider the classification of the boundary:
+\begin{itemize}
+    \item if $\delta \ge 2$ ($V\ge0$) then $\besqxd$ never reaches the zero (Feller condition);
+    \item if $0\le\delta<2$ ($-1\le V<0$) then $\besqxd$ may reach zero, so we have to specify the boundary conditions. For the CIR process
+    \begin{equation*}
+        \begin{cases}
+            \dd r(t) = k(\theta - r(t))\dd t + \sigma\sqrt{r(t)}\,\dd W(t) \\
+            r(0) = x > 0
+        \end{cases}
+    \end{equation*}
+    it is possible to prove that
+    \begin{equation*}
+        r(t) = e^{-kt}\rho\left(\frac{\sigma^2}{4k}(e^{kt}-1)\right)
+    \end{equation*}
+    where $\rho(t)\sim \besqxd$ with $\delta = \tfrac{4k\theta}{\sigma^2}$. Moreover, the Feller condition is given by
+    \begin{equation*}
+        r(t) > 0\,\, \forall t \Leftrightarrow 2k\theta \ge \sigma^2.
+    \end{equation*}
+\end{itemize}
+
+\subsection{The pricing problem with stochastic volatility}
+Now we consider the problem of pricing a contract in this framework. The problem is that we loose the information about the distribution of the asset price, so even if the risk neutral methodology still holds true we cannot compute conditional expected values.\\
+Of course, the underlying evolves according to the B\&S formula with stochastic volatility:
+\begin{equation}
+    \frac{\dd S}{S} = r\,\dd t + \sqrt{V(t)}\,\dd W(t)
+\end{equation}
+We shift from prices to returns by considering that
+\begin{equation*}
+    S = e^x
+\end{equation*}
+14:16
