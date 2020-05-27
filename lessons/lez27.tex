@@ -1,0 +1,136 @@
+\section{Affine term structures}\lesson{27}{13/05/2020} %Bjork ch 24.3
+When we considered the short interest rate we said that the drift and the diffusion were affine functions of the short interest rate itself. Now, we have to deduce this fact from the properties of the pricing function of the zero coupon bond. So, the starting point is the price of the zero coupon bond:
+\begin{align*}
+    p(t,T) &= \expect_t\left[e^{-\int_t^T r(s)\,\dd s}\right] \\
+    &=
+    F(t, r(t), T)
+\end{align*}
+We introduced the Feynman-Kac methodology in order to solve a PDE in the case in which we do not have a candidate solution. In fact, thanks to the Feynman-Kac methodology we can transform the problem of finding the solution of a deterministic PDE into the problem of computing an expected value. \\
+Now the situation is a bit different. We can write the price of the zero coupon bond as an expected value but in general we cannot compute it because we don't know the probability distribution of $r(t)$. So, we have to find a candidate solution of the PDE.\\
+Suppose that
+\begin{equation}
+    p(t,T) = e^{A(t,T)-B(t,T)r(t)}
+\end{equation}
+where $A(t,T)$ and $B(t,T)$ are two deterministic functions and the conventional minus sign is coherent with the fact that if there is a rise up of the interest rate the price of the zero coupon bond will decrease. Then, the model associated to the short rate $r(t)$ is said to possess an \emph{affine term structure} (ATS).
+Then, the question is: if the model has an ATS, which is the dynamics of the process? Let's consider the case
+\begin{equation*}
+    r(t) = x
+\end{equation*}
+and assume a generic SDE for $r$:
+\begin{equation}
+    \dd r(t) = \mu(t,r(t))\,\dd t + \sigma(t,r(t))\,\dd W(t)
+\end{equation}
+where measurability and integrability are enough to find a strong solution of this equation. Imposing the candidate solution
+\begin{equation*}
+    p(t,T) = e^{A(t,T)-B(t,T)r(t)}
+\end{equation*}
+to the Feynman-Kac equation
+\begin{align*}
+    \begin{cases}
+    \pdv{F}{t} + \mu \pdv{F}{r} + \frac{1}{2}\sigma^2\pdv[2]{F}{r} - rF = 0 \\
+    F(T,r) = 1
+    \end{cases}
+\end{align*}
+we get
+\begin{align*}
+    \pdv{F}{t} &= F\left(\pdv{A}{t} - \pdv{B}{t}r\right) \\
+    \pdv[2]{F}{r} &= F\cdot B^2
+\end{align*}
+and so
+\begin{align*}
+    \begin{cases}
+    F\left(\pdv{A}{t} - \pdv{B}{t}r\right) - B\mu F + \frac{1}{2}\sigma^2 B^2F -rF = 0 \\
+    e^{A(T,T)-B(T,T)r(T)} = 1.
+    \end{cases}
+\end{align*}
+From the second equation we have that
+\begin{equation}
+        A(T,T) = 0, \qquad B(T,T) = 0
+\end{equation}
+Simplifying the first equation we get
+\begin{equation*}
+    \left(\pdv{A}{t} - \pdv{B}{t}r\right) - B\mu + \frac{1}{2}\sigma^2 B^2 -r = 0
+\end{equation*}
+Notice that there is a linear dependence on $r$ and then a generic dependence on $\mu$ and $\sigma^2$. If $\mu$ and $\sigma^2$ are both affine (i.e. linear plus a constant) functions of $r$, with possibly time dependent coefficients, then the differential equation becomes a separable.
+Assume thus that $\mu$ and $\sigma$ assume the following form
+\begin{equation*}
+    \mu(t,r) = \alpha(t)r + \beta(t), \qquad \sigma(t,r) = \sqrt{\gamma(t)r + \delta(t)}.
+\end{equation*}
+Substituting we end up with
+\begin{equation*}
+    \dot{A} - \beta B + \frac{1}{2}\delta B^2 - \left(1+\dot{B} + \alpha B - \frac{1}{2}\gamma B^2\right)r = 0
+\end{equation*}
+This equation holds for all $t, T$ and $r$, so let us consider it for a fixed choice of $T$ and $t$. Since the equation holds for all values of $r$ the coefficient of $r$ must be equal to zero. Thus we have the equation
+\begin{equation}\label{Aeq}
+    \begin{cases}
+        \dot{B} + \alpha B - \frac{1}{2}\gamma B^2 = -1 \\
+        B(T,T) = 0
+    \end{cases}
+\end{equation}
+which is called \emph{Riccati quadratic ODE} and if $B$ is a symmetric squared matrix it has a closed form solution.
+Since the $r$-term is zero we see that the other term must also vanish,
+giving us the equation
+\begin{equation}\label{Beq}
+    \begin{cases}
+    \dot{A} = \beta B - \frac{1}{2}\delta B^2 \\
+    A(T,T) = 0
+    \end{cases}
+\end{equation}
+Once we know the solution $B(t,T)$, solving the ODE for a is trivial.
+\begin{example}{Vašíček model}{}{} % bjork 24.1.1
+    In the Vašíček model
+    \begin{equation*}
+        \dd r = (b - ar)\dd t + \sigma\,\dd W
+    \end{equation*}
+    so we have $\beta = b$, $\alpha = -a$, $\gamma = 0$ and $\delta = \sigma^2$. Eqs. \eqref{Aeq} and \eqref{Beq} become
+    \begin{equation}
+    \begin{cases}\label{VBeq}
+        \dot{B} - aB = -1 \\
+        B(T,T) = 0
+    \end{cases}
+    \end{equation}
+    \begin{equation}
+    \begin{cases}\label{VAeq}
+    \dot{A} = \beta B - \frac{1}{2}\delta B^2 \\
+    A(T,T) = 0
+    \end{cases}
+    \end{equation}
+    Equation \eqref{VBeq} is, for each fixed T, a simple linear ODE in the t-variable. It can solved as
+    \begin{equation*}
+        B(t,T) = \frac{1}{a}\left(1-e^{-a(T-t)}\right)
+    \end{equation*}
+    which is exactly what we obtained before by computing the expected value. Integrating \eqref{VAeq} we obtain
+    \begin{equation*}
+        A(t,T) = \frac{\sigma^2}{2}\int_t^T B^2(s,T)\,\dd s - b\int_t^T B(s,t)\,\dd s
+    \end{equation*}
+    and, substituting the expression for B above, we obtain
+    \begin{equation*}
+        A(t,T) = \frac{(B(t,T)-T+t)(ab-\tfrac{1}{2}\sigma^2)}{a^2} -            \frac{\sigma^2 B^2(t,T)}{4a}.
+    \end{equation*}
+    The bond prices are given by
+    \begin{equation*}
+        p(t,T) = e^{A(t,T)-B(t,T)r(t)}.
+    \end{equation*}
+\end{example}
+\begin{example}{Ho-Lee model}{}{}
+    For the Ho–Lee model
+    \begin{equation*}
+        \dd r(t) = \Theta(t)\,\dd t + \sigma\,\dd W(t)
+    \end{equation*}
+    so $alpha = \gamma = 0$. The ATS equations become
+    \begin{equation*}
+    \begin{cases}
+        \dot{B} - aB = -1 \\
+        B(T,T) = 0
+    \end{cases}
+    \begin{cases}
+    \dot{A} = \beta B - \frac{1}{2}\delta B^2 \\
+    A(T,T) = 0
+    \end{cases}
+    \end{equation*}
+    which can be solved as
+    \begin{align*}
+        B(t,T) &= T-t \\
+        A(t,T) &= \int_t^T \Theta(s)(s-T)\dd s + \frac{\sigma^2(T-t)^3}{6}
+    \end{align*}
+\end{example} % fine parte 1
