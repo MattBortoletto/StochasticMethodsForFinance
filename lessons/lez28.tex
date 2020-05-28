@@ -57,8 +57,36 @@ Of course, the underlying evolves according to the B\&S formula with stochastic 
 \begin{equation}
     \frac{\dd S}{S} = r\,\dd t + \sqrt{V(t)}\,\dd W(t)
 \end{equation}
-We shift from prices to returns by considering that
+Just for convenience, we shift from prices to returns by considering that
 \begin{equation*}
-    S = e^x
+    S = e^x.
 \end{equation*}
-14:16
+Notice that $S(t)$ has an unknown distribution, so when if we want to the price of the payoff as
+\begin{align*}
+    price_t(\pay_T) &= e^{-r(T-t)}\expect_t[\pay_T] \\
+    &=
+    e^{-r(T-t)}\int_{\mathbb{R}}(e^{x_T}-K)^+ f(x_T \mid x_t)\,\dd x_T
+\end{align*}
+we cannot do it, because the conditional density function $f(x_T\mid x_t)$ is unknown. Since we know that there is a one to one correspondence between the density function and its Fourier transform, we can compute the density as the anti-transform of its Fourier transform:
+\begin{equation*}
+    \hat{f}(z) = \int_{\mathbb{R}}e^{itx}f(x\mid x_t)\,\dd x
+\end{equation*}
+In general $z$ is real, but we can extend $z$ to a complex domain $\mathbb{C}$ and get the so called generalized Fourier transform, also known as the Laplace transform. From the FT we can recover the density as
+\begin{equation*}
+    f(x_T\mid x_t) = \frac{1}{2\pi}\int_{\mathbb{R}}e^{-izx}\hat{f}(z)\,\dd t
+\end{equation*}
+We have that
+\begin{equation*}
+    \hat{f}(z) = \expect_t[e^{izx_T}]
+\end{equation*}
+so we can write the price of the payoff as
+\begin{align*}
+    price_t(\pay_T) &= e^{-r(T-t)}\int_{\mathbb{R}}(e^{x_T}-K)^+ \left(\frac{1}{2\pi}\int_{\mathbb{R}}e^{-izx_T}\hat{f}\,\dd z\right)\,\dd x_T \\
+    &=
+    \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\,\dd z \int_{\mathbb{R}}(e^{x_T}-K)^+e^{-izx}\,\dd x \\
+    &=
+    \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\hat{\pay}(-z)\,\dd z
+\end{align*}
+where $\hat{\pay}$ is the FT of the payoff. This integral is computed numerically. Notice that $\hat{f}(z) = \expect_t[e^{izx_T}]$ is product independent and model dependent, so once we found the characteristic function of the log-asset price in the Heston model we can use it to price whatever option (we just have to change the payoff). On the contrary, the FT of the payoff is product dependent and model independent.\\
+So, the problem of pricing within the stochastic volatility framework consists in computing the integral of the product of two quantities that can be separately computed: the characteristic function of the model (which is computed only one time) and the Fourier transform of the payoff. To speed up the computation of the FT, in 1999 Carr and Madan introduced the Fast Fourier Transform in finance.%discorso
+%fine parte 1
