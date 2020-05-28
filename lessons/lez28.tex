@@ -88,5 +88,120 @@ so we can write the price of the payoff as
     \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\hat{\pay}(-z)\,\dd z
 \end{align*}
 where $\hat{\pay}$ is the FT of the payoff. This integral is computed numerically. Notice that $\hat{f}(z) = \expect_t[e^{izx_T}]$ is product independent and model dependent, so once we found the characteristic function of the log-asset price in the Heston model we can use it to price whatever option (we just have to change the payoff). On the contrary, the FT of the payoff is product dependent and model independent.\\
-So, the problem of pricing within the stochastic volatility framework consists in computing the integral of the product of two quantities that can be separately computed: the characteristic function of the model (which is computed only one time) and the Fourier transform of the payoff. To speed up the computation of the FT, in 1999 Carr and Madan introduced the Fast Fourier Transform in finance.%discorso
-%fine parte 1
+So, the problem of pricing within the stochastic volatility framework consists in computing the integral of the product of two quantities that can be separately computed: the characteristic function of the model (which is computed only one time) and the Fourier transform of the payoff. To speed up the computation of the FT, in 1999 Carr and Madan introduced the Fast Fourier Transform in finance. \\ %discorso %fine parte 1
+Let's consider some examples of payoff FT.
+
+\subsubsection{Covered call option}
+The payoff of a covered call is
+\begin{equation}
+    h(x_T) = \min\{e^{x_T},K\}
+\end{equation}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.22]{fig/tmp/fig42}
+    \caption{Covered call payoff.}
+\end{figure}
+so its FT is
+\begin{align}
+    \notag\hat{h}(z) &= \int_{\mathbb{R}} e^{ixz}\min\{e^x,K\}\,\dd x \\
+    &=
+    \notag\int_{-\infty}^{\ln K} e^{izx} e^x \,\dd x + \int_{\ln K}^{+\infty} e^{izx}K\,\dd x \\
+    &=
+    \eval{\frac{1}{iz+1}e^{(iz+1)x}}_{-\infty}^{\ln K} + \eval{\frac{1}{zi}e^{izx}}_{\ln K}^{+\infty}
+\end{align}
+In order to get convergence in the first integral, it must be
+\begin{equation*}
+    \Re{iz+1} > 0
+\end{equation*}
+so, if $z = \Re{z} + i\Im{z}$ then
+\begin{equation*}
+    \Re{i(\Re{z} + i\Im{z})+1} > 0 \quad\Rightarrow\quad \Im{z} < 1.
+\end{equation*}
+In order to get convergence in the second integral, it must be
+\begin{equation*}
+    \Re{iz} < 0 \quad\Rightarrow\quad \Im{z} > 0.
+\end{equation*}
+So, if
+\begin{equation}\label{imdom}
+    0 < \Im{z} < 1
+\end{equation}
+then we end up with
+\begin{align}
+    \hat{h}(z) = \frac{K^{iz+1}}{z^2-iz}.
+\end{align}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.22]{fig/tmp/fig43}
+    \caption{Strip of integrability.}
+\end{figure}
+Then the integrability domain of convergence for the (generalized) FT of the covered call will be
+\begin{equation}
+    \{z\in\mathbb{C}:-1<\Im{z}<0\}
+\end{equation}
+(the domain if the inverse of \eqref{imdom} because the argument of the payoff is $-z$).
+
+\subsubsection{Call option}
+The payoff of the call option is
+\begin{equation}
+    g(x_T) = (e^{x_T}-K)^+
+\end{equation}
+and its FT is
+\begin{align}
+    \notag\hat{g}(z) &= \int_{\mathbb{R}} e^{izx} (e^x-K)^+\,\dd x \\
+    &=
+    \eval{\frac{1}{iz+1}e^{(iz+1)x}}_{\ln K}^{+\infty}
+\end{align}
+In order to get convergence it must be
+\begin{equation}
+    \Re{iz+1} < 0 \quad\Rightarrow\quad \Im{z} > 1
+\end{equation}
+and provided that this condition is satisfied, the FT is given by
+\begin{equation}
+    \hat{g}(z) = -\frac{K^{iz+1}}{z^2-iz}.
+\end{equation}
+If we write $z$ as $z = a + ib$ then we have
+\begin{equation*}
+    \mathbb{E}[e^{-izx_T}] = \mathbb{E}[e^{bx_T}] = \mathbb{E}[S^b]
+\end{equation*}
+where $S$ is the underlying and $b\ge 1$. We know that, in principle, once discounted, $S$ will be a martingale, i.e. integrable. Hovever, this is not guaranteed for its moments. So we need to consider a strip of integrability such that these moments do not explode (for the B\&S model all the moments converge).
+
+\subsubsection{Put option}
+The payoff of the call option is
+\begin{equation}
+    g(x_T) = (K-e^{x_T})^+
+\end{equation}
+and its FT is
+\begin{align}
+    \notag\hat{g}(z) &= \int_{\mathbb{R}} e^{izx} (K-e^x)^+\,\dd x \\
+    &=
+    \notag \int_{-\infty}^{\ln K} e^{izx}(K-e^{x})\,\dd x \\
+    &=
+    \eval{\frac{K}{iz}e^{izx}}^{\ln K}_{-\infty} - \eval{\frac{1}{iz+1}e^{(iz+1)x}}_{-\infty}^{\ln K}
+\end{align}
+In order to get convergence it must be
+\begin{align*}
+    \Re{iz} > 0 &\quad\Rightarrow\quad \Im{z} < 0 \\
+    \Re{iz+1} > 0 &\quad\Rightarrow\quad \Im{z} < 1
+\end{align*}
+so
+\begin{equation}
+    \Im{z} < 0
+\end{equation}
+Provided that this condition is satisfied, the FT is given by
+\begin{equation}
+    \hat{g}(z) = \frac{K^{1+iz}}{iz} - \frac{K^{iz+1}}{z^2-iz} = -\frac{K^{iz+1}}{z^2-iz}.
+\end{equation}
+
+\subsection{Characteristic functions}
+What can we say about the characteristic function of the model? If
+\begin{equation*}
+    x_T = \ln S_T
+\end{equation*}
+then the characteristic function is
+\begin{equation*}
+    \varphi(z) = \expect_{t,x}[e^{izx_T}]
+\end{equation*}
+We know that in principle this guy can be also the solution of the corresponding PDE by the Feynman-Kac argument, so our guess is a function depending on the time to maturity $T-t$, on $z$, on the initial value $x$ of the process and also on a state variable $v$ related to the volatility Brownian motion:
+\begin{equation*}
+    \varphi(z) = G(T-t,z,x,v).
+\end{equation*}
