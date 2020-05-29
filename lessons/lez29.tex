@@ -1,0 +1,132 @@
+\lesson{29}{15/05/2020} As usual, the underlying satisfies the SDE
+\begin{equation*}
+    \frac{\dd S}{S} = r\,dd t + \sqrt{v(t)}\,\dd W(t)
+\end{equation*}
+and the volatility follows the CIR process dynamics
+\begin{equation}
+    \dd v = K(\theta-v(t))\,dd t + \eta\sqrt{v(t)}(\rho\,\dd W(t) + \sqrt{1-\rho^2}\,\dd W(t)^{\perp})
+\end{equation}
+which is an affine process. Let's shift to the dynamics of the log-price (the returns) $x(t)=\ln S(t)$. Using Itô, we get
+\begin{equation}
+    \dd x(t) = \left(r-\frac{1}{2}v(t)\right)\,\dd t + \sqrt{v(t)}\,\dd W(t)
+\end{equation}
+Since $v$ is embedded in the dynamics of $x$, we have to consider it when we compute the expected value. Moreover, since both $x$ and $v$ are affine, we guess that the expected value has a joint affine structure:
+\begin{equation}
+    \expect_{t,x,v}[e^{izx_T}] = e^{A(t,T)+B(t,T)v(t)+C(t,T)x(t)} \equiv G(\tau,z,x,v), \qquad \tau = T-t
+\end{equation}
+In order to transform this conditional expected value into a PDE we use the Feynman-Kac formula:
+\begin{align}\label{FKh}
+    \notag 0 &= - \pdv{G}{\tau} + \left(r-\frac{1}{2}v\right)\pdv{G}{x} + K(\theta-v)\pdv{G}{v} + \frac{1}{2}\underbrace{v}_{\expval{x}}\pdv[2]{G}{x} + \\
+    &\quad + \frac{1}{2}\underbrace{\eta^2 v}_{\expval{v}}\pdv[2]{G}{v} + \underbrace{\eta\rho v}_{\expval{x,v}} \pdv{G}{x}{v}
+\end{align}
+with initial condition
+\begin{equation*}
+    G(0,z,x,v) = e^{izx}
+\end{equation*}
+Since the couple $(x,v)$ is affine, we can guess that the solution could be written as a function of the time difference $\tau=T-t$
+\begin{equation*}
+    G(\tau, z,x,v) = e^{A(\tau)+B(\tau)v(t)+C(\tau)x(t)}
+\end{equation*}
+so we save one parameter. This is our candidate solution, so now we have to imposte the structure we want:
+\begin{align*}
+    -\pdv{G}{\tau} = -G(\dot{A}+\dot{B}v+\dot{C}x)
+\end{align*}
+\begin{align*}
+    \pdv{G}{x} = CG, \qquad \pdv[2]{G}{x} = C^2G, \qquad \pdv{G}{v} = BG
+\end{align*}
+\begin{align*}
+    \pdv[2]{G}{v} = B^2G, \qquad \pdv{G}{x}{v} = BCG.
+\end{align*}
+Substituting in \eqref{FKh} we get:
+\begin{align}
+    \notag 0 &= -\cancel{G}(\dot{A}+\dot{B}v+\dot{C}x) + \left(r-\frac{1}{2}v\right)C\cancel{G} + K(\theta-v)B\cancel{G} + \frac{1}{2}vC^2\cancel{G} + \\
+    &\quad + \frac{1}{2}\eta^2vB^2\cancel{G} + \eta\rho v BC\cancel{G} \qquad \forall(x,v)
+\end{align}
+Separately identifying the coefficients of $x$ and $v$, we get the following ODEs. Coefficients of $x$:
+\begin{equation*}
+    \begin{cases}
+    -\dot{C} = 0 \\
+    C(0) = iz
+    \end{cases} \qquad \Rightarrow \qquad C(\tau) = iz
+\end{equation*}
+Coefficients of $v$:
+\begin{equation*}
+    \begin{cases}
+    -\dot{B} -\frac{1}{2}iz - KB + \frac{1}{2}(iz^2) + \frac{1}{2}\eta^2B^2 + \eta\rho B(iz) = 0 \\
+    B(0) = 0
+    \end{cases}
+\end{equation*}
+This is a true Riccati ODE with constant coefficients. Then, if we consider the constant terms we get
+\begin{equation*}
+    \begin{cases}
+    -\dot{A} + rC + K\theta B = -\dot{A} + riz + K\theta B = 0 \\
+    A(0) = 0
+    \end{cases}
+\end{equation*}
+Now we have to solve the Riccati equation. In order to do that we can double the dimension and linearize or write solution in terms of a derivative of a function divided by the function. This last approach comes from a property of the Riccati equation, that lives in a space were variables can be parametrized by ratios. Let's introduce the change of variable
+\begin{equation}
+    B(\tau) = - \frac{\dot{E}(\tau)}{\tfrac{\eta^2}{2}E(\tau)}
+\end{equation}
+which transforms the quadratic first order ODE into a linear second order ODE:
+\begin{equation*}
+    \dot{E} + (K-\rho\eta iz)\dot{E} - \frac{\eta^2}{4}(iz+z^2)E = 0
+\end{equation*}
+and let's look for soluions of the form $e^{\lambda \tau}$. Substituting we get
+\begin{equation*}
+    \lambda^2 + (K-\rho\eta iz) \lambda - \frac{\eta^2}{4}(iz-z^2) = 0
+\end{equation*}
+Solving this quadratic equation we get
+\begin{equation*}
+    \lambda_{1,2} = \frac{-(K-\rho\eta iz)^2 \pm \sqrt{\Delta}}{2}
+\end{equation*}
+where
+\begin{equation*}
+    \Delta = (K-\rho\eta iz)^2 + \eta^2(iz+z^2).
+\end{equation*}
+Now, if we introduce the two auxiliary functions
+\begin{equation*}
+    \psi^{\pm} = -(K-\rho\eta iz) \pm \sqrt{\Delta}
+\end{equation*}
+such that
+\begin{equation*}
+    \psi^+-\psi^- = 2\sqrt{\Delta}, \qquad \psi^+-\psi^- = -\eta^2(iz+z^2),
+\end{equation*}
+the general solution can be written as
+\begin{equation}
+    E(\tau) = \alpha_1 e^{\frac{\psi^+}{2}\tau} + \alpha_2 e^{\frac{\psi^-}{2}\tau}
+\end{equation}
+where $\alpha_1, \alpha_2$ are two constants to determine according to the initial conditions
+\begin{equation*}
+    E(0) = \alpha_1 + \alpha_2
+\end{equation*}
+\begin{equation*}
+    \dot{E}(t) = \frac{1}{2}\psi^+\alpha_1 e^{\frac{\psi^+}{2}\tau} + \frac{1}{2}\psi^-\alpha_2 e^{\frac{\psi^-}{2}\tau} \qquad \Rightarrow \qquad \dot{E}(0) = \frac{1}{2}\psi^+\alpha_1 + \frac{1}{2}\psi^-\alpha_2
+\end{equation*}
+This leads to
+\begin{equation*}
+    \alpha_1 = \frac{\psi^- E(0)}{2\sqrt{\Delta}}, \qquad \alpha_2 = \frac{\psi^+ E(0)}{2\sqrt{\Delta}}
+\end{equation*}
+Finally, we can get an expression for $B$:
+\begin{align}
+    \notag B(\tau) &= -\frac{
+    \psi^+ \psi^- \left(
+    e^{\frac{1}{2}\psi^+\tau} - e^{\frac{1}{2}\psi^-\tau}
+    \right)
+    }{
+    \eta^2\left(
+    \psi^- e^{\frac{1}{2}\psi^+\tau} - \psi^+ e^{\frac{1}{2}\psi^-\tau}
+    \right)} \\
+    &=
+    -(iz+z^2)\frac{e^{\frac{1}{2}\psi^+\tau} - e^{\frac{1}{2}\psi^-\tau}}{\psi^+ e^{\frac{1}{2}\psi^-\tau} - \psi^- e^{\frac{1}{2}\psi^+\tau}}
+\end{align}
+Now we can find $A$ by integrating:
+\begin{align}
+    \notag A(\tau) &= \int_0^{\tau} k\theta B(s)\,\dd s + riz\tau \\
+    &=
+    \notag -\frac{2K\theta}{\eta^2} \int_0^{\tau} \frac{\dot{E}(s)}{E(s)}\,\dd s + riz\tau \\
+    &=
+    \notag -\frac{2K\theta}{\eta^2}\ln\left(\frac{E(\tau)}{E(0)}\right) + riz\tau \\
+    &=
+    -\frac{k\theta}{\eta^2}\left[2\ln\left(\frac{-\psi^- + \psi^+ e^{-\sqrt{\Delta}}}{2\sqrt{\Delta}}\right) + \psi^+\tau \right]
+\end{align} %fine parte 1
+Notice that this expression in completely explicit.
