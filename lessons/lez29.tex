@@ -130,3 +130,85 @@ Now we can find $A$ by integrating:
     -\frac{k\theta}{\eta^2}\left[2\ln\left(\frac{-\psi^- + \psi^+ e^{-\sqrt{\Delta}}}{2\sqrt{\Delta}}\right) + \psi^+\tau \right]
 \end{align} %fine parte 1
 Notice that this expression in completely explicit.
+
+\section{The Carr-Madan approach}
+Consider the specific case of a call option. The main idea of this approach is that a call option is a function not only of the spot but also of the strike. So, instead of considering the Laplace FT (LFT) and the anti-transform of the density function of the underlying (which is unknown) we can take the LFT of the price of the call and then take the inverse transform. The LFT is performed on the strike because we want the price of the call for many strikes (in view of the calibration of the model). So, if we parametrize the price of a call as $\call(x,l,T)$ where $x = \ln S$ and $l = \ln K$, then we have that
+\begin{equation}
+    \call(x,l,T) = e^{-r(T-t)}\int_{l}^{+\infty} (e^y - e^l)f_x(y)\,\dd y
+\end{equation}
+where $f_x(y)$ is the underlying density function. Notice that since the call, as a function of $l$, is not $L^1$, in fact
+\begin{equation*}
+    \lim_{l\to-\infty}\call = e^{-r(T-t)}\expect_t[e^{x_T}]
+\end{equation*}
+because for $l\to-\infty$ we have $K\to0$ and the price of the call coincides with the underlying. This is the reason why in order to get the integrability of the call price we can't take the LFT but we need something more. So, we take the LFT with respect to $l$. If we consider a generic complex number $z = \xi + i\eta$, the LFT is given by
+\begin{equation*}
+    \widehat{\call}(z) = \widehat{\call}(\xi+i\eta) = \int_\mathbb{R} e^{i(\xi+i\eta)l}\call(x,l,t)\,\dd l
+\end{equation*}
+Putting the discount factor on the other side we have that
+\begin{align*}
+    e^{r(T-t)}\widehat{\call}(z) &= \int_{\mathbb{R}} e^{i(\xi+i\eta)l} \left( \int_{l}^{+\infty} (e^y - e^l)f_x(y)\,\dd y \right)\,\dd l \\
+    \intertext{Let's use Fubini:}
+    &=
+    \int_{\mathbb{R}}\dd y \int_{-\infty}^y e^{i(\xi+i\eta)l} (e^y - e^l)f_x(y)\,\dd l \\
+    &=
+    \int_{\mathbb{R}}f_x(y)\,\dd y \int_{-\infty}^y e^{i(\xi+i\eta)l} (e^y - e^l)\,\dd l \\
+    &=
+    \int_{\mathbb{R}}f_x(y)\,\dd y \left(e^y \int_{-\infty}^y e^{i(\xi+i\eta)l}\,\dd l - \int_{-\infty}^y e^{i(\xi+i\eta)l + l}\right)\,\dd l \\
+    \intertext{Since the real part of the integrand involves $il\cdot i\eta = -l\eta$, the integral converges only if $\eta<0$.}
+    &=
+    \frac{1}{i} \int_{\mathbb{R}}f_x(y) e^{y + iy(\xi+i\eta)}\left(\frac{1}{\xi+i\eta} - \frac{1}{\xi+i(\eta-1)}\right)\,\dd y \\
+    &=
+    \frac{1}{i} \hat{f}_x(\xi+i(\eta-1))\left(\frac{1}{\xi+i\eta} - \frac{1}{\xi+i(\eta-1)}\right) \\
+    &=
+    \hat{f}_x(\xi+i(\eta-1))\frac{1}{\eta^2-\eta-\xi^2+i\xi(1-2\eta)}
+\end{align*}
+\begin{remark}
+    In order to use Fubini we dominate the absolute value of the integrand for both $y$ and $l$. In other words, we have to bound the quantity
+    \begin{equation*}
+        \abs{e^{i(\xi+i\eta)l} (e^y - e^l)f_x(y)\mathds{1}_{y>l}}
+    \end{equation*}
+    Regarding the imaginary part there is no problem because the function is circular, so we can bound with 1 the exponential. Let's focus on the imaginary part. If we replace the minus sign with the plus, we get the trivial inequality
+    \begin{equation*}
+        \abs{e^{i(\xi+i\eta)l} (e^y - e^l)f_x(y)\mathds{1}_{y>l}} \le \mathds{1}_{y>l}f_x(y)e^ye^{-\eta l} + \mathds{1}_{y>l}f_x(y)e^{-l(\eta-1)}
+    \end{equation*}
+    Now, let's integrate with respect to $l$:
+    \begin{equation*}
+        e^y f_x(y) \int_{-\infty}^y e^{-\eta l}\,\dd l + f_x(y) \int_{-\infty}^y e^{-l(\eta-1)}\,\dd l
+    \end{equation*}
+    We see that if $\eta<0$ then the integrand is bounded, provided that
+    \begin{equation*}
+        \int_{\mathbb{R}}\left(\frac{e^{y-\eta y}}{\abs{\eta}}f_x(y)\right) < \infty
+    \end{equation*}
+    which is equivalent to
+    \begin{equation*}
+        \mathbb{E}\left[(e^y)^{1-\eta}\right] < \infty
+    \end{equation*}
+    Since $e^y = S(T)$, this condition asks that the underlying has a finite $(1-\eta)$-moment, with $1-\eta>1$ (since $\eta$ is negative). Once again, we face the problem of moment explosion.
+\end{remark}
+So, if we take $\alpha = -\eta >0$ such that $\mathbb{E}[S^{1+\alpha}(T)]<\infty$, then the LFT of the call price is given by
+\begin{align}
+    \notag\widehat{\call}(z) &= \widehat{\call}(\xi+i\eta) = \widehat{\call}(\xi-i\alpha) \\
+    &=
+    e^{-r(T-t)}\widehat{\call}f_x(\xi - i(\alpha+1))\frac{1}{\alpha^2+\alpha-\xi^2+i(2\alpha-1)}
+\end{align}
+In order to get the call price, we have to take the inverse LFT. Exploiting the symmetry of the integrand we can consider only the integral from $0$ to $\infty$:
+\begin{align}
+    \call(x,l,T) = \frac{e^{-\alpha l}}{\pi}\int_0^{\infty} \Re{e^{-i\xi l}\widehat{\call}_x(\xi-i\alpha)}\,\dd\xi
+\end{align}
+In summary:
+\begin{itemize}
+    \item Fix $l=\ln K$
+    \item Fix $\alpha >0$ so that there is no moment explosion
+    \item The price of the call at time $t=0$ is given by
+    \begin{align}
+        \notag\call_0 &= \frac{e^{-\alpha l -rT}}{\pi}\int_0^{\infty} \Re{e^{-itl}\frac{\hat{f}_x(t-i(\alpha+1))e^{i(t-i(\alpha+1))(\ln S(0)+rT)}}{(\alpha+it)(\alpha+1+it)}}\,\dd t \\
+        &=
+        \frac{e^{-\alpha l -rT}}{\pi}
+        \int_0^{\infty}
+        \Re{
+        \frac{
+        e^{-itl+i(t-i(\alpha+1))(\ln S(0)+rT)}}{(\alpha+it)(\alpha+1+it)}
+        \hat{f}_x(t-i(\alpha+1))
+        }\,\dd t
+    \end{align}
+\end{itemize}
