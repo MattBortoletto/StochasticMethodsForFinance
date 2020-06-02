@@ -55,14 +55,74 @@ So, if $F$ and $H$ are two functions that solve this linear system with the init
 \end{align}
 (such that $H_0^{-1}F_0=B_0=0$) then we can plug them into the Riccati equation. The solution of eq. \eqref{HFlinearsys} is given by
 \begin{align}\label{HFlinearsysSol}
-    \notag \mqty(F_{\tau} \\ H_{\tau}) &= \exp{\mqty(-(K-\rho\xi iz)\tau & - \frac{1}{2}(iz+z^2)\tau \\ -\tfrac{1}{2}\xi^2\tau & 0)}\mqty(0\\1) \\
+    \mqty(F_{\tau} \\ H_{\tau}) &= \exp{\mqty(-(K-\rho\xi iz)\tau & - \frac{1}{2}(iz+z^2)\tau \\ -\tfrac{1}{2}\xi^2\tau & 0)}\mqty(0\\1) \\
     &=
-    \mqty(A_{11}(\tau) & A_{12}(\tau) \\ A_{21}(\tau) & A_{22}(\tau))\mqty(0\\1) \\
+    \notag\mqty(A_{11}(\tau) & A_{12}(\tau) \\ A_{21}(\tau) & A_{22}(\tau))\mqty(0\\1) \\
     &=
-    \mqty(A_{12}(\tau) \\ A_{21}(\tau))
+    \notag\mqty(A_{12}(\tau) \\ A_{21}(\tau))
 \end{align}
 Then, the solution of the Riccati equation at time $\tau$ will be
 \begin{eqnarray}
     B(\tau) = A_{22}^{-1}(\tau) A_{12}(\tau)
 \end{eqnarray}
 which -- provided that we are able to compute the exponential of the matrix in \eqref{HFlinearsysSol} -- is completely explicit. % fine parte 1
+\subsection{Matrix exponential}
+Given a $d\times d$ matrix $A\in M(\mathbb{R}_d)$, its exponential is defined as
+\begin{equation*}
+    e^A = \mathds{1} + A + \frac{A^2}{2!} + \cdot = \sum_{n=0}^{+\infty} \frac{A^n}{n!}.
+\end{equation*}
+If $A$ is symmetric, $A = A^T$, all the eigenvalues are real and we can diagonalize it: there exists a matrix $P$ such that $P^{-1}=P^T$ such that
+\begin{equation*}
+    A = PDP^{-1}
+\end{equation*}
+where
+\begin{equation*}
+    D = \mqty(\dmat{\lambda_1,\ddots,\lambda_d}).
+\end{equation*}
+In this case the exponential of $A$ is given by
+\begin{align*}
+    e^A &= \mathds{1} + PDP^{-1} + \frac{(PDP^{-1})^2}{2!} + \cdot \\
+    &=
+    PP^{-1} + PDP^{-1} + \frac{PD^2P^{-1}}{2!} + \cdot \\
+    &=
+    P\left(\mathds{1} + D + \frac{D^2}{2!} + \cdot\right)P^{-1} \\
+    &=
+    Pe^DP^{-1} \\
+    &=
+    P\mqty(\dmat{e^{\lambda_1},\ddots,e^{\lambda_d}})P^{-1}.
+\end{align*}
+\begin{remark}
+    For a symmetric positive semi-definite matrix $A\in S^+_d$ we have that
+    \begin{align*}
+        \sqrt{A} &= \sqrt{PDP^{-1}} = \sqrt{P\sqrt{D}\sqrt{D}P^{-1}} \\
+        &=
+        \sqrt{P\sqrt{D}P^{-1}P\sqrt{D}P^{-1}} = \sqrt{(P\sqrt{D}P^{-1})^2} = P\sqrt{D}P^{-1}
+    \end{align*}
+    This is not the Cholesky decomposition $A=LU$. Here $\sqrt{A}$ is also in $S^+_d$.
+\end{remark}
+\begin{remark}
+    In general, $\sqrt{A}$ may not exist or be not unique. For example, $A=\smqty(0 & 1 \\ 0 & 0)$ has no square root and $A = \smqty(33 & 24 \\ 48 & 57)$ has multiple square roots (for example $\smqty(1 & 4 \\ 8 & 5)$ or $\smqty(5 & 2 \\ 4 & 7)$). However, postive semi-definite matrices have only one positive semi-definite square root (\emph{principal square root}).
+\end{remark}
+In conclusion, care must be taken when applying to multiple arguments functions typically defined in $\mathbb{R}$.
+
+\section{Multifactor stochastic volatility models}
+\subsection{2-Heston model for one asset}
+Consider an underlying that evolves under the risk neutral probability measure according to
+\begin{equation}
+    \frac{\dd S(t)}{S(t)} = r\,dd t + \sqrt{V_1(t)}\,\dd Z_1(t) + \sqrt{V_2(t)}\,\dd Z_2(t)
+\end{equation}
+where $V_1$ and $V_2$ are respectively associated to the short term long term behavior of the volatility surface. The dynamics of $V_1$ and $V_2$ are given by the Heston model:
+\begin{align}
+    \dd V_1(t) &= K_1(\theta_1 - V_1(t))\,\dd t + \xi_1\sqrt{V_1(t)}\,\dd W_1(t) \\
+    \dd V_2(t) &= K_2(\theta_2 - V_2(t))\,\dd t + \xi_2\sqrt{V_2(t)}\,\dd W_2(t)
+\end{align}
+The infinitesimal generator involves the first order as well the second order derivative and the covariation. The problem is that in order to have an affine infinitesimal generator it must be
+\begin{equation*}
+    \expval{Z_1,Z_2} = 0; \qquad \expval{W_1,W_2} = 0; \qquad \expval{Z_1,W_2} = 0; \qquad \expval{Z_2,W_1} = 0;
+\end{equation*}
+\begin{equation*}
+    \expval{Z_1,W_1} = \rho_1; \qquad \expval{Z_2,W_2} = \rho_2.
+\end{equation*}
+In fact, for example, if $\expval{W_1,W_2}\ne 0$ then there will be a term $\sqrt{V_1V_2}$ and the model will be not affine.
+
+25:10
