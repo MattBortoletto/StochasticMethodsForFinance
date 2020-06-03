@@ -1,0 +1,76 @@
+\subsection{Multiple asset Heston model}\lesson{31}{21/05/2020}
+How can we extend the Heston model to the case of multiple assets, for example two stochastic assets? Notice that
+\begin{itemize}
+    \item if we correlate the Brownian motion of the 2-Hoston model we have no affine property. If there is no affinity we cannot explicitly write the LFT and so the Riccati equation too. Then, if we are not able to write the Riccati equation we cannot do option pricing in a quick way;
+    \item we want to generate dependence by keeping analytical tractability, i.e. affinity.
+\end{itemize}
+In order to solve this problems the idea is to introduce dependence between the two assets by taking a common volatility factor and some other specific volatility factors for each asset. Let's consider three processes
+\begin{align*}
+    \dd X^1(t) &= (\alpha_1X^1(t) + \beta_1)\dd t + \sqrt{X^1(t)}\,\dd W^1(t) \\
+    \dd X^2(t) &= (\alpha_2X^2(t) + \beta_2)\dd t + \sqrt{X^2(t)}\,\dd W^2(t) \\
+    \dd X^3(t) &= (\alpha_3X^3(t) + \beta_3)\dd t + \sqrt{X^3(t)}\,\dd W^3(t)
+\end{align*}
+with $W^1 \indep W^2 \indep W^3$. Then, let's consider the dynamics of two assets
+\begin{align*}
+    \frac{\dd S^1(t)}{S^1} = r\,\dd t + \sqrt{X^1(t)}\,\dd Z^1(t) + \sqrt{X^3(t)}\,\dd Z^3(t) \\
+    \frac{\dd S^2(t)}{S^2} = r\,\dd t + \sqrt{X^2(t)}\,\dd Z^2(t) + \sqrt{X^3(t)}\,\dd Z^3(t)
+\end{align*}
+so that $X^3$ is the common volatility factor while $X^1$ and $X^2$ are the specific factors related to the two assets. In this way we obstain a Heston-like model (it is as we consider a 2-Heston for $S^1$ and a 2-Heston for $S^2$) which keeps analytical tractability. This means that correlations between $W$ and $Z$ are allowed:
+\begin{equation*}
+    Z^i = \rho_i W^i + \sqrt{1-\rho_i^2} B^i, \qquad W^i \indep\, B^i
+\end{equation*}
+but $Z^1$, $Z^2$ and $Z^3$ are independent and $Z^i \indep\, W^j$ for $i\ne j$. \\
+This model is affine, so we can compute the joint characteristic function of the log-prices
+\begin{equation*}
+    \expect\left[e^{i(Z^1\ln S^1(T)+Z^2\ln S^2(T))}\right] = e^{A(\tau) + B^1(\tau)X^1(t) + B^2(\tau)X^2(t)+ B^3(\tau)X^3(\tau)}
+\end{equation*}
+where $B^1$, $B^2$ and $B^3$ solve a 1-dimensional Riccati ODE each one.\\
+In order to see which are the consequences of these choices, let's consider the following covariations
+\begin{align*} % -19:30 spiegazione
+    \frac{\dd\expval{S^1,S^1}}{(S^1)^2} &= (X^1(t)+X^3(t))\,\dd t \\
+    \frac{\dd\expval{S^2,S^2}}{(S^2)^2} &= (X^2(t)+X^3(t))\,\dd t \\
+    \frac{\dd\expval{S^1,S^2}}{S^1 S^2} &= X^3(t)\,\dd t > 0
+\end{align*}
+Focus on the third equation. We have that the covariance between the two assets is constrained to be positive (or negative, if we change the order. The important thing is that it cannot change sign). This becomes a problem in pricing \emph{correlation products}, i.e. products for which the correlation between assets plays an important role (for example the \emph{rainbow options} or the \emph{basket options}), where the correlation may change sign.\\
+So, we need to go beyond the usual way to define affine positive factors. The first intuition is to consider a new process which implements the ``positiveness" in a more general way.
+
+\subsection{Wishart processes}
+The starting point is the squared Bessel process of dimension $n>1$:
+\begin{equation*}
+    \dd X(t) = 2\sqrt{X(t)}\,\dd W(t) + n\,\dd t
+\end{equation*}
+Recall that if the dimension is an integer, it is possible to show that
+\begin{equation*}
+    X(t) = B(t)^TB(t)
+\end{equation*}
+where $B(t)\in\mathbb{R}^n$ is a Brownian motion. We also know that for $n = \delta \ge 0$, $\delta\in\mathbb{R}$ it is still possible to define the notion of squared Bessel process BESQ$^\delta$ with dynamics
+\begin{equation*}
+    \dd X(t) = 2\sqrt{X(t)}\,\dd W(t) + \delta\,\dd t
+\end{equation*}
+with the difference that now we cannot refer to the norm of a Brownian motion vector. This equation admits a strong solution for every $\delta\ge0$. The corresponding infinitesimal generator is given by
+\begin{equation*}
+    \mathcal{A} = 2XD^2 + \delta D, \qquad \text{where } D = \dv{}{x}.
+\end{equation*}
+For fixed $t$, the ``matrix extension" of $X(t)$ follows the \emph{Wishart distribution}. If $B$ is a $n\times d$ matrix of gaussian random variables:
+\begin{equation}
+    B = \mqty(B_{11} & \cdots & B_{1d} \\
+              \vdots & \ddots & \vdots \\
+              B_{n1} & \cdots & B_{nd})
+\end{equation}
+then
+\begin{equation}
+    B^TB_{d\times d} \sim \text{Wishart}
+\end{equation}
+i.e. $B^TB$ follows a Wishart distribution, which is the matrix estension of the $\chi^2$. \\
+\begin{example}{}{}{}
+    For $d=1$ we have
+    \begin{equation*}
+        B^TB = B_{11}^2 + \cdots + B^2_{n1} = \text{BESQ}^n
+    \end{equation*}
+    where $\text{BESQ}^n \sim \chi^2_n$. \\
+    For $n=1$ we have
+    \begin{equation*}
+        B^TB = \mqty(B_{11} \\ \vdots \\ B_{1n})\mqty(B_{11} & \cdots & B_{1d}) = \mqty( & & \\ & & )_{d\times d}
+    \end{equation*}
+    with $\rank(B^TB) = 1$. This means that the information carried out by the random variable may be degenerate. Thus this leads to a degenerate distribution, which can even be not continuous with respect to the Lebesgue measure. However, in order to avoid this degeneration, we will consider only cases with $n\ge d$.
+\end{example}
