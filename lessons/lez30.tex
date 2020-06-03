@@ -123,6 +123,34 @@ The infinitesimal generator involves the first order as well the second order de
 \begin{equation*}
     \expval{Z_1,W_1} = \rho_1; \qquad \expval{Z_2,W_2} = \rho_2.
 \end{equation*}
-In fact, for example, if $\expval{W_1,W_2}\ne 0$ then there will be a term $\sqrt{V_1V_2}$ and the model will be not affine.
-
-25:10
+In fact, for example, if $\expval{W_1,W_2}\ne 0$ then there will be a term $\sqrt{V_1V_2}$ and the model will be not affine. However, if we introduce this constraints, there are some consequences:
+\begin{itemize}
+    \item The fact that $W_1 \indep W_2$ implies tha the volatility factors are independent. This mean that $V_1$ (short term behavior) and $V_2$ (long term behavior) are independent, which is not very reasonable. In particular, if
+    \begin{equation*}
+        Y(t) = \ln S(t)
+    \end{equation*}
+    then its dynamics is
+    \begin{equation*}
+        \dd Y(t) = \left(r-\frac{1}{2}(V_1+V_2)\right)\dd t + \sqrt{V_1}\,\dd Z_1 + \sqrt{V_2}\,\dd Z_2.
+    \end{equation*}
+    Regarding the Fourier pricing, since we know that
+    \begin{equation*}
+        x_1 \indep\, x_2 \qquad\Rightarrow\qquad \mathbb{E}[e^{\lambda_1x_1}]\mathbb{E}[e^{\lambda_2x_2}]
+    \end{equation*}
+    then we have
+    \begin{equation*}
+        \expect_t[e^{iz\ln S(t)}] = e^{iz\ln S(t) + A(\tau) + B_1(\tau)V_1(t) + B_2(\tau)V_2(t)}
+    \end{equation*}
+    where $A(\tau)$ is a constant term ($\tau = T-t$) and $B_1$ and $B_2$ are solutions of two independent Riccati ODEs. So, it is possible to find the FT of the asset price in terms of the superpositions of the solutions of the corresponding Riccati equations. The problem is that the (instantaneous) correlation between the noise of the returns and the noise of the volatility of the returns is
+    \begin{align*}
+        \text{Corr}(\text{Noise}(\dd Y), \text{Noise}(\text{Vol}(\dd Y))) &= \frac{\dd\expval{Y,V_1+V_2}}{\sqrt{\dd\expval{Y}\dd\expval{V_1+V_2}}} \\
+        &=
+        \frac{\rho_1\xi_1V_1+\rho_2\xi_2V_2}{\sqrt{V_1+V_2}\sqrt{\xi_1^2V_1 + \xi_2^2V_2}}
+        % we can introduce a Brownian motion $\tilde{Z}$ such that we con rewrite \sqrt{V_1}\,\dd Z_1 + \sqrt{V_2}\,\dd Z_2 as $\sqrt{V_1+V_2}\dd \tilde{Z}$
+    \end{align*}
+    This quantity is also called \emph{leverage} or \emph{stochastic skew}. Recall that in the classic 1-d Heston model the skew (i.e. the slope of the volatility smile) is driven by $\rho$, in fact
+    \begin{equation*}
+        \frac{\dd\expval{Y,V}}{\sqrt{\dd\expval{Y}\dd\expval{V}}} = \frac{\rho\xi V}{\sqrt{V}\sqrt{\xi^2 V}} = \rho
+    \end{equation*}
+    In the 2-Heston model this quantity is no more constant, so we can speak about stochastic skew. The presence of stochastic skew is more in line with the real case. The problem is that, in principle, we cannot fit the level ($\sqrt{V_1+V_2}$, i.e. the instantaneous volatility) and the slope of the smile separately, because they are all mixed together.
+\end{itemize}
