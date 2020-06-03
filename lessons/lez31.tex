@@ -73,4 +73,42 @@ i.e. $B^TB$ follows a Wishart distribution, which is the matrix estension of the
         B^TB = \mqty(B_{11} \\ \vdots \\ B_{1n})\mqty(B_{11} & \cdots & B_{1d}) = \mqty( & & \\ & & )_{d\times d}
     \end{equation*}
     with $\rank(B^TB) = 1$. This means that the information carried out by the random variable may be degenerate. Thus this leads to a degenerate distribution, which can even be not continuous with respect to the Lebesgue measure. However, in order to avoid this degeneration, we will consider only cases with $n\ge d$.
-\end{example}
+\end{example} % fine parte 1
+Now, let's give the definition of Wishart process.
+\begin{definition}[Wishart process] % Bru 1991
+    A Wishart process of dimension $d\ge1$, index $n\ge d$ and initial state $s_0 = C^TC \in S^+_d$ is denoted as $\wis(n,d,s_0)$ and is the matrix process
+    \begin{equation}
+        S(t) = N(t)^TN(t)
+    \end{equation}
+    where $N(t)$ is a Brownian motion taking values in the set of rectangular matrices $M_{n\times d}$ with initial value equal to a constant matrix $C$, $N(0) = C$.
+\end{definition}
+Then, we have the first important property.
+\begin{theorem}
+    The following hold:
+    \begin{enumerate}
+        \item The dynamics of a Wishart process is given by
+        \begin{equation}
+            \dd S(t) = \sqrt{S(t)}\,\dd B(t) + \dd B(t)^T\sqrt{S(t)} + n\mathds{1}_{d\times d}\,\dd t.
+        \end{equation}
+        where $B(t) \in M_{d\times d}$ is a Brownian motion.
+        \item The inifintesimal generator of a Wishart process $S$ is given by
+        \begin{equation}
+            \mathcal{A} = \Tr(nD + 2SD^2)
+        \end{equation}
+        where
+        \begin{equation*}
+            D = \left(\pdv{}{S_{ij}}\right)_{ij}.
+        \end{equation*}
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    1. Using Itô, we have
+    \begin{align*}
+        \dd S(t) &= \dd(N(t)^TN(t)) = (\dd N^T)N + N^T\,\dd N + \underbrace{\dd\expval{N^T,N]}_t}_{n\mathds{1}_{d\times d}\,\dd t} \\
+        &=
+        \dd N^TN\frac{\sqrt{N^TN}}{\sqrt{N^TN}} + N^T\dd N \frac{\sqrt{N^TN}}{\sqrt{N^TN}} + n\mathds{1}_{d\times d}\,\dd t
+        \intertext{Now recall that $N(t)$ is a matrix Brownian motion if and only if $$\text{Cov}_t(\dd N(t)\alpha, \dd N(t)\beta) = \mathbb{E}_t[(\dd N(t)\alpha)(\dd N(t)\beta)^T] = \alpha^T\beta\mathds{1}_{n\times n}\,\dd t$$ for all $\alpha,\beta\in\mathbb{R}^d$.}
+    \end{align*}
+\end{proof}
+
+-18:57
