@@ -101,14 +101,69 @@ Then, we have the first important property.
         \end{equation*}
     \end{enumerate}
 \end{theorem}
-\begin{proof}
+\begin{proof} % non ho capito niente
     1. Using Itô, we have
     \begin{align*}
         \dd S(t) &= \dd(N(t)^TN(t)) = (\dd N^T)N + N^T\,\dd N + \underbrace{\dd\expval{N^T,N]}_t}_{n\mathds{1}_{d\times d}\,\dd t} \\
         &=
-        \dd N^TN\frac{\sqrt{N^TN}}{\sqrt{N^TN}} + N^T\dd N \frac{\sqrt{N^TN}}{\sqrt{N^TN}} + n\mathds{1}_{d\times d}\,\dd t
-        \intertext{Now recall that $N(t)$ is a matrix Brownian motion if and only if $$\text{Cov}_t(\dd N(t)\alpha, \dd N(t)\beta) = \mathbb{E}_t[(\dd N(t)\alpha)(\dd N(t)\beta)^T] = \alpha^T\beta\mathds{1}_{n\times n}\,\dd t$$ for all $\alpha,\beta\in\mathbb{R}^d$.}
+        \dd N^TN\frac{\sqrt{N^TN}}{\sqrt{N^TN}} + N^T\dd N \frac{\sqrt{N^TN}}{\sqrt{N^TN}} + n\mathds{1}_{d\times d}\,\dd t.
+    \end{align*}
+    Now recall that $N(t)$ is a matrix Brownian motion if and only if
+    \begin{equation*}
+        \text{Cov}_t(\dd N(t)\cdot\alpha, \dd N(t)\cdot\beta) = \mathbb{E}_t[(\dd N(t)\alpha)(\dd N(t)\beta)^T] = \alpha^T\beta\mathds{1}_{n\times n}\,\dd t
+    \end{equation*}
+    for all $\alpha,\beta\in\mathbb{R}^d$. As a consequence we can write
+    \begin{equation*}
+        \frac{N^T(t)}{\sqrt{N^T(t)N(t)}}\,\dd N(t) = \dd B(t)
+    \end{equation*}
+    in fact
+    \begin{align*}
+        \text{Cov}\left(\frac{N^T(t)\,\dd N(t)}{\sqrt{N^T(t)N(t)}}\alpha, \frac{N^T(t)\,\dd N(t)}{\sqrt{N^T(t)N(t)}}\beta\right) &= \mathbb{E}\left[N^T(t)\frac{(\dd N(t)\alpha)(\dd N(t)\beta)^T}{N^T(t)N(t)}N(t)\right] \\
+        &=
+        \alpha^T\beta\mathds{1}_n\,\dd t.
+    \end{align*}
+    2. The infinitesimal generator is given by
+    \begin{align*}
+        \mathcal{A} &= \Tr(nD+2SD^2) \\
+        &=
+        n\pdv{}{S_{11}} + n\pdv{}{S_{22}} + \frac{1}{2}\left[4S_{11}\pdv[2]{}{S_{11}} + 4S_{22}\pdv[2]{}{S_{22}} + 4(S_{11}+S_{22})\pdv[2]{}{S_{12}} + \right.\\
+        &\qquad\qquad\qquad
+        \left. + 4\left(2S_{12}\pdv{}{S_{11}}{S_{12}} + 2S_{12}\pdv{}{S_{12}}{S_{22}} + 2\underbrace{\expval{S_{11},S_{22}}}_{=0}\pdv{}{S_{11}}{S_{22}}\right)\right]
+    \end{align*}
+    where we used the fact that
+    \begin{align*}
+        \expval{S_{11}} &= 4S_{11} \\
+        \expval{S_{22}} &= 4S_{22} \\
+        \expval{S_{12}} &= S_{11} + S_{22} \\
+        \expval{S_{11},S_{12}} &= 2S_{12} \\
+        \expval{S_{12},S_{22}} &= 2S_{12}.
+    \end{align*}
+    Now let's recover the infinitesimal generator from the dynamics of $S(t)$. We know that
+    \begin{equation*}
+        \dd S(t) = \dots\,\dd t + \underbrace{\mqty(\sigma_{11} & \sigma_{12} \\ \sigma_{12} & \sigma_{22})}_{\sqrt{S(t)}}\mqty(B_{11} & B_{12} \\ B_{21} & B_{22}).
+    \end{equation*}
+    Since $S$ is given by the square of the matrix $\sigma$, we can write
+    \begin{equation*}
+        S(t) = \mqty(\sigma_{11}^2+\sigma_{12}^2 & \sigma_{11}\sigma_{12}+\sigma_{12}+\sigma_{22} \\ \sigma_{11}\sigma_{12}+\sigma_{12}+\sigma_{22} & \sigma_{12}^2+\sigma_{22}^2).
+    \end{equation*}
+    Then
+    \begin{align*}
+        \dd S_{11} &= \dots\,\dd t + 2\sigma_{11}\,\dd B_{11} + 2\sigma_{12}\,\dd B_{21} \\
+        \dd S_{12} &= \dots\,\dd t + \sigma_{11}\,\dd B_{12} + \sigma_{12}\,\dd B_{22} + \sigma_{12}\,\dd B_{11} + \sigma_{22}\,\dd B_{21} \\
+        \dd S_{22} &= \dots\,\dd t + 2\sigma_{12}\,\dd B_{12} + 2\sigma_{22}\,\dd B_{22}
+    \end{align*}
+    and
+    \begin{align*}
+        \dd\expval{S_{11}}_t &= 4(\sigma_{11}^2 + \sigma_{12}^2)\dd t = 4S_{11}\,\dd t \\
+        \dd\expval{S_{22}}_t &= 4(\sigma_{12}^2 + \sigma_{22}^2)\dd t = 4S_{22}\,\dd t \\
+        \dd\expval{S_{12}}_t &= \sigma_{11}^2 + \sigma_{12}^2 + \sigma_{22}^2 = S_{11} + S_{12} \\
+        \dd\expval{S_{11},S_{12}}_t &= 2\sigma_{11}\sigma_{12} + 2\sigma_{12}\sigma_{22} = 2S_{12} \\
+        \dd\expval{S_{12},S_{22}}_t &= 2\sigma_{11}\sigma_{12} + 2\sigma_{12}\sigma_{22} = 2S_{12} \\
+        \dd\expval{S_{12},S_{22}}_t &= 0
+    \end{align*}
+    Notice that all this terms are linear in $S$. This is the reason why the infinitesimal generator of a Wishart process is affine, in the sense that it is written in terms of an affine combination involving the elements of the matrix $S$. Finally
+    \begin{align*}
+        2\expval{S_{11},S_{12}}\pdv[2]{}{S_{12}} &= \expval{S_{11},S_{12}}\left(\pdv[2]{}{S_{12}}+\pdv[2]{}{S_{21}}\right) \\
+        4\expval{S_{11},S_{12}}\pdv{}{S_{11}}{S_{12}} &= 2\expval{S_{11},S_{12}}\left(\pdv{}{S_{11}}{S_{12}}+\pdv{}{S_{11}}{S_{21}}\right)
     \end{align*}
 \end{proof}
-
--18:57
