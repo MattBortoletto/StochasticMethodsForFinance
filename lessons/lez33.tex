@@ -1,1 +1,39 @@
-\lesson{33}{27/05/2020}
+\subsubsection{Linearization approach for the computation of the Laplace transform}\lesson{33}{27/05/2020}
+Now that we know which is the infinitesimal generator for the Wishart process we would like to verify that the process is affine through a different procedure. Instead of solving the Feynman-Kac PDE just by checking if a candidate is a solution we would like to extend the procedure we gave in the context of the CIR model were we doubled the dimension of the problem and used a linear system of ODEs. Basically, we have to adapt that procedure to a matrices framework.\\
+If we define the Laplace transform of the Wishart process $\Sigma$ as the conditional expected value
+\begin{equation}
+    \psi_{\Sigma}(\tau, \Sigma(t)) = \mathbb{E}_t\left[e^{-\Tr(\Lambda\Sigma(T))}\right],
+\end{equation}
+where $\Lambda\in S^+$ and $\tau = T-t$, then it satisfies the Feynman-Kac formula
+\begin{equation}
+    \pdv{\psi}{\tau} = \mathcal{A}_{\Sigma}\psi.
+\end{equation}
+Since we know that the Wishart process is affine, we have a natural candidate solution:
+\begin{equation}
+    \psi(\tau, \Sigma(t)) = e^{-\Tr(A(\tau)\Sigma(t))+ a(\tau)}.
+\end{equation}
+where $a(\tau)$ is a scalar deterministic function and $A(\tau)$ is a matrix-valued deterministic function. By replacing, we get
+\begin{equation*}
+    \begin{cases}
+    -\Tr(\dot{A}(\tau)\Sigma(t)) + \dot{a}(\tau) = \Tr[(\beta Q^TQ + M\Sigma + \Sigma M^T)A(\tau) + 2\Sigma A(\tau)Q^TQA(\tau)] \\ % c'è un meno? \Tr[-(\beta Q^TQ + M\Sigma + ...
+    A(0) = \Lambda \\
+    a(0) = 0
+    \end{cases}
+\end{equation*}
+By identification of the parameters, we have that
+\begin{equation*}
+    \begin{cases}
+        \dot{a}(\tau) = -\Tr(\beta Q^TQ A(\tau)) \\
+        a(0) = 0
+    \end{cases}
+\end{equation*}
+and
+\begin{equation*}
+    \begin{cases}
+        \dot{A}(\tau) = A(\tau)M + M^TA(\tau) - 2A(\tau)Q^TQA(\tau) \\
+        A(0) = \Lambda
+    \end{cases}
+\end{equation*}
+which is the matrix Riccati ODE.
+
+7:26
