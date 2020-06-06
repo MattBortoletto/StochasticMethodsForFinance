@@ -17,7 +17,7 @@ where $a(\tau)$ is a scalar deterministic function and $A(\tau)$ is a matrix-val
     \begin{cases}
     -\Tr(\dot{A}(\tau)\Sigma(t)) + \dot{a}(\tau) = \Tr[(\beta Q^TQ + M\Sigma + \Sigma M^T)A(\tau) + 2\Sigma A(\tau)Q^TQA(\tau)] \\ % c'è un meno? \Tr[-(\beta Q^TQ + M\Sigma + ...
     A(0) = \Lambda \\
-    a(0) = 0
+    a(0) = 0.
     \end{cases}
 \end{equation*}
 By identification of the parameters, we have that
@@ -31,9 +31,62 @@ and
 \begin{equation*}
     \begin{cases}
         \dot{A}(\tau) = A(\tau)M + M^TA(\tau) - 2A(\tau)Q^TQA(\tau) \\
-        A(0) = \Lambda
+        A(0) = \Lambda,
     \end{cases}
 \end{equation*}
-which is the matrix Riccati ODE.
+which is the matrix Riccati ODE. Now we linearize by setting
+\begin{equation*}
+    A(\tau) = F^{-1}(\tau)G(\tau), \qquad F(0) = \mathds{1}, \quad G(0) = \Lambda,
+\end{equation*}
+where $F(\tau)\in GL_d$ in order to be able to take the inverse. If we take the derivative of $G$ with respect to $\tau$ we get
+\begin{equation*}
+    \dv{F(\tau)A(\tau)}{\tau} = \dv{F(\tau)}{\tau} A(\tau) + F(\tau)\dv{A(\tau)}{\tau}.
+\end{equation*}
+Rearranging we get
+\begin{equation}
+    \dot{G} - \dot{F}A = GM + (FM^T - 2GQ^TQ)A.
+\end{equation}
+This equation can be seen as the projection of a vector along the direction given by $(\mathds{1}, -A)$. If we identify the coefficients of $A$ and the other terms we get a system of two equations:
+\begin{equation}
+    \begin{cases}
+        \dot{G} = GM \\
+        \dot{F} = -FM^T + 2GQ^TQ,
+    \end{cases}
+\end{equation}
+which can be written as
+\begin{equation}
+    \dv{}{\tau} (G(\tau), F(\tau)) = (G(\tau), F(\tau))\underbrace{\mqty(M & 2Q^tQ \\ 0 & -M^T)}_{2d\times 2d}
+\end{equation}
+This linear system cn be solved by taking the exponential of the matrix:
+\begin{align}% discosone sul fatto che questo caso è semplice perchè gli elementi della matrice sono costanti
+    \notag(G(\tau), F(\tau)) &= (G(0), F(0))\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
+    &=
+    \notag(\Lambda, \mathds{1})\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
+    &=
+    \notag(\Lambda, \mathds{1})\mqty(A_{11} & A_{12} \\ A_{21} & A_{22}) \\
+    &=
+    (\underbrace{\Lambda A_{11}(\tau) + A_{21}(\tau)}_{G}, \underbrace{\Lambda A_{12}(\tau) + A_{22}(\tau)}_{F}).
+\end{align}
+So, the solution of the Riccati ODE is
+\begin{equation}
+    A(\tau) = F^{-1}G = (\Lambda A_{12}(\tau) + A_{22}(\tau))^{-1}(\Lambda A_{11}(\tau) + A_{21}(\tau)).
+\end{equation}
+Then, we can find $a(\tau)$:
+\begin{align*}
+    \dot{a}(\tau) &= -\beta\Tr(Q^TQA(\tau)) \\
+    &=
+    -\beta\Tr(Q^TQF^{-1}G) \\
+    &=
+    \intertext{From $\dot{F} = -FM^T + 2GQ^TQ$ we have that $G = \tfrac{1}{2}(\dot{F}+FM^T)(Q^TQ)^{-1}$}
+    -\frac{\beta}{2}\Tr(Q^TQF^{-1}(F+FM^T)(Q^TQ)^{-1}) \\
+    \intertext{Recalling that $\partial_z\Tr(\ln A(z)) = \Tr((\partial_z A)A^{-1})$ we recognize the logarithm of $F$:}
+    &=
+    -\frac{\beta}{2}\Tr(\dd\ln(F)+M^T)
+\end{align*}
+By integrating we get
+\begin{equation}
+    a(\tau) = -\frac{\beta}{2}\Tr(\ln F(\tau) + M^T\tau).
+\end{equation}
+In conclusion, we have the ``explicit" (numerical) Laplace transform.
 
-7:26
+21:20
