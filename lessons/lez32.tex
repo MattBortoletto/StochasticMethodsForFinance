@@ -4,7 +4,7 @@
 Given a $d\times d$ Brownian motion $B(t)$ with i.i.d components, whenever the SDE
 \begin{equation}
     \begin{cases}
-    \dd S(t) = \sqrt{S(t)}\,\dd B(t) + \dd B^T(t)\sqrt{S(t)} + n\mathds{1}\,\dd t \\
+    \dd S(t) = \sqrt{S(t)}\,\dd B(t) + \dd B(t)^T\sqrt{S(t)} + n\mathds{1}\,\dd t \\
     S(0) = s_0
     \end{cases}
 \end{equation}
@@ -66,7 +66,7 @@ for all $u\in S_d^+$ (in order to have convergence). This is a very strong resul
     Let's compute the derivatives of \eqref{vts}:
     \begin{align*}
         \pdv{V}{t} &= -\frac{n}{2}\det(\mathds{1}+2tu)^{-\frac{n}{2}-1}\det(\mathds{1}+2tu)\Tr((\mathds{1}+2tu)^{-1}2u)e^{-\Tr(s(\mathds{1}+2tu)^{-1}u)} - \\
-        & -V(t,s)\dv{}{t}\Tr(s(\mathds{1}+2tu)^{-1}u) \\
+        &\qquad -V(t,s)\dv{}{t}\Tr(s(\mathds{1}+2tu)^{-1}u) \\
         &=
         -nV(t,s)\Tr((\mathds{1}+2tu)^{-1}u) + 2V(t,s)\Tr(s(\mathds{1}+2tu)^{-2}u^2)
     \end{align*}
@@ -108,3 +108,115 @@ for all $u\in S_d^+$ (in order to have convergence). This is a very strong resul
     \end{equation*}
     so the Wishart process is affine.
 \end{proof} % fine parte 1
+Now that we proved that the Wishart process is affine, let's consider some properties of this process in terms of the existence of weak or strong solutions.
+\begin{theorem}
+    Let $B(t)$ be a $d\times d$ Brownian motion with independent components and let $S(t)$ be the process satisfying the SDE
+    \begin{equation}
+    \begin{cases}
+    \dd S(t) = \sqrt{S(t)}\,\dd B(t) + \dd B(t)^T\sqrt{S(t)} + \alpha\mathds{1}\,\dd t, \qquad \alpha\in\mathbb{R}
+    S(0) = s_0 \in S_d^+.
+    \end{cases}
+    \end{equation}
+    Then:
+    \begin{enumerate}
+        \item if $\alpha\ge d-1$ then there exists a weak solution for the SDE (the path-wise uniquess of the solution is not guaranteed);
+        \item if $\alpha\ge d+1$ then there exists a strong solution for the SDE, related to the fact that $\det(S(t))>0)$;
+        \item if $\alpha\in\{1,\dots,d-2\}$ (Gindikin set) we have no more a Wishart distribution, in fact the distribution il low degenerate and not absolutely continuous with respect to the Lebesgue measure. However, it is still possible to find a weak solution;
+        \item if $\alpha\ge d+1$ then the eigenvalues of the matrix are all distinct for all $t$.
+        \item if $\alpha\ge d-1$ then $\det(S(t))\ge0$, if $\alpha\ge d+1$ then $\det(S(t))>0$ for all $t$.
+        \item if $\alpha\ge d-1$ the eigenvalues of the matrix never collide:
+        \begin{equation*}
+            \lambda_1(t) > \cdots > \lambda_d(t) \ge 0.
+        \end{equation*}
+        In this case
+        \begin{align*}
+            \dd \lambda_i = 2\sqrt{\lambda_i}\,\dd \tilde{B}_i + \left(\alpha+\sum_{k\ne i} \frac{\lambda_i + \lambda_k}{\lambda_i - \lambda_k}\right)\dd t, \qquad \forall i = 1,\dots,d
+        \end{align*}
+        The term $\tfrac{\lambda_i + \lambda_k}{\lambda_i - \lambda_k}$ is the reason why the eigenvalues never collide (if they collide there is an explosion of the denominator).
+    \end{enumerate}
+\end{theorem}
+
+\subsubsection{Extension to mean reversion}
+Let us consider a $n\times d$-matrix $(X(t))_{n\times d}$ which is solution of the SDE
+\begin{equation}
+    \begin{cases}\label{xdyn}
+        \dd X(t) = \gamma\,\dd B(t) + \beta X(t)\,\dd t \\
+        X(0) = x \in M_{n\times d}
+    \end{cases}
+\end{equation}
+where $B(t)$ is a $n\times d$ Brownian motion matrix, $\gamma\in\mathbb{R}$ and $\beta\in\mathbb{R}^-$ (in order to keep the stationarity of the process). This SDE describes a Ornstein-Uhlenbeck process, which is a non-centered gaussian process. We would like to construct a Wishart process starting from this.
+\begin{theorem}
+    Set $S(t)=X(t)^TX(t)$ with initial condition $s=x^Tx$. Then
+    \begin{equation}
+    \begin{cases}
+        \dd S(t) = \gamma(\sqrt{S}\,\dd B + \dd B(t)\sqrt{S}) + 2\beta S(t) + n\gamma^2\mathds{1}_d\,\dd t \\
+        S(0) = s.
+    \end{cases}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Using Itô and \eqref{xdyn}:
+    \begin{align*}
+        \dd S(t) &= \dd(X(t)^TX(t)) = (\dd X(t))^TX(t) + X(t)^T\,\dd X(t) + \dd\expval{X^T,X}_t \\
+        &=
+        \gamma X(t)\,\dd B(t)^T + \beta X(t)^TX(t)\,\dd t + X(t)^T(\gamma\,\dd B(t) + \\
+        &\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad
+        +\beta X(t)\,\dd t) + \gamma^2\,\dd B(t)^T\,\dd B(t) \\
+        \intertext{Recall that $\dd B(t)^T\,\dd B(t) = n\mathds{1}_d$ and in order to change the BM multiply and divide for $\sqrt{X(t)^TX(t)}$:}
+        &=
+        \gamma\left(\sqrt{X(t)^TX(t)}\sqrt{X(t)^TX(t)}^{-1} X(t)^T\,\dd B(t) + \right.\\
+        &\qquad
+        \left. + \dd B(t)^TX(t)(\sqrt{X(t)^TX(t)}\sqrt{X(t)^TX(t)}^{-1}\right) + 2\beta X(t)^TX(t)\,\dd t + \gamma^2 n \mathds{1}_d\,\dd t \\
+        \intertext{We can define the Brownian motion $\dd\tilde{B}(t) \equiv \sqrt{X(t)^TX(t)}^{-1} X(t)^T\,\dd B(t)$, in fact $$\Cov(X(t)^T\,\dd B, X(t)^T\,\dd B) = X(t)^T\,\dd B\,\dd B^T X(t) = nX(t)^TX(t)$$ such that $\Cov(\tilde{B},\tilde{B}) = n\mathds{1}$.}
+        &=
+        \gamma(\sqrt{S(t)}\,\dd\tilde{B}(t) + \dd\tilde{B}^T\sqrt{S(t)}) + 2\beta S(t)\,\dd t + \gamma^2 n\mathds{1}_d\,\dd t
+    \end{align*}
+\end{proof}
+So, we can include a mean reverting drift just by taking a Ornstein-Uhlenbeck process instead of a pure Brownian motion. Another result is the following.
+\begin{theorem}
+    Let $a\in GL(d)$ (invertible $d\times d$ matrix), $b\in M_d^-$ (eigenvalues with negative real part) and $X(t)$ a Ornstein-Uhlenbeck process defined by
+    \begin{equation}
+        \begin{cases}
+            \dd X(t) = a\,\dd B(t) + X(t)b\,\dd t \\
+            X(0) = x
+        \end{cases}
+    \end{equation}
+    where $B(t)$ is a $n\times d$ Brownian motion. If we define the Wishart process
+    \begin{equation}
+        S(t) = X(t)^TX(t), \qquad s = x^Tx
+    \end{equation}
+    then
+    \begin{equation}
+        \dd S(t) = \sqrt{S(t)}\,\dd W(t)\sqrt{a^Ta} + \sqrt{a^Ta}\,\dd W(t)^T\sqrt{S(t)} + (b^TS(t) + S(t)b)\,\dd t + na^Ta\,dd t
+    \end{equation}
+    where $na^Ta$ can be replaced by a matrix $C$ such that $C - (d-1)a^Ta \in S^+_d$.
+\end{theorem}
+\begin{proof}
+    \colorbox{cyan}{Homework.}
+\end{proof}
+Now we have a Wishart process with mean reversion that evolves according to a matrix SDE with matrix coefficients, we can compute the Laplace transform.
+
+\subsubsection{Laplace transform}
+Let's denote our Wishart process representing the volatility as $\Sigma(t)$. Its dynamics is given by
+\begin{equation}
+    \dd\Sigma(t) = (\beta Q^TQ + M\Sigma(t) + \Sigma(t)M^T)\dd t + \sqrt{\Sigma(t)}\,\dd WQ + Q^T(\dd W(t))^T\sqrt{\Sigma(t)}
+\end{equation}
+where $Q$ is a constant matrix, $M\in M^-$ (to grant stationarity) and $W(t)$ is a $d\times d$ Brownian motion. In order to get at least a weak solution, we have to impose $\beta\ge d-1$. This is the dynamics that guarantee the symmetry and notice that the starting point is a $d\times d$ matrix BM that in principle is not symmetric (all the components are independent). This means that there are $d^2$ sources of noise. However, the information we can deduce from this matrix is much less because the process is symmetric. % boh, non si capisce cosa dice
+The infinitesimal generator for this process is
+\begin{equation}
+    \mathcal{A}_{\Sigma} = \Tr[(\beta Q^TQ + M\Sigma + \Sigma M^T)D + 2\Sigma DQ^TQD]
+\end{equation}
+\begin{remark}
+    If we write the dynamics of the elements of the matrix $\Sigma$ in the case $d=2$, we have
+    \begin{align*}
+        \dd\Sigma^{11} &= \dots\,\dd t + 2\sigma^{11}(Q_{11}\,\dd W^{11} + Q_{21}\,\dd W^{12}) + 2\sigma^{12}(Q_{11}\,\dd W^{21}+Q_{21}\,\dd W^{22}) \\
+        \dd\Sigma^{11} &= \dots\,\dd t + 2\sigma^{12}(Q_{12}\,\dd W^{11} + Q_{22}\,\dd W^{12}) + 2\sigma^{22}(Q_{21}\,\dd W^{21}+Q_{22}\,\dd W^{22})
+    \end{align*}
+    Then, if we compute the quadratic covariation between the first element in the diagonal and the last one (i.e. the product of the two dynamics), we get
+    \begin{align*}
+        \dd\expval{\Sigma^{11},\Sigma^{22}}_t &= 4(\sigma^{11}\sigma^{12} + \sigma^{21}\sigma^{22})(Q_{11}Q_{12} + Q_{21}Q_{22})\dd t \\
+        &=
+        4\Sigma^{12}(Q_{11}Q_{12} + Q_{21}Q_{22})\dd t \ne 0 \text{  if $Q$ is not diagonal.}
+    \end{align*}
+    When we introduced the first specification of the Wishart process we took $Q = \mathds{1}$, which is diagonal. That's why we were not able to exploit the Wishart property that the covariation between the two positive factors is not trivial (equal to zero). If now $Q$ is not diagonal, the covariation between $\Sigma^{11}>0$ and $\Sigma^{22}>0$ is not zero (like in the usual affine model, where it is the condition to have affinity) and, even more, it is given by the off-diagonal element $\Sigma^{12}$. So, \emph{the Wishart process can be seen as a matrix fluctuating in time in a mean reversion way where there is the joint presence of the volatility factors (diagonal terms) together with the covariance (off-diagonal terms). So, also the correlations will be stochastic, even if we don't loose the analytical tractability.}
+\end{remark}
