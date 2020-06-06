@@ -1,0 +1,110 @@
+\lesson{32}{22/05/2020} Now we would like to prove that the Wishart process is affine, in the sense that the LFT is the exponential function of deterministic matrices that satisfy a certain ODE. We study a specific case in which we consider only the LFT of the Wishart process (without the integral) and we can find the solution without having to solve the Riccati equation. Then we will generalize this result.\\
+
+\subsubsection{Laplace transform of the Wishart process}
+Given a $d\times d$ Brownian motion $B(t)$ with i.i.d components, whenever the SDE
+\begin{equation}
+    \begin{cases}
+    \dd S(t) = \sqrt{S(t)}\,\dd B(t) + \dd B^T(t)\sqrt{S(t)} + n\mathds{1}\,\dd t \\
+    S(0) = s_0
+    \end{cases}
+\end{equation}
+has a solution in $S_d^+$, the distribution of $S(t)$ for a fixed $t$ is given by its Laplace transform
+\begin{equation}\label{lapltrWis}
+    \mathbb{E}_{s_0}\left[e^{-\Tr(uS(t))}\right] = \det(\mathds{1}+2tu)^{-\frac{n}{2}}\exp{-\Tr(s_0(\mathds{1}+2tu)^{-1}u)}
+\end{equation}
+for all $u\in S_d^+$ (in order to have convergence). This is a very strong result, which tells us that the Laplace transform of the Wishart process is given by a deterministic function times the exponential of a linear combination of the elements of $s_0$. This means that the second term is exponentially affine with respect to $S$. So, we can extend to the matrix framework the affinity of the usual CIR process.
+\begin{proof}
+    The idea behind this proof is to show that the Feynman-Kac formula holds true. That is, if we write the expected value \eqref{lapltrWis} as a function $U(t,s)$, then it satisfies the Feynman-Kac PDE
+    \begin{equation*}
+    \begin{cases}
+        \pdv{U(t,s)}{t} + \mathcal{A}U(t,s) = 0 \\
+        U(T,s) = e^{-\Tr(u\cdot s)}
+    \end{cases}
+    \end{equation*}
+    For out convenience, it is better to transform this variable in time to maturity: let's introduce the auxiliary function $V(T-t,s) = U(t,s)$, so that the Feynman-Kac formula becomes
+    \begin{equation*}
+    \begin{cases}
+        -\pdv{V(T-t,s)}{t} + \mathcal{A}V(T-t,s) = 0 \\
+        V(0,s) = U(T,s) = e^{-\Tr(u\cdot s)}
+    \end{cases}
+    \end{equation*}
+    Our ``candidate" solution is
+    \begin{equation}\label{vts}
+        V(t,s) = \det(\mathds{1}+2tu)^{-\frac{n}{2}}\exp{-\Tr(s(\mathds{1}+2tu)^{-1}u)}\tag{$\diamond$}
+    \end{equation}
+    so if we compute the derivatives they have to satisfy the Feynman-Kac PDE. In order to do that we need to differentiate the determinant of a matrix.
+    \begin{lemma}[Jacobi formula]
+        The derivative of a deterministic time-dependent matrix $H(t)$ is given by
+        \begin{equation*}
+            \dv{}{t}\det(H(t)) = \det(H(t))\cdot\Tr\left(H^{-1}(t)\cdot\dv{}{t}H(t)\right)
+        \end{equation*}
+    \end{lemma}
+    \begin{proof}
+        The proof of this lemma is based on the fact that if we choose a row $i$ then we can write the determinant as the sum of the elements $H_{ik}$ of this row times the comatrix $\com{H_{ik}}$
+        \begin{equation*}
+            \det(H) = \sum_k H_{ik}\com{H_{ki}}.
+        \end{equation*}
+        Recall that the Com($M$) of a $n\times n$-matrix $M$ is the $n \times n$-matrix whose entry in $(i,k)$ is $(-1)^{i+k}$ times the determinant of the matrix which you get by deleting in $M$ the line $l$ and the row $k$.
+    \end{proof}
+    In this case
+    \begin{equation*}
+        \com{H_{ki}} = (-1)^{k+i}\det(H\text{ without row $k$ and column $i$})
+    \end{equation*}
+    Being the complement of $H_{ki}$, the comatrix $\com{H_{ki}}$ is independent of the elements $H_{ki}$. This means that
+    \begin{equation*}
+        \pdv{\det(H)}{H_{ij}} = \com{H_{ji}}
+    \end{equation*}
+    and then
+    \begin{align*}
+        \dv{}{t}\det(H) &= \sum_j\left(\sum_i \pdv{\det(H)}{H_{ij}}\right)\dv{H_{ij}}{t} \\
+        &=
+        \sum_j\sum_i\com{H_{ji}}\dv{H_{ij}}{t} \\
+        &=
+        \Tr(\adj{H}\dd H)
+    \end{align*}
+    where $\adj{H}$ is the adjugate matrix, i.e. the transpose of the comatrix. \\
+    Let's compute the derivatives of \eqref{vts}:
+    \begin{align*}
+        \pdv{V}{t} &= -\frac{n}{2}\det(\mathds{1}+2tu)^{-\frac{n}{2}-1}\det(\mathds{1}+2tu)\Tr((\mathds{1}+2tu)^{-1}2u)e^{-\Tr(s(\mathds{1}+2tu)^{-1}u)} - \\
+        & -V(t,s)\dv{}{t}\Tr(s(\mathds{1}+2tu)^{-1}u) \\
+        &=
+        -nV(t,s)\Tr((\mathds{1}+2tu)^{-1}u) + 2V(t,s)\Tr(s(\mathds{1}+2tu)^{-2}u^2)
+    \end{align*}
+    Now, let's compute the infinitesimal generator:
+    \begin{equation*}
+        \mathcal{A}V = \Tr(nDV + 2SD^2V)
+    \end{equation*}
+    where
+    \begin{align*}
+        DV = \pdv{V}{S_{ij}} = -V(t,s)D\Tr(S(\mathds{1}+2tu)^{-1}u) \\
+        \overset{(a)}&{=}
+        -V(t,s)(\mathds{1}+2tu)^{-1}u
+    \end{align*}
+    where in (a) we used the fact that if we denote $(\mathds{1}+2tu)^{-1}u \equiv B_{ij}$, we have that
+    \begin{equation*}
+        \Tr(S(\mathds{1}+2tu)^{-1}u) = \sum_{i,j}S_{ij}\cdot B_{ij}
+    \end{equation*}
+    and the derivative is
+    \begin{equation*}
+        D\Tr(S(\mathds{1}+2tu)^{-1}u) = \pdv{}{S_{ij}}\sum_{i,j}S_{ij}\cdot B_{ij} = B_{ij} = (\mathds{1}+2tu)^{-1}u
+    \end{equation*}
+    Then, the second derivative is
+    \begin{align*}
+        D^2V = V(t,s)(\mathds{1}+2tu)^{-1}u(\mathds{1}+2tu)^{-1}u
+    \end{align*}
+    So, the infinitesimal generator reads
+    \begin{align*}
+        \mathcal{A}V &= -nV(t,s)\Tr((\mathds{1}+2tu)^{-1}u) + 2V(t,s)\Tr((\mathds{1}+2tu)^{-1}u(\mathds{1}+2tu)^{-1}u) \\
+        \overset{(a)}&{=}
+        -nV(t,s)\Tr((\mathds{1}+2tu)^{-1}u) + 2V(t,s)\Tr((\mathds{1}+2tu)^{-1}(\mathds{1}+2tu)^{-1}u)
+    \end{align*}
+    where in (a) we use the fact that
+    \begin{equation*}
+        u(\mathds{1}+2tu)^{-1}u = (\mathds{1}+2tu)^{-1}u
+    \end{equation*}
+    because the two matrices commute. Then, indeed we have
+    \begin{equation*}
+        -\pdv{V(T-t,s)}{t} + \mathcal{A}V(T-t,s) = 0
+    \end{equation*}
+    so the Wishart process is affine.
+\end{proof} % fine parte 1
