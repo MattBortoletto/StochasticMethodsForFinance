@@ -59,13 +59,13 @@ which can be written as
 \end{equation}
 This linear system cn be solved by taking the exponential of the matrix:
 \begin{align}% discosone sul fatto che questo caso è semplice perchè gli elementi della matrice sono costanti
-    \notag(G(\tau), F(\tau)) &= (G(0), F(0))\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
+    \notag(G(\tau), F(\tau)) &= \mqty(G(0) & F(0))\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
     &=
-    \notag(\Lambda, \mathds{1})\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
+    \notag\mqty(\Lambda & \mathds{1})\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
     &=
-    \notag(\Lambda, \mathds{1})\mqty(A_{11} & A_{12} \\ A_{21} & A_{22}) \\
+    \notag\mqty(\Lambda & \mathds{1})\mqty(A_{11} & A_{12} \\ A_{21} & A_{22}) \\
     &=
-    (\underbrace{\Lambda A_{11}(\tau) + A_{21}(\tau)}_{G}, \underbrace{\Lambda A_{12}(\tau) + A_{22}(\tau)}_{F}).
+    \mqty(\underbrace{\Lambda A_{11}(\tau) + A_{21}(\tau)}_{G} & \underbrace{\Lambda A_{12}(\tau) + A_{22}(\tau)}_{F}).
 \end{align}
 So, the solution of the Riccati ODE is
 \begin{equation}
@@ -87,6 +87,157 @@ By integrating we get
 \begin{equation}
     a(\tau) = -\frac{\beta}{2}\Tr(\ln F(\tau) + M^T\tau).
 \end{equation}
-In conclusion, we have the ``explicit" (numerical) Laplace transform.
+In conclusion, we have the ``explicit" (numerical) Laplace transform. Now we have to extend the Laplace transform of the Wishart to the case in which there is also a time integral of the process.
 
-21:20
+\subsubsection{Extension to the case of time integral}
+Consider the case in which the Laplace transform includes also a time integral:
+\begin{equation}
+    \psi_{\Sigma}(\tau, \Sigma(t)) = \mathbb{E}_t\left[e^{-\Tr(\Lambda\Sigma(T))+\Gamma\int_t^T \Sigma(s)\,\dd s}\right],
+\end{equation}
+where $\Lambda, \Gamma \in S^+$. According to the Feynman-Kac methodology $\psi$ satisfies the PDE
+\begin{equation}
+    \pdv{\psi}{\tau} = \mathcal{A}_{\Sigma}\psi - \Tr(\Gamma\Sigma)\psi.
+\end{equation}
+A candidate solution is given by
+\begin{equation}
+    \psi(\tau,\Sigma(t)) = e^{-\Tr(A(\tau)\Sigma(t)) + a(\tau)}.
+\end{equation}
+These equations lead to the following Riccati matrix ODEs:
+\begin{align*}
+    \begin{cases}
+        \dot{A}(\tau) = A(\tau)M + M^TA(\tau) - 2A(\tau)Q^TQA(\tau) + \Gamma \\
+        A(0) = \Lambda
+    \end{cases}
+\end{align*}
+\begin{align*}
+    \begin{cases}
+        \dot{a}(\tau) = -\beta\Tr(Q^TQA(\tau)) \\
+        a(0) = 0.
+    \end{cases}
+\end{align*}
+As before, we set
+\begin{equation*}
+    A(\tau) = F^{-1}(\tau)G(\tau)
+\end{equation*}
+and we differentiate:
+\begin{align*}
+    \dv{F\cdot A}{\tau} = \dot{F}A + F\dot{A} = \dot{F}A + F(AM+M^TA - 2AQ^TQA + \Gamma).
+\end{align*}
+So, we can write
+\begin{align*}
+    \dot{G} - \dot{F}A = GM + (FM^T - 2GQ^TQ)A + F\Gamma,
+\end{align*}
+which leads to the linear system
+\begin{align*}
+    \begin{cases}
+        \dot{G} = GM + F\Gamma \\
+        \dot{F} = -FM^T + 2GQ^TQ,
+    \end{cases}
+\end{align*}
+which can be written as
+\begin{equation*}
+    \mqty(\dot{G} & \dot{F}) = \mqty(G & F)\mqty(M & 2Q^TQ \\ \Gamma & -M^T).
+\end{equation*}
+The solution is
+\begin{align}
+    A(\tau) = (\Lambda A_{12} + A_{22})^{-1}(\Lambda A_{11} + A_{21}),
+\end{align}
+where
+\begin{equation}
+    \mqty(A_{11} & A_{12} \\ A_{21} & A_{22}) = \exp{\tau\mqty(M & 2Q^TQ \\ \Gamma & -M^T)}.
+\end{equation} % fine parte 1
+Then we can find $a(\tau)$ as before.
+
+\subsection{A multi-factor Wishart volatility model}
+Now that we have the Laplace transform of the Wishart process we can consider a model in which the Wishart process plays the role of the volatility. We will see that this model extends the Heston model in a non-trivial way.\\
+As usual, the starting point is the dynamics of the underlying under the risk neutral measure:
+\begin{equation}
+    \frac{\dd S(t)}{S(t)} = r\,\dd t + \Tr(\sqrt{\Sigma(t)} \,\dd Z(t)),
+\end{equation}
+where $Z(t)$ is a Brownian motion that drives the asset returns, which is partially correlated with $W(t)$, and
+\begin{equation}
+    \dd\Sigma(t) = (\beta Q^TQ + M\Sigma(t) + \Sigma(t)M^T)\dd t + \sqrt{\Sigma(t)}\,\dd W(t)Q + Q^T\,\dd W^T(t)\sqrt{\Sigma(t)},
+\end{equation}
+where $Q^TQ$ is invertible, $M$ is negative semi-definite (in order to have stationarity), $\beta\ge n-1$ (in order to have at least a weak solution) and $\Sigma(t)\in S^+_n$.\\
+Both $W$ and $Z$ are $n\times n$ Brownian motions, so there are $n^2$ possibilities of correlation. However, we have to keep the affinity property, for example setting
+\begin{equation}
+    Z(t) = W(t)\cdot R^T + B(t)\sqrt{\mathds{1}-RR^T},
+\end{equation}
+where $R\in M_{n\times n}$ and $B(t)$ is a Brownian motions such that $W(t)\indep\, B(t)$.
+\begin{proposition}
+    If we define $Z$ as above, then it is a (matrix) Brownian motion.
+\end{proposition}
+\begin{proof}
+    We have to show that $\forall \alpha_1,\alpha_2\in\mathbb{R}^n$
+    \begin{align*}
+        \Cov_t(\dd Z\alpha_1, \dd Z\alpha_2) = \mathbb{E}_t[(\dd Z\alpha_1)(\dd Z\alpha_2)^T] = \alpha_1^T\alpha_2\mathds{1}_n\,\dd t
+    \end{align*}
+    By replacing the definition of $Z$ we get
+    \begin{align*}
+        \Cov_t(\dd Z\alpha_1, \dd Z\alpha_2) &= \mathbb{E}_t[(\dd WM^T\alpha_1 + \dd B\sqrt{\mathds{1}-RR^T}\alpha_1)(\dd WM^T\alpha_2 + \dd B\sqrt{\mathds{1}-RR^T}\alpha_2)^T] \\
+        \intertext{Use the fact that $W(t)\indep\, B(t)$:}
+        &=
+        \Cov_t(\dd WR^T\alpha_1, \dd WR^T\alpha_2) + \Cov_t(\dd B\sqrt{\mathds{1}-RR^T}\alpha_1, \dd B\sqrt{\mathds{1}-RR^T}\alpha_2) \\
+        \intertext{Now use the fact that $W$ and $B$ are true (matrix) Brownian motions:}
+        &=
+        \alpha_1^T RR^T \alpha_2\mathds{1}\,\dd t + \alpha_1^T(\mathds{1}-RR^T)\alpha_2\mathds{1}\,\dd t \\
+        &=
+        \alpha_1^T\alpha_2\mathds{1}\,\dd t
+    \end{align*}
+    So $Z$ is a true Brownian motion.
+\end{proof}
+\begin{remark}
+    This is not the only possibility to correlate $Z$ with $W$. This parametrization is quite natural because it guarantees linearity and it is analogous with what we did in the scalar case.
+\end{remark}
+If we are interested in pricing a call:
+\begin{align*}
+    price_t(\call) = -\frac{e^{-r(T-t)}}{2\pi}\int_{\mathcal{Z}}\frac{K^{iZ+1}}{Z^2+iZ}\hat{f}(-Z)\,\dd Z
+\end{align*}
+we need
+\begin{equation*}
+    \hat{f}(Z) = \mathbb{E}_t[e^{iZ\ln S(T)}].
+\end{equation*}
+Let's introduce the function
+\begin{align}
+    \psi_{\gamma, t}(\tau) = \mathbb{E}_t\left[e^{\gamma\ln S(t+\tau)}\right] = \mathbb{E}_t\left[e^{\gamma Y(t+\tau)}\right],
+\end{align}
+where $Y(t) = \ln S(t)$ plays the role of the log-price. From the dynamics of the asset price we can deduce the dynamics of $Y(t)$:
+\begin{equation*}
+    \d Y(t) = \left(r-\frac{1}{2}\Tr(\Sigma(t))\right)\dd t + \Tr(\sqrt{\Sigma(t)}(\dd W(t)R^T+\dd B(t)\sqrt{\mathds{1}-RR^T})).
+\end{equation*}
+By Feynman-Kac we have that $\psi$ satisfies the PDE
+\begin{equation}
+    \begin{cases}
+        \pdv{\psi_{\gamma,t}}{\tau} = \mathcal{A}_{Y,\Sigma}\psi_{\gamma,t} \\
+        \psi_{\gamma,t}(0) = e^{\gamma Y(t)},
+    \end{cases}
+\end{equation}
+where $\mathcal{A}_{Y,\Sigma}$ is the joint infinitesimal generator of the whole stochastic process.
+\begin{proposition}
+    The multi-factor Wishart model is affine and its infinitesimal generator is given by
+    \begin{align}
+        \notag\mathcal{A}_{Y,\Sigma} &= \underbrace{\left(r-\frac{1}{2}\Tr(\Sigma)\right)\pdv{}{y} + \frac{1}{2}\Tr(\Sigma)\pdv[2]{}{y}}_{\mathcal{A}_Y} + \underbrace{\Tr((\beta Q^TQ + 2M\Sigma)D + 2\Sigma DQ^TQD)}_{\mathcal{A}_{\Sigma}} + \\
+        % 2M\Sigma e non M\Sigma + \SigmaM^T perchè sfruttiamo la commutatività
+        &\qquad +
+        \underbrace{2\Tr(\Sigma RQD)\pdv{}{y}}_{\mathcal{A}_{\expval{Y,\Sigma}}}. % Y is a scalar (it is the log-price) and \Sigma is a matrix. This is the reason why here we have a matrix operator D and a scalar operator d/dy.
+    \end{align}
+\end{proposition}
+\begin{proof}
+    We have already proved the expressions for the infinitesimal generator for $Y$ and $\Sigma$, so we only need to study the coviariation term. Recalling that $(\sqrt{\Sigma})_{ij} = \sigma_{ij}$
+    \begin{align*}
+        \dd\expval{\Sigma^{ij},Y}_t &= \mathbb{E}_t\left[\sum_{l,k =1}^n\sigma_t^{il}\dd W_{lk}Q_{kj} + \sum_{l,k =1}^n\sigma_t^{jl}\dd W_{lk}Q_{ki}\right]\left(\sum_{i,k,h=1}^n \sigma_t^{lk}\dd W_{kh}Q_{lh}\right) \\
+        &=
+        \sum_{l,k,h=1}^n (\sigma^{il}Q_{kj}+\sigma^{jl}Q_{ki})\sigma^{hl}R_{hk}\,\dd t \\
+        &=
+        \sum_{k,h=1}^n\left[\hlc{mypink}{\left(\sum_{l=1}^n \sigma^{il}\sigma^{kl}\right)}Q_{kj} + \hlc{mylightblue}{\left(\sum_{l=1}^n \sigma^{jl}\sigma^{hl}\right)}Q_{hi}\right]R_{hk}\,\dd t \\
+        &=
+        \sum_{k,h=1}^n\left[\hlc{mypink}{\Sigma^{ih}}Q_{kj} + \hlc{mylightblue}{\Sigma^{jk}}Q_{hi}\right]R_{hk}\,\dd t \\
+        &=
+        \text{coefficient of } \pdv{}{X_{ij}}{y}
+    \end{align*}
+    In fact, note that if in
+    \begin{align*}
+        2\Tr(\Sigma RQD)\pdv{}{y} = 2\sum_{i,j,k,h=1}^n D^{ij}\Sigma^{jh}R_{hk}Q_{ki}\pdv{}{y}
+    \end{align*}
+    we fix $i$ and $j$ we find the expression above.
+\end{proof}
