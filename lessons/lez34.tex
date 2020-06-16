@@ -165,4 +165,60 @@ The skew stochastic but it is a deterministic function of the volatility factors
 The crucial difference is that now in the numerator we have a linear combination involving all the elements of the Wishart process, not only the positive volatility factors (diagonal elements) but also their covariance (off-diagonal elements). So, we have a dedicated factor to manage the skew.
 
 \section{Wishart affine stochastic correlation model}
-21:30
+The Wishart affine stochastic correlation model (WASC) is a multiple-asset model (there are at least two risky assets). \\
+Let's begin with a preliminary remind. We have seen the Heston model with two risky assets. We can write their dynamics introducing two volatility factors:
+\begin{align*}
+    \dd S_1 &= S_1(r\,\dd t + \sqrt{X_1(t)}\,\dd Z_1 + \sqrt{X_3(t)}\,\dd Z_3) \\
+    \dd S_2 &= S_2(r\,\dd t + \sqrt{X_2(t)}\,\dd Z_1 + \sqrt{X_3(t)}\,\dd Z_3)
+\end{align*}
+where $X_1,X_2$ and $X_3$ are three independent (otherwise we loose affinity, i.e. analytical tractability) CIR processes. We can also introduce the leverage effect by allowing correlations between the Brownian motions $Z$ and the ones driving the CIR processes:
+\begin{equation*}
+    Z_i = \rho_iW_i + \sqrt{1-\rho_i^2}B_i
+\end{equation*}
+where $W_i$ is the Brownian motion driving $X_i$ and $B_i$ is its orthogonal part. \\
+If we consider the (normalized) quadratic covariation, since all the Brownian motions are independent except for the one of $X_3$, we get
+\begin{align*}
+    \frac{\dd\expval{S_1,S_2}}{S_1S_2} = X_3(t) \,\dd t > 0
+\end{align*}
+because $X_3$ is a CIR process. This is a strong constraint, in fact it is reasonable to expect stochastic correlations among the assets. However, we have seen that if we naively try to extend the Heston model to the three factors case we end up with something which is very limited, because there is this constraint on the sign of the correlation.\\
+This is the preliminary remark that motivates the introduction of a more sophisticated model. The only assumption that we require is that the stochastic covariance matrix evolves according the dynamics of the Wishart process:
+\begin{align}
+    \dd\Sigma(t) = (\beta Q^TQ + M\Sigma + \Sigma M^T)\dd t + \sqrt{\Sigma}\,\dd WQ + Q^T\,\dd W^T\sqrt{\Sigma}
+\end{align}
+with $Q\in GL_n$ in order to be invertible, $\beta\ge n-1$ in order to have at least a weak solution and $M\in M^-$ in order to have stationarity. The assets evolve according a vector dynamics
+\begin{equation}\label{assd}
+    \dd S = \diag(S)(r\mathds{1}\,\dd t + \sqrt{\Sigma(t)}\,\dd Z(t))
+\end{equation}
+where $Z$ is a vector Brownian motion.
+\begin{example}{2-dimensional case}{}{}
+    For $n=2$ we write \eqref{assd} as
+    \begin{align*}
+        \dd\mqty(S_1 \\ S_2) = \mqty(S_1 & 0 \\ 0 & S_2)\left(\mqty(r\,\dd t \\ r\,\dd t) + \mqty(\sigma_{11} & \sigma_{12} \\ \sigma_{12} & \sigma_{22})\mqty(\dd Z_1 \\ \dd Z_2)\right)
+    \end{align*}
+\end{example}
+\begin{remark}
+    The dynamics of each asset is driven by only one row of $\Sigma(t)$, not by the whole matrix as in the 1-asset case considered before, where
+    \begin{align}\label{stardynamics}
+        \frac{\dd S}{S} = r\,\dd t + \Tr(\Sigma(t)\,\dd Z). \tag{$\star$}
+    \end{align}
+\end{remark}
+\begin{remark}
+    It is simple to extend the WASC model in order to consider the dynamics \eqref{stardynamics} for each asset. For example, by considering the projection along a certain direction:
+    \begin{align*}
+        \dfrac{\dd S_i}{S_i} = r\,\dd t + \Tr(A_i\sqrt{\Sigma(t)}\,\dd Z).
+    \end{align*}
+\end{remark}
+\begin{remark}
+    If we consider, in analogy with the multiple-asset Heston model, the quadratic covariation between the first two assets, we get
+    \begin{align*}
+        \frac{\dd\expval{S_1,S_2}}{S_1S_2} = \Sigma_12 \,dd t \gtrless 0
+    \end{align*}
+    so we have a stochastic correlation.
+\end{remark}
+\begin{remark}
+    The general way to correlate the matrix BM $W$ and the vector BM $Z$ is to introduce a matrix $R_k\in M_n$ for $k=1,\dots,n$. So, in principle, there are many parameters because any element of $Z$ can be correlated with any elements of $W$:
+    \begin{align}
+        \dd Z_k = \Tr(R_k\,\dd W^T) + \sqrt{1-\Tr(R_kR_k^T)}\,\dd B_k(t)
+    \end{align}
+    In other words, the element $R_k^{ij}$ plays the role of the covariation between $Z_k$ and $W_{i,j}$: $R_k^{ij} \cong \expval{Z_k, W_{ij}}$.
+\end{remark}
