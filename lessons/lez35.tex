@@ -1,1 +1,79 @@
-\lesson{35}{29/05/2020}
+\lesson{35}{29/05/2020} So, we need many parameters to describe the correlation between the vector Brownian motion driving the asset prices and the matrix Brownian motion driving the volatility. However, the model has the following property.
+\begin{proposition}
+    The WASC model is affine if and only it the matrix $R_k$ has the following form:
+    \begin{align}
+        R_k = \mqty(0 & \cdots & 0 \\
+                      \rho_1 & \cdots & \rho_n \\
+                      0 & \cdots & 0) \leftarrow \text{$k$-th row}
+    \end{align}
+    with $\rho^T\rho \le 1$. So, we can write the Brownian motion $Z$ as the projection along the direction given by the vector $\rho$:
+    \begin{align}
+        \dd Z(t) = \dd W(t)\rho + \sqrt{1-\rho^T\rho}\,\dd B(t)
+    \end{align}
+    where $Z(t)$ and $B(t)$ are vectors and $W(t)$ is a matrix (independent of $B$).
+\end{proposition}
+So, we need only $n$ parameters to decribe the correlation.
+\begin{proof}
+    The starting point consists in taking the log-price. Adopting the notation
+    \begin{align*}
+        \vect{\Sigma_{ii}} = \mqty(\Sigma_{11} \\ \vdots \\ \Sigma_{nn}),
+    \end{align*}
+    we can write it as
+    \begin{align*}
+        \dd Y(t) = r\mathds{1}-\frac{1}{2}\vect{\Sigma_{ii}}\dd t + \sqrt{\Sigma}\,\dd Z(t).
+    \end{align*}
+    The idea is to show when $\expval{Y_h, \Sigma_{ij}}$ is affine in $\Sigma$ (if this is true then the whole infinitesimal generator will be affine). By Itô we get
+    \begin{align*} % small signa = sqrt of the Wishart matrix
+        \dd\expval{Y_h, \Sigma_{ij}} &= \sum_{k=1}^n \left(\sigma_{hk}\,\dd Z_k\right) \dd\Sigma_{ij} \\
+        &=
+        \sum_{k=1}^n \sigma_{hk} \Tr(R_k\,\dd W(t)^T)\left(\sum_{l,m=1}^n\sigma_{im}\,\dd W_{ml}Q_{lj}+\sigma_{jm}\,\dd W_{ml}Q_{li}\right) \\
+        &=
+        \sum_{k=1}^n \sigma_{hk} \sum_{p,q=1}^n R_k^{pq}\,\dd W_{pq}(t)\left(\sum_{l,m=1}^n\sigma_{im}\,\dd W_{ml}Q_{lj}+\sigma_{jm}\,\dd W_{ml}Q_{li}\right).
+    \end{align*}
+    Now, let's exploit the information that we have on the matrix Brownian motion $W$. Since all the elements are independent we have
+    \begin{align*}
+        \dd\expval{W_{pq},W_{ml}}_t = \delta_{pm}\delta_{ql}\,\dd t
+    \end{align*}
+    As a consequence, we get
+    \begin{align*}
+        \dd\expval{Y_h, \Sigma_{ij}} &= \sum_{m,l,k=1}^n \sigma_{hk}R_k^{ml}\left(\sigma_{im}Q_{lj} + \sigma_{jm}Q_{li}\right)\dd t \\
+        &=
+        \sum_{m,l,k=1}^n \left(\sigma_{hk}R_k^{ml}\sigma_{im}Q_{lj}+\sigma_{hk}R_k^{ml}\sigma_{jm}Q_{li}\right)\dd t
+    \end{align*} %The only possibility to recognize the developement of the square of the matrix $\sigma$ is
+    We would like to recognize the product $\sigma_{ij}\sigma_{ml}$ in such a way that by summing up over all the indices it leads to $\Sigma_{pq}$. The only possibility is to put $R_k^{ml}=0$ for all $k\ne m$ and $\forall l = 1,\dots,n$. We end up with the desired condition:
+    \begin{itemize}
+        \item $R_k$ must have all the elements equal to zero except for the $k$-th row;
+        \item The rows of $R_k$ have the same elements for all $k$, so $\rho$ does not depend on $k$.
+    \end{itemize}
+    Therefore
+    \begin{align*}
+        \dd\expval{Y_h, \Sigma_{ij}} &= \sum_{m,l,k=1}^n \left(\sigma_{hk}\sigma_{im}Q_{lj}+\sigma_{hk}\sigma_{jm}Q_{li}\right)\rho_l\dd t \\
+        \intertext{Fixing $l$ and summing over $m$ and $k$ we recognize the developement of the matrix $\Sigma_{hi}$ and $\Sigma_{hj}$:}
+        &=
+        \sum_{l=1}^n \left(\Sigma_{hi}Q_{lj} + \Sigma_{hj}Q_{li}\right)\rho_l\dd t \\
+        &=
+        \left(\sum_{hi}\Tr(R_jQ) + \Sigma_{hj}\Tr(R_iQ)\right)\dd t
+    \end{align*}
+    We end up with a linear combination in $\Sigma$, so the model is affine.
+\end{proof}
+
+\subsection{Pricing in a multiple asset model}
+Given a payoff $F(Y(T),T)\in L^2(\mathcal{F}(T))$, its initial price is given by
+\begin{align}
+    \notag price_0 &= e^{-rT}\mathbb{E}^{\Qmeas}[F(Y(T),T)] \\
+    &=
+    \notag e^{-rT}\frac{1}{(2\pi)^n}\mathbb{E}^{\Qmeas}\left[\int_{\mathcal{Z}}e^{-i\expval{Z,Y}}\left(\int_{\mathbb{R}^n}e^{i\expval{Z,Y}}F(y,T)\,\dd y\right)\dd Z\right] \\
+    &=
+    \notag e^{-rT}\frac{1}{(2\pi)^n}\int_{\mathcal{Z}}\mathbb{E}^{\Qmeas}\left[e^{-i\expval{Z,Y}}\right]\left(\int_{\mathbb{R}}e^{i\expval{Z,Y}}F(y,T)\,\dd y\right)\dd Z \\
+    \intertext{Once again we have that the price of a contingent claim can be written as the numerical integral of a product of two elements: the first one being the characteristic function of the asset prices (or log-prices) and the second being the characteristic function of the particular payoff we are interested in. The only difference is that now we are reasoning in multiple dimensions, where we can introduce the following notation:}
+    &=
+    \notag \frac{1}{(2\pi)^n}\int_{\mathcal{Z}}\psi_{Y(0),\Sigma(0)}(-iz,0,0,T)\hat{F}(Z)\,\dd Z
+\end{align}
+where
+\begin{align}
+    \hat{F}(Z) = \int_{\mathbb{R}}e^{i\expval{Z,Y}}F(Y(T),T)\,\dd Y(T)
+\end{align}
+is the Fourier transform of the payoff and
+\begin{align}
+    \psi_{Y(t),\Sigma(t)}(\gamma,\Gamma,t,\tau) = e^{-r\tau}\expect\left[e^{\expval{\gamma,Y(t+\tau)}+\Tr[\Gamma \Sigma(t+\tau)]}\right]
+\end{align}
