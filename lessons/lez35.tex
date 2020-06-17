@@ -70,10 +70,23 @@ Given a payoff $F(Y(T),T)\in L^2(\mathcal{F}(T))$, its initial price is given by
     \notag \frac{1}{(2\pi)^n}\int_{\mathcal{Z}}\psi_{Y(0),\Sigma(0)}(-iz,0,0,T)\hat{F}(Z)\,\dd Z
 \end{align}
 where
-\begin{align}
+\begin{align}\label{ftofpayoff}
     \hat{F}(Z) = \int_{\mathbb{R}}e^{i\expval{Z,Y}}F(Y(T),T)\,\dd Y(T)
 \end{align}
 is the Fourier transform of the payoff and
 \begin{align}
-    \psi_{Y(t),\Sigma(t)}(\gamma,\Gamma,t,\tau) = e^{-r\tau}\expect\left[e^{\expval{\gamma,Y(t+\tau)}+\Tr[\Gamma \Sigma(t+\tau)]}\right]
+    \psi_{Y(t),\Sigma(t)}(\gamma,\Gamma,t,\tau) = e^{-r\tau} \expect\left[e^{\expval{\gamma,Y(t+\tau)}+\Tr[\Gamma \Sigma(t+\tau)]}\right]
 \end{align}
+This is the general Fourier transform: if we want to price calls or put we can skip the second term of the exponential whereas if we are interested in pricing volatility models we can skip the first term (in fact in \eqref{ftofpayoff} we set $\Gamma = 0$). By Feynman-Kac we can write
+\begin{align}
+    \pdv{\psi_{Y,\Sigma}}{\tau} = (\mathcal{A}_{Y,\Sigma}-r)\psi
+\end{align}
+\begin{proposition}
+    The infinitesimal generator of the WASC model is given by
+    \begin{align}
+        \notag\mathcal{A}_{Y,\Sigma} &= \underbrace{\Tr((\beta Q^TQ + M\Sigma + \Sigma M^T)D + 2\Sigma DQ^TQD)}_{Wishart} + \\
+        &\qquad\qquad
+        + \underbrace{\nabla_Y\left(r\mathds{1}-\frac{1}{2}\vect{\Sigma_{ii}}\right) + \frac{1}{2}\nabla_Y\Sigma\nabla_Y^T}_{log-price\, Y} + 2\Tr(DQ^T\rho\nabla_Y\Sigma)
+    \end{align}
+    where $\rho$ is a column vector and $\nabla_Y$ is a row vector, so that $\rho\nabla_Y$ is a $n\times n$ matrix.
+\end{proposition}
