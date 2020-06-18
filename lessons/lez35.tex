@@ -89,4 +89,145 @@ This is the general Fourier transform: if we want to price calls or put we can s
         + \underbrace{\nabla_Y\left(r\mathds{1}-\frac{1}{2}\vect{\Sigma_{ii}}\right) + \frac{1}{2}\nabla_Y\Sigma\nabla_Y^T}_{log-price\, Y} + 2\Tr(DQ^T\rho\nabla_Y\Sigma)
     \end{align}
     where $\rho$ is a column vector and $\nabla_Y$ is a row vector, so that $\rho\nabla_Y$ is a $n\times n$ matrix.
+\end{proposition}% fine prima parte
+\begin{proof}
+    We altready know the infinitesimal generator of the Wishart process, so let's look for the other two. For the vector $Y(t)$ the infinitesimal generator is given by the Itô formula:
+    \begin{align*}
+        \mathcal{A}_Y = \sum_{i=1}^n\left(r-\frac{1}{2}\Sigma_{ii}\right)\pdv{}{y_i}+\frac{1}{2}\sum_{i,j=1}^n\Sigma_{ij}\pdv{}{y_i}{y_j}
+    \end{align*}
+    In terms of the covariation, we can write
+    \begin{align*}
+        \mathcal{A}_{\expval{Y,\Sigma}} &= 2\sum_{i=1}^n\Tr(\Sigma R_iQD)\pdv{}{y_i} \\
+        &=
+        2\Tr[\left(\sum_{i=1}^nR_i\pdv{}{y_i}\right)QD\Sigma] \\
+        &=
+        2
+        \Tr\left[\mqty(\rho_1\pdv{}{y_1} & \cdots & \rho_n\pdv{}{y_1} \\
+                       \vdots            & \ddots & \vdots \\
+                       \rho_1\pdv{}{y_n} & \cdots & \rho_n\pdv{}{y_n})\right] \\
+        &=
+        2\Tr[\Sigma\nabla_y^T\rho^TQD]
+    \end{align*}
+\end{proof}
+\begin{proposition}
+    The Laplace transform of the joint process is given by
+    \begin{align}
+        \psi_{Y(t),\Sigma(t)}(\gamma,\Gamma,t,\tau) = e^{-r\tau} \exp{\Tr(A(\tau)\Sigma(t))+\gamma^TY(t)+c(\tau)}
+    \end{align}
+    where
+    \begin{align}
+        A(\tau) = (\Gamma A^1_2(\tau)+A_2^2(\tau))^{-1}(\Gamma A^1_1(\tau)+A_1^2(\tau))
+    \end{align}
+    is the solution of the Riccati equation and
+    \begin{align}
+        \mqty(A_1^1 & A_1^2 \\ A_2^1 & A_2^2) = \exp{\tau\mqty(M+Q^T\rho\gamma^T & -2Q^TQ \\ \tfrac{1}{2}\left(\gamma\gamma^T-\sum_{i=1}^nY_ie_{ii}\right) & -(M^T+\gamma\rho^TQ))},
+    \end{align}
+    \begin{align}
+        c(\tau) = -\frac{\beta}{2}\Tr[\ln(\Gamma A_2^1(\tau)+A_2^2(\tau)) + \tau M^T + \tau\gamma\rho^TQ] + \tau r (\gamma^T\mathds{1}-1).
+    \end{align}
 \end{proposition}
+\begin{proof}
+    Putting the candidate into the PDE we get the Riccati equation
+    \begin{align*}
+        \begin{cases}
+            \dot{A}(\tau) = AM + M^TA - \frac{1}{2}\sum_{i=1}^n \gamma_ie_{ii}+ 2AQ^TQA + \frac{1}{2}\gamma\gamma^T + AQ^T\rho\gamma^T + \gamma\rho^TQA \\
+            A(0) = \Gamma
+        \end{cases}
+    \end{align*}
+    together with
+    \begin{align*}
+        \begin{cases}
+            \dot{c}(\tau) = \Tr(r\mathds{1}\gamma^T + \beta Q^TQA) - r \\
+            c(0) = 0
+        \end{cases}
+    \end{align*}
+    The linearization procedure is standard (express $A$ as a ratio involving the derivative of the denominator, ecc.). \colorbox{cyan}{Homework}
+\end{proof}
+Now we would like to see which are the other advantages of introducing a Wishart model instead of a multiple Heston. We have already seen that the Wishart process allows to consider stochastic correlations between the assets. Now we analyze what happens in the skew of the vanillas. If we are interested in pricing a call option on the first asset, in principle we can forget about the other assets. However we will see that in this model all the assets communicate with each other, because in the matrix $\sigma$ there is a ``cocktail" involving all the volatility parameters.
+
+\subsection{Leverage in single name vanillas}
+If we consider the correlation between driving the first (log-)asset price and its volatility:
+\begin{align}
+    \corr_t(\text{Noise}(Y_1),\text{Noise}(\text{Vol}(S_1))) &= \frac{\expval{Y_1,\Sigma_{11}}_t}{\sqrt{\Sigma_{11}(t)}\sqrt{\expval{\Sigma_{11}}_t}} \\
+    &=
+    \frac{2\Sigma_{11}\Tr(R_1Q)}{\sqrt{\Sigma_{11}(t)}\sqrt{4\Sigma_{11}(Q_{11}^2+Q_{21}^2)}} \\
+    &=
+    \frac{\Tr(R_1Q)}{\sqrt{Q_{11}^2+Q_{21}^2}} \\
+    \intertext{Recall that $R_1 = \smqty(\rho_1 & \rho_2 \\ 0 & 0)$:}
+    &=
+    \frac{Q_{11}\rho_1+Q_{21}\rho_2}{\sqrt{Q_{11}^2+Q_{21}^2}}
+\end{align}
+So, we have a constant skew, like in the classic Heston model. This is due to the fact that we decided not to adopt the richest parametrization of the WASC model (which considers the trace for any asset).
+\begin{remark}
+    If the matrix $Q$ is diagonal
+    \begin{align*}
+        \corr_t(\text{Noise}(Y_1),\text{Noise}(\text{Vol}(S_1))) &= \rho_1
+        \corr_t(\text{Noise}(Y_2),\text{Noise}(\text{Vol}(S_2))) &= \rho_2
+    \end{align*}
+    as in the classic Heston model. If $Q$ is not diagonal, the skew of the implied volatility on asset 1 depends on the volatility of asset 2.
+\end{remark}
+In some sense, in this framework vanillas are ``basket options", in the sense that there are dependences between assets through their volatilities.
+
+\subsection{Asymmetric conditional correlation effect}
+In the stochastic volatility framework for a single asset, if the market rises up we observe that the volatility $\sigma$ decreases while if the market crushes $\sigma$ increases. In the multiple assets case:
+\begin{itemize}
+    \item if the market rises up, the correlation $\rho$ between the assets decreases, in the sense that there is more diversification in the market;
+    \item if the market crushes, the correlation between the assets increases. There is a contagion effect, in the sense that the credit risk transfers from one asset to another. This means that there will no more diversification in the market (all the assets behave more or less in the same way).
+\end{itemize}
+We would like to see if there exists a model that can describe this effect. In the WASC model we can find a closed form expression of the covariation between the asset $Y_i$ and the cross correlation
+\begin{align}
+    \rho_{Y_1,Y_2}(t) = \rho_{12}(t) = \frac{\Sigma_{12}(t)}{\sqrt{\Sigma_{11}(t)\Sigma_{22}(t)}}.
+\end{align}
+\begin{proposition}
+    The covariation between the $i$-th asset price and the cross correlation $\rho_{12}$ is given by
+    \begin{align}
+        \dd\expval{Y_i,\rho_{12}} = \frac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}(1-\rho_{12}^2)\Tr(R_jQ)\dd t
+    \end{align}
+    (where in our case $i,j=1,2$).
+\end{proposition}
+\begin{proof}
+    By definition,
+    \begin{align*}
+        \rho_{12}\sqrt{\Sigma_{11}\Sigma_{22}} = \Sigma_{12}.
+    \end{align*}
+    By differentiating, we get
+    \begin{align*}
+        \dd\Sigma_{12} = \sqrt{\Sigma_{11}\Sigma_{22}}\,\dd \rho_{12} + \rho_{12}\,\dd(\sqrt{\Sigma_{11}\Sigma_{22}}) + (\dots)\dd t.
+    \end{align*}
+    By Itô
+    \begin{align*}
+        \dd(\sqrt{\Sigma_{11}\Sigma_{22}}) = \frac{1}{2}\sqrt{\frac{\Sigma_{22}}{\Sigma_{11}}}\,\dd\Sigma_{11} + \frac{1}{2}\sqrt{\frac{\Sigma_{11}}{\Sigma_{22}}}\,\dd\Sigma_{22} + (\dots)\dd t.
+    \end{align*}
+    So, we can write
+    \begin{align*}
+          \dd\rho_{12} = \frac{1}{\sqrt{\Sigma_{11}\Sigma_{22}}}\,\dd \Sigma_{12} - \frac{1}{2}\rho_{12}\left(
+          \frac{1}{\Sigma_{11}}\,\dd\Sigma_{11} +
+          \frac{1}{\Sigma_{22}}\,\dd\Sigma_{22}\right) + (\dots)\dd t.
+    \end{align*}
+    Then
+    \begin{align*}
+        \dd\expval{Y_1,\rho_{12}}_t &= \frac{1}{\sqrt{\Sigma_{11}\Sigma_{22}}}\,\dd\expval{Y_1,\Sigma_{12}} - \frac{1}{2}\rho_{12} \left(
+        \frac{1}{\Sigma_{11}}\,\dd\expval{Y_1,\Sigma_{11}} + \frac{1}{\Sigma_{22}}\,\dd\expval{Y_1,\Sigma_{22}}
+        \right) \\
+        &=
+        \frac{1}{\sqrt{\Sigma_{11}\Sigma_{22}}}\left(\Sigma_{11}\Tr(R_2Q)+\Sigma_{12}\Tr(R_1Q)\right)\dd t - \\
+        &\qquad\qquad\qquad\qquad\qquad\qquad - \rho_{12}\left(\Tr(R_1Q) + \frac{\Sigma_{12}}{\Sigma_{22}}\Tr(R_2Q)\right)\dd t \\
+        &=
+        \Tr(R_2Q)\left(\frac{\Sigma_{11}}{\sqrt{\Sigma_{11}\Sigma_{22}}}-\rho_{12}\frac{\Sigma_{12}}{\Sigma_{22}}\right)\dd t \\
+        &=
+        \Tr(R_2Q)\frac{\sqrt{\Sigma_{11}}}{\Sigma_{22}}(1-\rho_{12}). % questa dimostrazione ha un errore perchè dovrebbe essere rho_12 al quadrato
+    \end{align*}
+\end{proof}
+We have that $(1-\rho_{12})\ge0$ and $\tfrac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}\ge0$, so
+\begin{equation*}
+    \frac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}(1-\rho_{12}^2) \ge 0
+\end{equation*}
+Conversely, the term $\Tr(R_jQ)$ is related to the skew of the vanilla on the asset $j$, which typically is negative:
+\begin{align*}
+    \Tr(R_jQ) \le 0 \qquad\Rightarrow\qquad \dd\expval{Y_i,\rho_{12}} \le 0
+\end{align*}
+The correlation of every combination of the assets with the cross correlation among the assets is typically negative. So, if we define and index as the weighted sum of the log-assets
+\begin{equation*}
+    \text{Index} = \sum_i \alpha_iY_i
+\end{equation*}
+when this index decreases, due to the fact that $\expval{\text{Index},\rho_{ij}}<0$, the cross correlation $\rho_{12}$ increases. This is the meaning of the contagion effect.
