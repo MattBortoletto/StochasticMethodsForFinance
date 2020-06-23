@@ -1,11 +1,11 @@
-\section{Quantity-adjusted options}\lesson{18}{22/04/2020} % Bjork pag. 248
+\section{Quantity-adjusted options}\lesson{19}{22/04/2020} % Bjork pag. 248
 Quantity-adjusted options, also called \emph{quanto} options, are cash settled, cross currency derivatives where the underlying asset is denominated in a currency different from the one in which the option is settled. In other words, quanto options are derivatives where the payoff is defined by variables associated with one currency but is paid in another currency. \\
-For example, the transfer between \EUR{1} and 1\,\$ is given through an \emph{exchange rate}:
+For example, the transfer between \EUR{1} and 1\,\$ is given through an \emph{exchange rate}
 \begin{equation}
     X(t)^{\text{EURUSD}} = \dfrac{\text{\EUR{1}}}{1\,\$}
 \end{equation}
 which is usually given using the \emph{FORDOM} (foreign-domestic currency) notation. If we consider a third additional currency, for example the Japanese Yen \textyen, in order to be consistent it must be that if $X_1, X_2$ are two exchange rate, then $X_3 = X_1X_2$. So, the product of two exchange rates is an exchange rate.\\
-In general, the interest rates in different countries are different, so  -- at least in principle -- there can be a potential arbitrage opportunity. This problem is only apparent because as soon as we want to exploit this arbitrage we have to consider the currency conversion, which works through a stochastic quantity, i.e. the interest rate. \\
+In general, the interest rates in different countries are different, so  -- at least in principle -- there can be a potential arbitrage opportunity. However, this is only an apparent problem since, as soon as we may want to exploit this arbitrage, we would have to consider the currency conversion, which works through a stochastic quantity, the interest rate. \\
 As starting point, we assume that the evolution of the exchange rate between the two currencies is given by a B\&S dynamics under the subjective probability measure $\Pmeas$:
 \begin{align}
     \frac{\dd X(t)}{X(t)} = \mu_X\,\dd t + \sigma_X\,\dd W^{\Pmeas}(t)
@@ -15,15 +15,15 @@ This is a good candidate, in fact the products of two Brownian motions is itself
     \frac{\dd B_d}{B_d} = r_d\,\dd t
 \end{align}
 Similarly, the riskless asset in the foreign currency evolves according to the equation:
-\begin{equation}\label{f}
+\begin{equation}\label{fffffffffffff}
     \frac{\dd B_f}{B_f} = r_f\,\dd t
 \end{equation}
-We already know the solutions of \eqref{dd} and \eqref{f}:
+We already know the solutions of \eqref{dd} and \eqref{fffffffffffff}:
 \begin{equation}
     B_d(t) = e^{r_d t}, \qquad B_f(t) = e^{r_f t}
 \end{equation}
 Here we assume that $r_d, r_f$ are constant and that if we buy foreign currency, this will evolve according $r_f$\footnote{This is not always the case. For example, if we buy dollars in the euro-zone the evolution of this EUR-dollar is different from the one of USD-dollar. Anyway, this is a reasonable assumption.}. \\
-We want to price options on the exchange rate at maturity $X_T$. These are not properly quanto options, because we need to introduce an underlying denominated in a different currency. For example, consider the call option that allows to buy 1\,\$ at price \EUR{$K$}, which has payoff $(X_T-K)^+$. According to the risk neutral methodology the price is given by:
+We want to price options on the exchange rate at maturity $X_T$. Notice that these are not properly quanto options, because we need to introduce an underlying denominated in a different currency. For example, consider the call option that allows to buy 1\,\$ at price \EUR{$K$}, which has payoff $(X_T-K)^+$. According to the risk neutral methodology the price is given by:
 \begin{align*}
     price_t = e^{-r(T-t)}\expect_t[(X_T-K)^+]
 \end{align*}
@@ -31,17 +31,17 @@ But we are not able to define the risk neutral measure $\Qmeas$ if there is no u
 Which are the domestic assets? Let's consider a stylized economy in which we have the foreign and domestic saving accounts and we consider the transfers between the two. In this case there are two assets:
 \begin{itemize}
     \item $B_d$, in fact its drift is $r_d$;
-    \item $B_fX = \Tilde{B}_f$, i.e. the foreign riskless asset converted into the domestic currency.  
+    \item $B_fX = \Tilde{B}_f$, i.e. the foreign riskless asset converted into the domestic currency.
 \end{itemize}
 By Itô, we have that:
 \begin{align}\label{al1}
     \notag\dd\Tilde{B}_f &= \dd(B_fX) = (\dd B_f)X + B_f\,\dd X \\
-    &= 
+    &=
     \notag\Tilde{B}_f r_f\, \dd t + \Tilde{B}_f(\mu_X\,\dd t + \sigma_X\,\dd W^{\Pmeas}) \\
-    &= 
+    &=
     \Tilde{B}_f(\mu_X + r_f)\,\dd t + \sigma_X\,\dd W^{\Pmeas}
 \end{align}
-This is the general dynamics of a foreign riskless asset converted in the domestic currency. Now we want that 
+This is the general dynamics of a foreign riskless asset converted in the domestic currency. Now we want that
 \begin{equation*}
     \mu_X + r_f = r_d
 \end{equation*}
@@ -54,14 +54,14 @@ If we define the change of probability measure given by the Radon-Nikodym deriva
     \notag\eval{\frac{\dd \Qmeas^d}{\dd \Pmeas}}_t &= \mathcal{E}\left(\dfrac{\mu_X + r_f-r_d}{\sigma_X}\right)_t \\
     &=
     \notag\exp{\int_0^t \left(\dfrac{\mu_X + r_f-r_d}{\sigma_X}\right)\,\dd W^{\Pmeas} - \int_0^t \left(\dfrac{\mu_X + r_f-r_d}{\sigma_X}\right)^2\,\dd s} \\
-    &\sim 
+    &\sim
     \exp{\alpha W(t) - \frac{1}{2}\sigma^2 t} = \text{true martingale}
 \end{align}
 we can apply the Girsanov theorem:
 \begin{equation*}
     \dd W^{\Pmeas} + \dfrac{\mu_X + r_f-r_d}{\sigma_X}\,\dd t = \dd W^{\Qmeas^d}
 \end{equation*}
-So:
+Then:
 \begin{align}
     \eqref{al2} &= \Tilde{B}_f(r_d\,\dd t + \sigma_X\dd W^{\Qmeas^d})
 \end{align}
@@ -84,7 +84,7 @@ Now we are ready to price an exchange option.
     where the dynamics of $X_t$ is given by \eqref{dynX};
     \item the solution:
     \begin{equation}
-        price_t = F(t.X_t) 
+        price_t = F(t.X_t)
     \end{equation}
     of the PDE:
     \begin{equation}
@@ -94,7 +94,7 @@ Now we are ready to price an exchange option.
         \end{cases}
     \end{equation}
     \item the solution \begin{equation}
-        F(t,X) = F_0(t,Xe^{-r_f(T-t)}) 
+        F(t,X) = F_0(t,Xe^{-r_f(T-t)})
     \end{equation}
     where $F_0$ is the solution corresponding to no dividends, which obeys to the equation:
     \begin{equation}
@@ -130,14 +130,14 @@ for the domestic asset and by
 where we used the scalar product $(\cdot)$ because $\sigma$ is a row vector and $\dd W$ is a column vector.\\
 The volatility matrix of our market is given by
 \begin{equation}
-    \sigma = 
+    \sigma =
     \begin{pmatrix}
     \sigma_X \\ \sigma_d \\ \sigma_f
     \end{pmatrix} =
     \begin{pmatrix}
     \sigma_{X_1} & \sigma_{X_2} & \sigma_{X_3} \\
     \sigma_{d_1} & \sigma_{d_2} & \sigma_{d_3} \\
-    \sigma_{f_1} & \sigma_{f_2} & \sigma_{f_3} 
+    \sigma_{f_1} & \sigma_{f_2} & \sigma_{f_3}
     \end{pmatrix}
 \end{equation}
 We also add a domestic and a foreign riskless assets which evolve according to the equations:
@@ -166,17 +166,17 @@ which again is just a formal expression. Finally, we can do the same thing for t
 \begin{align}
     \notag\frac{\dd\Tilde{B}_f}{\Tilde{B}_f} &= (\mu_f+\mu_X)\,\dd t + \sigma_X\dd W^{\Pmeas} \\
     &=
-    r_d\,\dd t + \sigma_X\left(\dd W^{\Pmeas}+\dfrac{\mu_X + r_f - r_d}{``\sigma_X"}\,\dd t\right) 
+    r_d\,\dd t + \sigma_X\left(\dd W^{\Pmeas}+\dfrac{\mu_X + r_f - r_d}{``\sigma_X"}\,\dd t\right)
 \end{align}
-Provided that the Girsanov Theorem can be applied to a 3-dimensional geometric Brownian motion $W^{\Pmeas}$ we have to find the corresponding Radon-Nikodym derivative 
+Provided that the Girsanov Theorem can be applied to a 3-dimensional geometric Brownian motion $W^{\Pmeas}$ we have to find the corresponding Radon-Nikodym derivative
 \begin{equation} % 24:00
     \eval{\dfrac{\dd\Qmeas^d}{\dd\Pmeas}}_t = \colorbox{cyan}{homework}
 \end{equation}
-Now, for example, consider the problem of pricing in euros a call on $S_f$ in dollars with $K$ in dollars, which has payoff $(S_f(T)-K)^+X_T^{\text{USDEUR}}$. We can solve this problem by pricing directly in the foreign country, that is under $\Qmeas^f$, using the B\&S model and then convert the result using the exchange rate: 
+Now, for example, consider the problem of pricing in euros a call on $S_f$ in dollars with $K$ in dollars, which has payoff $(S_f(T)-K)^+X_T^{\text{USDEUR}}$. We can solve this problem by pricing directly in the foreign country, that is under $\Qmeas^f$, using the B\&S model and then convert the result using the exchange rate:
 \begin{equation}
     price = X_t(S_f(t)\Phi(d_1)-e^{-r_f(T-t)}K\Phi(d_2))
 \end{equation}
-where 
+where
 \begin{equation}
     d_1 = \frac{1}{\norm{\sigma_f}\sqrt{T-t}}\left(\ln\frac{S_f(t)}{K}+\left(r_f+\frac{1}{2}\norm{\sigma_f}^2\right)(T-t)\right)
 \end{equation}
@@ -192,13 +192,13 @@ with
 \begin{remark}
     $\Qmeas^d \ne \Qmeas^f$ (Siegel paradox). This happens because under $\Qmeas^d$ we impose that everything in the domestic market -- after being discounted by the domestic interest rate -- is a martingale while under $\Qmeas^f$ we impose that all the foreign assets, including the domestic ones converted in the foreign currency, will be martingales -- once discounted by the foreign riskless asset. This leads to different dynamics. In particular, the exchange rate under $\Qmeas^d$ evolves according to the equation:
     \begin{equation}
-       \frac{\dd X}{X} = (r_d-r_f)\,\dd t + \sigma_X\,\dd W^{\Qmeas^d}  
+       \frac{\dd X}{X} = (r_d-r_f)\,\dd t + \sigma_X\,\dd W^{\Qmeas^d}
     \end{equation}
-    Consider the euro-zone and the dollar-zone. If the exchange rate between euros and dollars is $X$ then the one from dollars to euros must be $\nicefrac{1}{X}$. But the dynamics under $\nicefrac{1}{X}$ is given by 
+    Consider the euro-zone and the dollar-zone. If the exchange rate between euros and dollars is $X$ then the one from dollars to euros must be $\nicefrac{1}{X}$. But the dynamics under $\nicefrac{1}{X}$ is given by
     \begin{equation}
-        \frac{\dd\frac{1}{X}}{\frac{1}{X}} = (r_d-r_f\hlc{mypink}{\norm{\sigma_X}^2})\,\dd t + \sigma_X\,\dd W^{\Qmeas^d}  
+        \frac{\dd\frac{1}{X}}{\frac{1}{X}} = (r_d-r_f\hlc{mypink}{\norm{\sigma_X}^2})\,\dd t + \sigma_X\,\dd W^{\Qmeas^d}
     \end{equation}
-    so there is an additional term, essentially the Itô term, which is responsible for the fact that the two measures are not the same. This is due to the randomness of the exchange rate.  
+    so there is an additional term, essentially the Itô term, which is responsible for the fact that the two measures are not the same. This is due to the randomness of the exchange rate.
 \end{remark}
 \begin{example}{Quanto exchange call}{}{}
     Price the exchange quanto option, which has payoff:
@@ -207,6 +207,3 @@ with
     \end{equation*}
     \colorbox{cyan}{Homework}.
 \end{example}
-
-
-
