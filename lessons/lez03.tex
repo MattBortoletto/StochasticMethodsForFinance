@@ -15,11 +15,11 @@ Now we have to solve the problem for the short position. One possibility is to s
     \end{equation}
 \end{enumerate}
 \begin{example}{}{}
-Consider again the toy model where we have an underlying which initial price is $S_0=100$, $T=1$ year, $S_T=(Su,Sd)=(110,90)$, a strike price $K=100$ and an interest rate of $1\%$ per year. Then we have 
+Consider again the toy model where we have an underlying which initial price is $S_0=100$, $T=1$ year, $S_T=(Su,Sd)=(110,90)$, a strike price $K=100$ and an interest rate of $1\%$ per year. Then we have
 \begin{equation*}
     u = \dfrac{110}{100} = 1.1 \qquad d = \dfrac{90}{100} = 0.9
 \end{equation*}
-The corrisponding $q$ is 
+The corrisponding $q$ is
 \begin{equation*}
     q = \dfrac{e^{RT}-d}{u-d} = \dfrac{e^{0.01}-0.9}{1.1-0.9} = 0.555
 \end{equation*}
@@ -27,11 +27,11 @@ Now we are able to compute the price of the call:
 \begin{equation}
     price_0(\mbox{call}) = e^{-RT}(10q+ 0(1-q)) = 10qe^{-RT} = 5.44
 \end{equation}
-This is the market price coherent with the no arbitrage principle of a \colorbox{magenta}{promise} that can give a payoff between 10 and 0. So, in order to use the replicating portfolio strategy, the short position has to sell the option for a price $\mbox{price}^{mkt}>5.44$. The income of $\mbox{price}^{mkt}-5.44$ can be put in the pocket, but we have to use 5.44 in order to build up the hedging strategy, which consists in taking
+This is the market price coherent with the no arbitrage principle of a promise that can give a payoff between 10 and 0. So, in order to use the replicating portfolio strategy, the short position has to sell the option for a price $\mbox{price}^{mkt}>5.44$. The income of $\mbox{price}^{mkt}-5.44$ can be put in the pocket, but we have to use 5.44 in order to build up the hedging strategy, which consists in taking
 \begin{equation*}
     \Delta = \dfrac{f^u-f^d}{Su-Sd} = \dfrac{10-0}{110-90} = 0.5
 \end{equation*}
-shares in the risky market and 
+shares in the risky market and
 \begin{equation*}
     \beta = price_0-\Delta S_0 = 5.44 - 0.5\cdot100 = -44.56
 \end{equation*}
@@ -43,8 +43,8 @@ In this kind of business we usually get slightly more than price$_0$. For exampl
 A \emph{dividend} is a payment made by a corporation to its shareholders. The idea is that if we own one asset sometimes the corresponding corporate decides to give us -- in addition to the market value of our asset -- some extra bonus. \\
 Consider a binomial model in which we have and underlying with initial value $S$ and final values given by the terminal values $Su,Sd$ plus a bonus:
 \begin{equation}
-    S \to \begin{cases} 
-    Su + Se^{\delta T} \\ Sd + Se^{\delta T} 
+    S \to \begin{cases}
+    Su + Se^{\delta T} \\ Sd + Se^{\delta T}
     \end{cases}
 \end{equation}
 where $\delta$ is called \emph{dividend rate} and in general is a random variable. In such cases we say that the price is \emph{cum dividend}, whereas if there is no dividend the price is \emph{ex dividend}. We can repeat the same arguments we did before for the price ex dividend introducing the dividend as a shift of the price of the underlying. The probability weight becomes
@@ -52,7 +52,7 @@ where $\delta$ is called \emph{dividend rate} and in general is a random variabl
     q = \dfrac{e^{RT}-(d+e^{\delta T})}{u-d}
 \end{equation}
 \begin{remark}
-    Recall that in Remark \ref{remark} we found a stylized case of martingale. Now we have 
+    Recall that in Remark \ref{remark} we found a stylized case of martingale. Now we have
     \begin{equation}
         \mathbb{E}^{\Qmeas}[S_T] = S_0(e^{RT}-e^{\delta T})
     \end{equation}
@@ -63,7 +63,7 @@ where $\delta$ is called \emph{dividend rate} and in general is a random variabl
 One interesting thing is that it is possible to deduce the implicit dividend policy of a corporate -- which usually is private -- from the prices quoted in the market. In order to do that we use the \emph{put-call parity}, which is a link between the put and the call prices. \\
 Start by considering no dividends. Notice that any number can be written as positive part minus negative part:
 \begin{equation*}
-    x = x^+ - x^- = x^+ - (-x)^+ 
+    x = x^+ - x^- = x^+ - (-x)^+
 \end{equation*}
 So, we can write
 \begin{equation}
@@ -75,7 +75,7 @@ Now we use the linearity of expected value:
 \end{equation*}
 and multiply both sides for the discounted value:
 \begin{equation*}
-    e^{-RT}\mathbb{E}^{\Qmeas}[S_T-K] = \underbrace{e^{-RT}\mathbb{E}^{\Qmeas}[(S_T-K)^+]}_{call_0} - 
+    e^{-RT}\mathbb{E}^{\Qmeas}[S_T-K] = \underbrace{e^{-RT}\mathbb{E}^{\Qmeas}[(S_T-K)^+]}_{call_0} -
     \underbrace{e^{-RT}\mathbb{E}^{\Qmeas}[(K-S_T)^+]}_{put_0}
 \end{equation*}
 where we recognized the initial price of the call and of the put. Then we use the property ${\mathbb{E}}[aX+b]=a{\mathbb{E}}[X]+b$:
@@ -193,9 +193,12 @@ Conversely, if we consider a non-recombining tree, like
 \end{center}
 for $n$ steps we have $2^n$ possible realizations, which for large $n$ is impossible to manage.\\
 The decision between combining and non-combining tree is crucial, and it should be motivated by some financial argument. Why should we use non-recombining trees? What we observe in the market is that when $S$ goes up the volatility is low, whereas when the market decreases there is an increase of the volatility.
-\begin{center}
-    \colorbox{green}{fig6}
-\end{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{fig/tmp/fig6}
+    \caption{Volatility behavior.}
+    \label{fig:figura6}
+\end{figure}
 This is the reason why it could be interesting to consider a non-recombining tree. However, if we choose this kind of model there is a problem in the implementation. Recall that in the binomial model $u$ and $d$ are given by $(u,d)\sim e^{\pm\sigma\sqrt{T}}$: the problem is we have only one historical series, and if the parameters vary step by steps it is impossible to estimate them. So we drop this model and we use a recombining tree.
 \begin{remark}
     Sometimes it is not possible to use a recombining tree because there are same contracts which payoff depends on the whole past history of the underlying. So, in these cases it is not enough to take a picture of the underlying at the maturity. For example, in the 70s some manipulations have been used in order to rise the price of crude oil immediately before the maturity and then exercise the call option, buying at $K<S_T$ and getting $S_T-K>0$. In order to avoid this kind of manipulations, contracts which payoff depends on the whole past history of the underlying -- called \emph{asian options} -- have been introduced. Asian options payoff is given by

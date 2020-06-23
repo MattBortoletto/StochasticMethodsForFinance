@@ -3,7 +3,7 @@ We now go on to investigate when the market model above is free of arbitrage pos
 \begin{lemma}[Farkas' Lemma]
     Suppose that $x_0,x_l,\dots,x_K$ are column vectors in $\mathbb{R}^N$. Then exactly one of the two following problems possesses a solution:
     \begin{itemize}
-        \item \emph{P1:} Find non-negative numbers $\lambda_l,\dots,\lambda_M$ such that 
+        \item \emph{P1:} Find non-negative numbers $\lambda_l,\dots,\lambda_M$ such that
         \begin{equation}
             x_0 = \sum^K_{j=1} \lambda_j x_j
         \end{equation}
@@ -14,14 +14,14 @@ We now go on to investigate when the market model above is free of arbitrage pos
     \end{itemize}
 \end{lemma}
 \begin{proof}
-    Let $A$ be the set of all non-negative linear combinations of $x_l,...,x_K$: 
+    Let $A$ be the set of all non-negative linear combinations of $x_l,...,x_K$:
     $$A=\{y\in\mathbb{R}^n:y=\lambda_1x_1+\dots+\lambda_Kx_K; \lambda_i>0\,\,\forall i\}$$
-    It is easy to see that $A$ is a closed convex cone containing the origin. Exactly one of the following cases can hold:
+    It is easy to see that $A$ is a closed convex cone containing the origin. Exactly one of the following cases can hold: 
     \begin{itemize}
     \item $x_0\in A$. This means that P1 above has a solution.
     \item $x_0\notin A$. Then, by the separation theorem for convex sets (Hanh-Banach theorem), there exists a hyperplane $H$ such that $x_0$ is strictly on one side of $H$ whereas $A$ is on the other side. Letting $h$ be defined as a normal vector to $H$ pointing in the direction where $A$ lies, this means that P2 has a solution.
     \begin{center}
-        \colorbox{green}{fig8}
+        \includegraphics[scale=0.2]{fig/tmp/fig8}
     \end{center}
     \end{itemize}
 \end{proof}
@@ -37,7 +37,7 @@ We can now formulate our first result.
     \begin{align*}
         V_0^{h,Z} &= h^TZ_0 = 0, \\
         V_1^{h,Z} &= h^TZ_1(\omega_j)=(h^TD^Z)_j \ge0, \quad\forall j \\
-        V_1^{h,Z} &>0, \quad\mbox{for some } j 
+        V_1^{h,Z} &>0, \quad\mbox{for some } j
     \end{align*}
     We now want to apply Farkas’ Lemma to this system and in order to do this we define the column vector $p=(p_1,\dots,p_M)^T\in\mathbb{R}^M$. We can now rewrite the system above as:
     \begin{align*}
@@ -52,7 +52,7 @@ We can now formulate our first result.
         h^TD^Z &\ge 0, \\
         h^T(-D^Zp) & < 0.
     \end{align*}
-    The point of all this is that if we define the vector $d_0$ and the block matrix $\hat{D}$ by 
+    The point of all this is that if we define the vector $d_0$ and the block matrix $\hat{D}$ by
     \begin{equation*}
         d_0=(-D^Zp)\in\mathbb{R}^N, \qquad \hat{D}=[D^Z,Z_0,-Z_0]_{N\times (M+2)}
     \end{equation*}
@@ -77,7 +77,7 @@ We can now formulate our first result.
     \begin{equation*}
         \alpha = \sum^M_{j=1}(p_j+\beta_j).
     \end{equation*}
-    From this we see that $\alpha > 0$, and if we define the column vector $q\in\mathbb{R}^M$ by 
+    From this we see that $\alpha > 0$, and if we define the column vector $q\in\mathbb{R}^M$ by
     \begin{equation*}
         q = \dfrac{p+\beta}{\alpha}
     \end{equation*}
@@ -85,7 +85,7 @@ We can now formulate our first result.
     \begin{equation*}
         q_j>0,\quad j=1,\dots,M \qquad \sum^M_{j=1}q_j=1.
     \end{equation*}
-    So, rewriting \eqref{star} as 
+    So, rewriting \eqref{star} as
     \begin{equation*}
         Z_0 = D^Zq
     \end{equation*}
@@ -104,7 +104,7 @@ So the market is arbitrage free if and only if there exists a probability distri
 %% DA QUI HO COPIATO LA LEZIONE SENZA AUDIO, DA CONTROLLARE E INTEGRARE
 %%%%
 We can restate theorem \ref{arbfreeth} as the following result, which in its far reaching generalizations is known as the first fundamental theorem of mathematical finance.
-\begin{theorem}[First Fundamental Theorem] 
+\begin{theorem}[First Fundamental Theorem]
     Given a fixed numéraire, the market is free of arbitrage possibilities if and only if there exists a martingale measure ${\Qmeas}$, i.e. a probability measure such that:
     \begin{enumerate}
         \item $Q\sim \mathbb{P}$, i.e. $Q$ is equivalent to $\mathbb{P}$ ($Q(A)=0\Leftrightarrow \mathbb{P}(A)=0$, $\forall A$);
@@ -127,23 +127,23 @@ We can restate theorem \ref{arbfreeth} as the following result, which in its far
 \end{remark}
 
 \subsection{Market completeness}
-Recall that the market is complete if for any random variable $X\in(\Omega,\mathcal{F},\mathbb{P})$ there exists a portfolio $V^h$ such that $\mathbb{P}(V_1^h=X)=1$. 
+Recall that the market is complete if for any random variable $X\in(\Omega,\mathcal{F},\mathbb{P})$ there exists a portfolio $V^h$ such that $\mathbb{P}(V_1^h=X)=1$.
 \begin{proposition}\label{rankprop}
     The market is complete if and only if $\rank(D)=M$.
 \end{proposition}
 \begin{proof}
-    For any portfolio $h$, we view the random variable $V^h_1$ as a row vector $V^h_1 =(V^h_1(\omega_1),\dots,V^h_1(\omega_M))$ and with this notation we have $V^h_1 = h^TD$. The market is thus complete if and only if, for every random variable $X$ (viewed as a row vector in $\mathbb{R}^M$) there exists the corresponding portfolio, i.e. if there exists $h$ such that the equation $h^TD = X$ has a solution. But 
+    For any portfolio $h$, we view the random variable $V^h_1$ as a row vector $V^h_1 =(V^h_1(\omega_1),\dots,V^h_1(\omega_M))$ and with this notation we have $V^h_1 = h^TD$. The market is thus complete if and only if, for every random variable $X$ (viewed as a row vector in $\mathbb{R}^M$) there exists the corresponding portfolio, i.e. if there exists $h$ such that the equation $h^TD = X$ has a solution. But
     \begin{equation*}
         h^TD = h^1(S^1)+\dots+h^N(S^N)
     \end{equation*}
     is exactly a linear combination of the rows of $D$ with the components of $h$ as coefficients.
 \end{proof}
 \begin{remark}
-    If $X$ is obtainable (it is possible to span $X$) and $S^1$ is risk-free then 
+    If $X$ is obtainable (it is possible to span $X$) and $S^1$ is risk-free then
     \begin{equation*}
         price_0(X) = e^{-RT}\mathbb{E}^{\Qmeas}[X].
     \end{equation*}
-    In fact, there exist $h$ such that $X=h^TD$ and from previous results we know that $S_0 = e^{-RT}\mathbb{E}^{\Qmeas}[S_1]$. But we also know that 
+    In fact, there exist $h$ such that $X=h^TD$ and from previous results we know that $S_0 = e^{-RT}\mathbb{E}^{\Qmeas}[S_1]$. But we also know that
     \begin{equation*}
         X=h^TD=\sum_ih^iS_1^i,
     \end{equation*}
@@ -153,7 +153,7 @@ Recall that the market is complete if for any random variable $X\in(\Omega,\math
     \end{equation*}
     In other words, if $X$ is obtainable we can write the corresponding replicating portfolio. Remember that we cannot speak about pricing without speaking about hedging: here we have an implicit hedging procedure.
 \end{remark}
-In Proposition \ref{rankprop} we obtained one characterization of complete markets. There is another characterization which connects completeness to martingale measures. This result is known as the second fundamental theorem of mathematical finance. 
+In Proposition \ref{rankprop} we obtained one characterization of complete markets. There is another characterization which connects completeness to martingale measures. This result is known as the second fundamental theorem of mathematical finance.
 \begin{theorem}[Second Fundamental Theorem]
     Assume that the model is arbitrage free. Then the market is complete if and only if the martingale measure is unique.
 \end{theorem}
@@ -240,12 +240,12 @@ edge from parent/.style = {draw,-latex},
     \end{align*}
     So it is better to wait when we arrive in node (A). If we are in node (B) we have:
     \begin{align*}
-        P^{AM}_{(B)} &= \max\{(100-90)^+, e^{-0.01}(0\cdot q +1\cdot(1-q))\} \\ 
+        P^{AM}_{(B)} &= \max\{(100-90)^+, e^{-0.01}(0\cdot q +1\cdot(1-q))\} \\
         &= 10
     \end{align*}
     So in node (B) it is better to exercise the option. Finally, the initial value of the American put option is:
     \begin{align*}
-        P^{AM}_{0} &= \max\{(100-100)^+, e^{-0.01}(P^{AM}_{(A)}\cdot q +P^{AM}_{(B)}\cdot(1-q))\} \\ 
+        P^{AM}_{0} &= \max\{(100-100)^+, e^{-0.01}(P^{AM}_{(A)}\cdot q +P^{AM}_{(B)}\cdot(1-q))\} \\
         &= e^{-0.01}[e^{-0.01}q(1-q)+10(1-q)] = \colorbox{cyan}{conti}
     \end{align*}
     If we compute the initial price of the European option we will find that
@@ -253,4 +253,4 @@ edge from parent/.style = {draw,-latex},
     In terms of hedging, we only have to understand which are $\Delta_{0,(A)}$ and $\beta_{0,(A)}$. Since in node (B) the underlying decreases, there is no need to consider hedging in node (B).
 \end{example}
 
-%%%%%%%%%%%%%%%%%%%%% END OF DISCRETE TIME PART %%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%% END OF DISCRETE TIME PART %%%%%%%%%%%%%%%%%%%%%

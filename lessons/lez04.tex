@@ -40,19 +40,19 @@ and a call option, whose payoff is the random vector
     \begin{matrix}
         (Su^2-K)^+ \\ (Sud-K)^+ \\ (Sd^2-K)^+
     \end{matrix}
-    \right) 
+    \right)
     =
     \left(
     \begin{matrix}
         f^{u^2} \\ f^{ud} \\ f^{d^2}
     \end{matrix}
-    \right) 
+    \right)
 \end{equation*}
 The problem is always the same: how much do we have to pay at time $t=0$ in order to get this payoff at time $t=T$?\\
 Suppose that we are in node (A). According to the risk neutral methodology, the value of the relative sub-payoff is given by
 \begin{align}
-    \notag Value_A\left(\binom{f^{u^2}}{f^{ud}}\right) 
-    &= 
+    \notag Value_A\left(\binom{f^{u^2}}{f^{ud}}\right)
+    &=
     \notag e^{-R\frac{T}{2}}\mathbb{E}^{\Qmeas}\left(\left.\binom{f^{u^2}}{f^{ud}}\right|\mbox{(A)}\right)\\
     &=
     e^{-R\frac{T}{2}}(qf^{u^2}+(1-q)f^{ud})
@@ -71,8 +71,8 @@ Now, we can compute the initial price of the whole payoff:
     \begin{matrix}
         f^{u^2} \\ f^{ud} \\ f^{d^2}
     \end{matrix}
-    \right) 
-    &= 
+    \right)
+    &=
     price_0\left(\begin{matrix}
         Value_A \\  Value_B
     \end{matrix}\right)\\
@@ -98,20 +98,20 @@ Notice that the three coefficients are positive and their sum gives 1, so again 
     \begin{matrix}
         f^{u^2} \\ f^{ud} \\ f^{d^2}
     \end{matrix}
-    \right) 
+    \right)
     = e^{-RT} \mathbb{E}^{\Qmeas}
-    \left[ 
+    \left[
     \left(
     \begin{matrix}
         f^{u^2} \\ f^{ud} \\ f^{d^2}
     \end{matrix}
     \right)
-    \right] 
+    \right]
     = e^{-RT}\mathbb{E}^{\Qmeas}[\mbox{payoff}_T]
 \end{equation}
-The formula has the same form as before but it must be contextualized as the expectation under the risk neutral probability measure 
+The formula has the same form as before but it must be contextualized as the expectation under the risk neutral probability measure
 \begin{equation}
-    Q \sim 
+    Q \sim
     \left(
     \begin{matrix}
         q \\ 2q(1-q) \\ q^2
@@ -145,17 +145,14 @@ So, in a dynamic binomial model, also the hedging is dynamic. This is obvious, s
 
 \subsection{Dynamic interest rates}
 \begin{remark}
-There are two possible riskless assets: 
+There are two possible riskless assets:
 \begin{itemize}
     \item the one which consider the forward evolution of the asset, used for example in savings accounts
     \item the zero coupon bond, which consider the backward evolution of the asset
 \end{itemize}
 If the interest rate is constant, the two are equivalent. Moreover, the two are equivalent even if the interest rate evolves and its dynamic is deterministic.
 \end{remark}
-\noindent If we consider different maturity times we can find which is the corresponding value of one unit of cash, i.e. \EUR{1}. It is intuitive to expect that for a larger maturity there will be a larger interest rate. However, there are some cases in which the interest rate decreases in time. This typically happens after a financial crisis. In other cases the curve will assume other shapes, like the one in Figure \colorbox{magenta}{fig7}, which is typically used for large maturities, e.g. 30 years.
-\begin{center}
-    \colorbox{green}{fig7}
-\end{center}
+\noindent If we consider different maturity times we can find which is the corresponding value of one unit of cash, i.e. \EUR{1}. It is intuitive to expect that for a larger maturity there will be a larger interest rate. However, there are some cases in which the interest rate decreases in time. This typically happens after a financial crisis. In other cases the curve will assume other shapes.\\
 The input to find which is the interest rate corresponding to a certain maturity are the prices of the zero coupon bound. So, starting from now we have to take into account different rates with respect to different maturities. \\
 Recall the binomial lattice
 \begin{center}
@@ -187,7 +184,7 @@ edge from parent/.style = {draw,-latex},
                 };
 \end{tikzpicture}
 \end{center}
-and focus on node (A). We have two different interest rates, $R_{\nicefrac{T}{2}}=R(0,\nicefrac{T}{2})$ and $R_T=R(0,T)$, called \emph{spot interest rates} because they start from $t=0$. The problem is to compute $q$: we would like to find an expression similar to \eqref{qT2} but we need $R=R(0,\nicefrac{T}{2},T)$ -- i.e. the interest rate decided at $t=0$ that starts to capitalize at $t=\nicefrac{T}{2}$ until $t=T$ -- which is not defined yet. $R=R(0,\nicefrac{T}{2},T)$ is called \emph{forward interest rate}. We would like to deduce the value of the forward interest rate starting from the spot interest rates. If we put \EUR{1} at $t=0$ we have 
+and focus on node (A). We have two different interest rates, $R_{\nicefrac{T}{2}}=R(0,\nicefrac{T}{2})$ and $R_T=R(0,T)$, called \emph{spot interest rates} because they start from $t=0$. The problem is to compute $q$: we would like to find an expression similar to \eqref{qT2} but we need $R=R(0,\nicefrac{T}{2},T)$ -- i.e. the interest rate decided at $t=0$ that starts to capitalize at $t=\nicefrac{T}{2}$ until $t=T$ -- which is not defined yet. $R=R(0,\nicefrac{T}{2},T)$ is called \emph{forward interest rate}. We would like to deduce the value of the forward interest rate starting from the spot interest rates. If we put \EUR{1} at $t=0$ we have
 \begin{equation*}
     1 \longrightarrow e^{R\left(0,\frac{T}{2}\right)\frac{T}{2}} \longrightarrow e^{R\left(0,\frac{T}{2}\right)\frac{T}{2}}e^{R\left(0,\frac{T}{2},T\right)\frac{T}{2}}
 \end{equation*}
@@ -205,11 +202,11 @@ which has solution
 \end{equation}
 Now we can define the risk neutral probability in the node (A):
 \begin{equation}
-    q_A = \dfrac{e^{R\left(0,\frac{T}{2},T\right)\frac{T}{2}}-d}{u-d} 
+    q_A = \dfrac{e^{R\left(0,\frac{T}{2},T\right)\frac{T}{2}}-d}{u-d}
 \end{equation}
 The same argument holds for node (B), so the expression for $q_B$ is exactly the same of $q_A$. The interest rate at $t=0$ will be
 \begin{equation}
-    q_0 = \dfrac{e^{R\left(0,\frac{T}{2}\right)\frac{T}{2}}-d}{u-d} 
+    q_0 = \dfrac{e^{R\left(0,\frac{T}{2}\right)\frac{T}{2}}-d}{u-d}
 \end{equation}
 So, denoting $q_A = q_B \equiv q_1$, the price at $t=0$ is given by
 \begin{equation}\label{p00}
@@ -218,7 +215,7 @@ So, denoting $q_A = q_B \equiv q_1$, the price at $t=0$ is given by
     \begin{matrix}
         f^{u^2} \\ f^{ud} \\ f^{d^2}
     \end{matrix}
-    \right) 
+    \right)
     = e^{-R(0,T)T} \mathbb{E}^{\Qmeas}[\mbox{payoff}_T]
 \end{equation}
 where
@@ -227,15 +224,15 @@ where
     \begin{matrix}
         q_0q_1 \\ q_0(1-q_1)+(1-q_0)q_1 \\ (1-q_0)(1-q_1)
     \end{matrix}
-    \right) 
+    \right)
 \end{equation}
-Expanding \eqref{p00} we get 
+Expanding \eqref{p00} we get
 \begin{equation}
     price_0
     \left(
     \begin{matrix}
         f^{u^2} \\ f^{ud} \\ f^{d^2}
     \end{matrix}
-    \right) 
+    \right)
     = e^{-R(0,T)T}(f^{u^2}q_0q_1 + f^{ud}(q_0(1-q_1)+(1-q_0)q_1) + f^{d^2}(1-q_0)(1-q_1))
 \end{equation}

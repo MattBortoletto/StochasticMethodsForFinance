@@ -6,7 +6,7 @@ Let's assume that there are two counterparts interested in entering in a contrac
     \item \emph{short position}, which has to sell the asset at maturity
 \end{itemize}
 The price of the underlying asset at the current time $t$ is denoted as $S_t$ and it is known/measurable, whereas the price at time $S_T$ is a random variable. This type of contract is called \emph{forward contract}, since we are looking forward in the future. Because it costs nothing to enter into a forward contract, the payoff is also the trader’s total gain or loss from the contract.\\
-What can we say about the payoff of the forward contract? 
+What can we say about the payoff of the forward contract?
 \begin{figure}
     \centering
     \includegraphics[scale=0.2]{fig/fc_payoff.png}
@@ -49,38 +49,54 @@ In the end the sum at $t=0$ is $S_0-Ke^{-RT}$ and the sum at $t=T$ is zero. Sinc
 \begin{equation}
     S_0-Ke^{-RT} = 0 \quad\Rightarrow\quad K = S_0e^{RT}
 \end{equation}
-This is the value of $K$ such that both parts will agree in entering the contract.  
+This is the value of $K$ such that both parts will agree in entering the contract.
 
 \section{Options}
 Options are financial instruments that are derivatives based on the value of underlying securities such as stocks. An options contract offers the buyer the opportunity to buy or sell—depending on the type of contract they hold—the underlying asset. There are two types of option. A \emph{call} option gives the holder the right to buy the underlying asset by a certain date for a certain price. A \emph{put option} gives the holder the right to sell the underlying asset by a certain date for a certain price.
 
 \subsection{Long call option}
-In \emph{long call options} we have the possibility to buy the underlying at time $t=T$ at price $K$ decided at $t=0$. So, at maturity we will buy only if it is convenient. 
-\begin{center}
-    \colorbox{green}{fig1}
-\end{center}
-Notice that now the payoff is no more linear. If we are in the short position at most we hope to get a zero payoff: nobody will accept this position. This means that the contract will have a price that the long position has to pay to the short position in order to enter the contract. In other words, it is as if the short position sells to the long position the possibility to buy.
-\begin{center}
-    \colorbox{green}{fig2}
-\end{center}
-If we have different strike prices the corresponding costs will be different. For example, if we have $K_1<K_2$, since the probability to exercise the option corresponding to $K_2$ is smaller than the probability to exercise the option corresponding to $K_1$, then $c_1$ will be larger thank $c_2$: 
+In \emph{long call options} we have the possibility to buy the underlying at time $t=T$ at price $K$ decided at $t=0$. So, at maturity we will buy only if it is convenient.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{fig/tmp/fig1a}
+    \includegraphics[scale=0.2]{fig/tmp/fig1b}
+    \caption{Call option payoffs.}
+    \label{fig:figura1}
+\end{figure}
+\newline Notice that now the payoff is no more linear. If we are in the short position at most we hope to get a zero payoff: nobody will accept this position. This means that the contract will have a price that the long position has to pay to the short position in order to enter the contract. In other words, it is as if the short position sells to the long position the possibility to buy.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{fig/tmp/fig2}
+    \caption{Call option profits.}
+    \label{fig:figura2}
+\end{figure}
+\newline If we have different strike prices the corresponding costs will be different. For example, if we have $K_1<K_2$, since the probability to exercise the option corresponding to $K_2$ is smaller than the probability to exercise the option corresponding to $K_1$, then $c_1$ will be larger thank $c_2$:
 \begin{equation*}
     K_1 < K_2 \quad\Rightarrow\quad c_1 > c_2
 \end{equation*}
-\begin{center}
-    \colorbox{green}{fig3}
-\end{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{fig/tmp/fig3}
+    \caption{Costs for different strike prices.}
+    \label{fig:figura3}
+\end{figure}
 
 \subsection{Long put option}
 In \emph{long put options} we have the possibility to sell the underlying at time $t=T$ at price $K$ decided at $t=0$. So, at maturity we will sell to the counterpart only if it is convenient, i.e. if $S_T<K$\footnote{This is used, for example, by arabian countries which want to avoid that the price of crude oil goes below a certain level.}.
-\begin{center}
-    \colorbox{green}{fig4}
-\end{center}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{fig/tmp/fig4}
+    \caption{Put option payoffs.}
+    \label{fig:figura4}
+\end{figure}
 In this case the short position has the obligation to buy. But there is no convenience in entering such a contract, so again there will be a cost to enter the contract as long position.
-\begin{center}
-    \colorbox{green}{fig5}
-\end{center}
-If we have different strike prices, for example $K_1<K_2$, since the probability to exercise the option corresponding to $K_2$ is bigger than the probability to exercise the option corresponding to $K_1$, then $c_1$ will be smaller thank $c_2$: 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.2]{fig/tmp/fig5}
+    \caption{Put option profits.}
+    \label{fig:figura5}
+\end{figure}
+If we have different strike prices, for example $K_1<K_2$, since the probability to exercise the option corresponding to $K_2$ is bigger than the probability to exercise the option corresponding to $K_1$, then $c_1$ will be smaller thank $c_2$:
 \begin{equation*}
     K_1 < K_2 \quad\Rightarrow\quad c_1 < c_2
 \end{equation*}

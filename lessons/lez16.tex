@@ -1,20 +1,20 @@
 \section{Change of numéraire}\lesson{16}{15/04/2020} %Bjork ch. 26
-The change of numeraire is an alternative technique. We know that under the original probability measure $\Pmeas$ one assets evolves according to the equation:
+The change of numeraire is an alternative technique. We know that under the original probability measure $\Pmeas$ one asset evolves according to the equation
 \begin{equation}
     \begin{cases}
     \frac{\dd S(t)}{S(t)} = \rho\dd t + \sigma\dd W^{\Pmeas}(t) \\
-    \frac{\dd S_0(t)}{S_0(t)} = r\dd t
+    \frac{\dd S_0(t)}{S_0(t)} = r\dd t.
     \end{cases}
 \end{equation}
 Under the risk neutral probability measure $\Qmeas$ the risky asset changes, while the riskless asset doesn't:
 \begin{equation}
     \begin{cases}
     \frac{\dd S}{S} = r\dd t + \sigma\dd W^{\Qmeas}(t) \\
-    \frac{\dd S_0(t)}{S_0(t)} = r\dd t
-    \end{cases} 
+    \frac{\dd S_0(t)}{S_0(t)} = r\dd t.
+    \end{cases}
 \end{equation}
-Moreover, we know that under $\Qmeas$ the discounted asset $\hat{S}_t = e^{-rt}S_t$ is a $\Qmeas$-martingale and the discounted numéraire is $\hat{S}_0 \equiv 1$. This shift from $\Pmeas$ to $\Qmeas$ starts from $(S(t),S_0(t))$ and leads to $(S(t)/S_0(t),1)$. \\
-This is only one possibility. In general, for any numéraire, provided that it is a tradable asset with positive price, there exists a probability measure $\Qmeas^{\num}$ such that any discounted asset with respect to it becomes a $\Qmeas^{\num}$-martingale. This means that:
+Moreover, we know that under $\Qmeas$ the discounted asset $\hat{S}_t = e^{-rt}S_t$ is a $\Qmeas$-martingale and the discounted numéraire is $\hat{S}_0 \equiv 1$. This shift from $\Pmeas$ to $\Qmeas$ starts from $(S(t),S_0(t))$ and leads to $(S(t)/S_0(t),1)$. This is only one possibility. \\
+In general, for any numéraire, provided that it is a tradable asset with positive price, there exists a probability measure $\Qmeas^{\num}$ such that any discounted asset with respect to it becomes a $\Qmeas^{\num}$-martingale. This means that:
 \begin{itemize}
     \item $\frac{assets}{numeraire}=\Qmeas^{\num}$-martingales;
     \item $\frac{portfolios}{numeraire}=\Qmeas^{\num}$-margingales;
@@ -22,67 +22,67 @@ This is only one possibility. In general, for any numéraire, provided that it i
 \end{itemize}
 From the last point, in general we have:
 \begin{equation}
-    \frac{price_t(\pay_T)}{\num_T} = \mathbb{E}_t^{\Qmeas^{\num}} \left[\frac{\pay_T}{\num_T}\right]
+    \frac{price_t(\pay_T)}{\num_T} = \mathbb{E}_t^{\Qmeas^{\num}} \left[\frac{\pay_T}{\num_T}\right],
 \end{equation}
 so we can recover the pricing function:
 \begin{equation}
-    price_t(\pay_T) = \num_T\mathbb{E}_t^{\Qmeas^{\num}} \left[\frac{\pay_T}{\num_T}\right]
+    price_t(\pay_T) = \num_T\mathbb{E}_t^{\Qmeas^{\num}} \left[\frac{\pay_T}{\num_T}\right].
 \end{equation}
 If the numéraire is the riskless asset we can extract the $\num$ inside the expected value, recovering the usual formula. If it is different -- in particular if it is stochastic -- we have to keep it inside the expected value.
 
 \subsection{Application to the exchange option}
-We already know that the payoff of the exchange option is $(S_1(T)-S_2(T))^+$. Under the probability measure $\Pmeas$ the evolution is given by:
+We already know that the payoff of the exchange option is $(S_1(T)-S_2(T))^+$. Under the probability measure $\Pmeas$ the dynamics is given by:
 \begin{align}
     \dfrac{\dd S_1(t)}{S_1(t)} &= \mu_1\,\dd t + \sigma_{11}\,\dd W_1^{\Pmeas}(t) + \sigma_{12}\,\dd W_2^{\Pmeas}(t) \\
-    \dfrac{\dd S_2(t)}{S_2(t)} &= \mu_2\,\dd t + \sigma_{21}\,\dd W_1^{\Pmeas}(t) + \sigma_{22}\,\dd W_2^{\Pmeas}(t)
+    \dfrac{\dd S_2(t)}{S_2(t)} &= \mu_2\,\dd t + \sigma_{21}\,\dd W_1^{\Pmeas}(t) + \sigma_{22}\,\dd W_2^{\Pmeas}(t).
 \end{align}
 Let's use $S_2$ as numéraire:
 \begin{equation}
-    (S_1,S_2)\longrightarrow(\nicefrac{S_1}{S_2}, 1)
+    (S_1,S_2)\longrightarrow(\nicefrac{S_1}{S_2}, 1).
 \end{equation}
-We have to look for the probability measure under which $\nicefrac{S_1}{S_2}$ becomes a $\Qmeas^{S_2}$-martingale. So, if we define
+We have to look for the probability measure under which $\nicefrac{S_1}{S_2}$ becomes a $\Qmeas^{S_2}$-martingale. If we define
 \begin{equation}
     \frac{S_1}{S_2} \coloneqq Z_t
 \end{equation}
 the dynamics of $Z_t$ must involve only a drift. Using the Itô's formula we have to compute:
 \begin{align}\label{zz}
-    \dd Z_t = \dd\left(\frac{S_1}{S_2}\right) = \dd\left(S_1\frac{1}{S_2}\right)
+    \dd Z_t = \dd\left(\frac{S_1}{S_2}\right) = \dd\left(S_1\frac{1}{S_2}\right).
 \end{align}
-Let's start from:
+Let's start from
 \begin{align*}
     \dd\left(\frac{1}{S_2}\right) &= \dfrac{1}{S_2}\dd S_2 + \dfrac{1}{S^2}(\dd S_2)^2 \\
     &=
-    -\frac{1}{S_2}(\mu_2 + \sigma_{21}\dd W_1^{\Pmeas} + \sigma_{22}\dd W_2^{\Pmeas}) + \dfrac{1}{S_2}\dfrac{\cancel{S_2^2}}{\cancel{S_2^2}}(\sigma_{21}^2+ \sigma_{22}^2)\dd t 
+    -\frac{1}{S_2}(\mu_2 + \sigma_{21}\dd W_1^{\Pmeas} + \sigma_{22}\dd W_2^{\Pmeas}) + \dfrac{1}{S_2}\dfrac{\cancel{S_2^2}}{\cancel{S_2^2}}(\sigma_{21}^2+ \sigma_{22}^2)\dd t.
 \end{align*}
-Then 
+Then
 \begin{equation*}
-    \frac{\dd\left(\frac{1}{S_2}\right)}{\frac{1}{S_2}} = (-\mu_2 + \sigma_{21} + \sigma_{22}^2)\dd t + \sigma_{21}^2\dd W_1^{\Pmeas} + \sigma_{22}^2 \dd W_2^{\Pmeas}
+    \frac{\dd\left(\frac{1}{S_2}\right)}{\frac{1}{S_2}} = (-\mu_2 + \sigma_{21} + \sigma_{22}^2)\dd t + \sigma_{21}^2\dd W_1^{\Pmeas} + \sigma_{22}^2 \dd W_2^{\Pmeas}.
 \end{equation*}
-Recall that the dynamics of $S_2^{\alpha}$ is still a Brownian motion, in fact we can write $S_2(t) = S_2(0)e^{\mathcal{N}}$ and if we consider a power the structure remains the same. Now we plug what we found into \eqref{zz} and apply the integration by parts:
+Recall that the dynamics of $S_2^{\alpha}$ is still a Brownian motion, in fact we can write $S_2(t) = S_2(0)e^{\mathcal{N}}$ and if we consider a power the structure remains the same. Now let's plug what we found into \eqref{zz} and apply the integration by parts:
 \begin{align}
     \notag \dd Z_t &= \dfrac{1}{S_2}\dd S_1 + S_1\dd \left(\frac{1}{S_2}\right) + \dd\expval{S_1,\frac{1}{S_2}} \\
-    &= 
-    \notag (\dots)\dd t + \underbrace{\frac{S_1}{S_2}}_{Z_t}\left[(\sigma_{11}- \sigma_{21})\dd W_1^{\Pmeas} + (\sigma_{12}- \sigma_{22})\dd W_2^{\Pmeas}\right]
+    &=
+    \notag (\dots)\dd t + \underbrace{\frac{S_1}{S_2}}_{Z_t}\left[(\sigma_{11}- \sigma_{21})\dd W_1^{\Pmeas} + (\sigma_{12}- \sigma_{22})\dd W_2^{\Pmeas}\right].
 \end{align}
-We focus only in the diffusive part, because recall that, under the measure $\Qmeas^{S_2}$, $Z_t$ is a martingale. So, we can write:
+Let's focus only in the diffusive part (recall that, under the measure $\Qmeas^{S_2}$, $Z_t$ is a martingale). We can write:
 \begin{equation}
-    \frac{\dd Z_t}{Z_t} = (\sigma_{11}- \sigma_{21})\dd W_1^{\Qmeas^{S_2}} + (\sigma_{12}- \sigma_{22})\dd W_2^{\Qmeas^{S_2}}
+    \frac{\dd Z_t}{Z_t} = (\sigma_{11}- \sigma_{21})\dd W_1^{\Qmeas^{S_2}} + (\sigma_{12}- \sigma_{22})\dd W_2^{\Qmeas^{S_2}}.
 \end{equation}
 The key point is that:
 \begin{align}
     \frac{price_t(\pay_T)}{S_2(t)} &= \mathbb{E}_t^{\Qmeas^{S_2}} \left[\frac{(S_1(T)-S_2(T))^+}{S_2(T)}\right]\\
     &=
-    \mathbb{E}_t^{\Qmeas^{S_2}}[(Z(T)-1)^+]]
+    \mathbb{E}_t^{\Qmeas^{S_2}}[(Z(T)-1)^+]].
 \end{align}
-This is exactly the problem of pricing a call option on $Z$ with strike $K=1$ and $r=0$. Now, in order to write the pricing function using the B\&S formula, we need the value of the volatility corresponding to $Z$:
+This is exactly the problem of pricing a call option on $Z$ with strike $K=1$ and $r=0$. In order to write the pricing function using the B\&S formula, we need the value of the volatility corresponding to $Z$:
 \begin{equation}
-    \sigma_Z = \sqrt{(\sigma_{11}- \sigma_{21})^2 + (\sigma_{12}- \sigma_{22})^2} = \sqrt{c_{11}+c_{22}-2c_{12}}
+    \sigma_Z = \sqrt{(\sigma_{11}- \sigma_{21})^2 + (\sigma_{12}- \sigma_{22})^2} = \sqrt{c_{11}+c_{22}-2c_{12}},
 \end{equation}
 where $c=\sigma\sigma^T$. Finally, by applying the B\&S formula, we get:
 \begin{equation}
-    \frac{price_t(\pay_T)}{S_2(t)} = Z_t\Phi(d_1) - \Phi(d_2)
+    \frac{price_t(\pay_T)}{S_2(t)} = Z_t\Phi(d_1) - \Phi(d_2),
 \end{equation}
-which -- after some simplifications -- can be written as:
+which -- after some simplifications -- can be written as
 \begin{equation}
     price_t(\pay_T) = S_1(t)\Phi(d_1) - S_2(t)\Phi(d_2)
 \end{equation}
@@ -90,20 +90,20 @@ with
 \begin{align}
     \notag d_1 &= \dfrac{\ln z(t)-\frac{1}{2}\sigma_z^2(T-t)}{\sigma_z \sqrt{(T-t)}} \\
     &=
-    \dfrac{\ln\frac{S_1(t)}{S_2(t)}-\frac{1}{2}(c_{11}+c_{22}-2c_{12})(T-t)}{\sqrt{(c_{11}+c_{22}-2c_{12})(T-t)}}
+    \dfrac{\ln\frac{S_1(t)}{S_2(t)}-\frac{1}{2}(c_{11}+c_{22}-2c_{12})(T-t)}{\sqrt{(c_{11}+c_{22}-2c_{12})(T-t)}}.
 \end{align}
-This is exactly what we found using the PDE, but in this case we did less computations.\\ 
+This is exactly what we found using the PDE, but in this case we did less computations.\\
 The switch from $\Pmeas$ to the martingale measure $\Qmeas^{S_2}$ is expressed through the Radon-Nikodym derivative:
 \begin{equation}\label{bsex}
-    \eval{\frac{\dd\Qmeas^{S_2}}{\dd\Pmeas}}_t = e^{\int_0^t\lambda^T\cdot\dd W - \frac{1}{2}\int_0^t \norm{\lambda}^2\,\dd s} 
+    \eval{\frac{\dd\Qmeas^{S_2}}{\dd\Pmeas}}_t = e^{\int_0^t\lambda^T\cdot\dd W - \frac{1}{2}\int_0^t \norm{\lambda}^2\,\dd s}
 \end{equation}
 where $\lambda$ is the shift:
 \begin{align}
     \dd W_1^{\Pmeas}(t) &\longrightarrow \dd W_1^{\Qmeas^{S_2}}(t) + \lambda_1(t)\dd t\\
-    \dd W_2^{\Pmeas}(t) &\longrightarrow \dd W_2^{\Qmeas^{S_2}}(t) + \lambda_2(t)\dd t
+    \dd W_2^{\Pmeas}(t) &\longrightarrow \dd W_2^{\Qmeas^{S_2}}(t) + \lambda_2(t)\dd t.
 \end{align}
 \begin{remark}
-    In the B\&S formula \eqref{bsex} there is no discounting. This is not surprising, because the exchange option is like a bet of one asset with respect to another one, so there is no interest rate (in the standard call option we are betting an asset with respect to a deterministic/constant strike, so there must be an interest rate). 
+    In the B\&S formula \eqref{bsex} there is no discounting. This is not surprising, because the exchange option is like a bet of one asset with respect to another one, so there is no interest rate (in the standard call option we are betting an asset with respect to a deterministic/constant strike, so there must be an interest rate).
 \end{remark}
 
 \subsection[Forward Measures]{Application in the case of stochastic interest rates: Forward Measures} % Bjork 26.4
@@ -112,64 +112,68 @@ The starting point is, as always, the B\&S formula:
     \begin{cases}
     \frac{\dd S}{S} = r_t\dd t + \sigma\dd W^{\Qmeas}(t) \\
     \frac{\dd S_0(t)}{S_0(t)} = r_t\dd t
-    \end{cases} 
+    \end{cases}
 \end{equation}
-where we suppose that $r_t$ is an adapted stochastic process. In this case the riskless asset is no more deterministic, but locally deterministic. In fact, in principle, we can still solve the locally deterministic differential equation, which has solution: $S_0(t) = e^{\int_0^t r_s\,\dd s}$.\\
-If we use the usual risk neutral approach, if we use the savings account (the riskless asset) as a numéraire, 
+where we suppose that $r_t$ is an adapted stochastic process. In this case the riskless asset is no more deterministic, but locally deterministic. In fact, in principle, we can still solve the locally deterministic differential equation, which has solution
+\begin{align*}
+    S_0(t) = e^{\int_0^t r_s\,\dd s}.
+\end{align*}
+With the usual risk neutral approach, if we use the savings account (the riskless asset) as a numéraire,
 \begin{equation}
     (S,S_0)\longrightarrow(\nicefrac{S}{S_0},1),
 \end{equation}
-we have that $\nicefrac{S}{S_0}$ is a $\Qmeas$-martingale and 
+we have that $\nicefrac{S}{S_0}$ is a $\Qmeas$-martingale and
 \begin{equation}
     \frac{price_t(\pay_T)}{S_0(t)} = \mathbb{E}_t^{\Qmeas} \left[\frac{\pay_T}{S_0(T)}\right].
 \end{equation}
 So, we have:
 \begin{equation}
-    price_t(\pay_T) = e^{\int_0^t r_s\,\dd s}\mathbb{E}_t^{\Qmeas} \left[e^{-\int_0^T r_s\,\dd s}\pay_T\right] = \mathbb{E}_t^{\Qmeas} \left[\hlc{mytweed}{e^{-\int_t^T r_s\,\dd s}}\pay_T\right]
+    price_t(\pay_T) = e^{\int_0^t r_s\,\dd s}\mathbb{E}_t^{\Qmeas} \left[e^{-\int_0^T r_s\,\dd s}\pay_T\right] = \mathbb{E}_t^{\Qmeas} \left[\hlc{mytweed}{e^{-\int_t^T r_s\,\dd s}}\pay_T\right].
 \end{equation}
-The problem is that the highlighted term is not $\mathcal{F}_t$-measurable, because it involves future realizations of the interest rate $r$. Moreover, the payoff typically involves the interest rate. So, the highlighted term and the payoff are not independent and -- in general -- the computation of this expected value is a problem.\\
-We can solve this problem by changing the numéraire. In particular, we use the price of a zero-coupon bond as numéraire. We know that the payoff of the zero-coupon bond is 1 and the price at time $t$ is given by the risk neutral valuation.
+The problem is that the highlighted term is not $\mathcal{F}_t$-measurable, because it involves future realizations of the interest rate $r$. Moreover, the payoff typically involves the interest rate. So, the highlighted term and the payoff are not independent and -- in general -- the computation of this expected value is a very difficult problem.\\
+We can solve this problem by changing the numéraire. In particular, we use the price of a zero-coupon bond as numéraire. Recall that the payoff of the zero-coupon bond is 1 and the price at time $t$ is given by the risk neutral valuation.
 \medbreak
 \noindent\textbf{Notation.} We use $B(t,T)$ to indicate the price of one unit of money given at time $T$ (i.e. the zero-coupon bond). A natural boundary condition is that $B(T,T)=1$.
 \medbreak
 \noindent By the risk neutral valuation we have that:
 \begin{equation}
-    B(t,T) = \expect_t\left[e^{-\int_t^T r_s\,\dd s}\cdot 1\right] = \expect_t\left[e^{-\int_t^T r_s\,\dd s}\right] 
+    B(t,T) = \expect_t\left[e^{-\int_t^T r_s\,\dd s}\cdot 1\right] = \expect_t\left[e^{-\int_t^T r_s\,\dd s}\right],
 \end{equation}
-which is $\mathcal{F}_t$-measurable. Choosing the zero-coupon bound as numéraire we can consider the change of variables:
+which is $\mathcal{F}_t$-measurable. Choosing the zero-coupon bound as numéraire we can consider the change of variables
 \begin{equation}
     (S(t), B(t,T)) \longrightarrow (\nicefrac{S(t)}{B(t,T)},1)
 \end{equation}
-and we have that 
+and we have that
 \begin{equation}
-    \dfrac{S(t)}{B(t,T)} = \Qmeas^T-martingale
+    \dfrac{S(t)}{B(t,T)} = \Qmeas^T-martingale.
 \end{equation}
-This particular risk neutral probability measure associated to the zero-coupon bond at maturity time $T$ is called \emph{forward risk neutral measure}. Then, we can apply the universal formula:
+This particular risk neutral probability measure associated to the zero-coupon bond at maturity time $T$ is called \emph{forward risk neutral measure}. Now, we can apply the universal formula:
 \begin{align}
-    \frac{price_t(\pay_T)}{B(t,T)} = \mathbb{E}^{\Qmeas^T}_t\left[\frac{\pay_T}{B(T,T)}\right] 
+    \frac{price_t(\pay_T)}{B(t,T)} = \mathbb{E}^{\Qmeas^T}_t\left[\frac{\pay_T}{B(T,T)}\right],
 \end{align}
+which leads to
 \begin{align}
     \notag price_t(\pay_T) &= B(t,T) \mathbb{E}^{\Qmeas^T}_t\left[\frac{\pay_T}{B(T,T)}\right] \\
     &=
-    \hlc{mytweed}{\expect_t\left[e^{-\int_t^T r_s\,\dd s}\right]} \mathbb{E}^{\Qmeas^T}_t[\pay_T]
+    \hlc{mytweed}{\expect_t\left[e^{-\int_t^T r_s\,\dd s}\right]} \mathbb{E}^{\Qmeas^T}_t[\pay_T],
 \end{align}
 where we use the fact that $B(T,T)=1$. We end up with two conditional expected values:
 \begin{itemize}
     \item the first (in green), under the risk neutral probability measure $\Qmeas$, is related to the interest rate market;
-    \item the second, under the forward probability measure $Q^T$, is related to the stock market with $r_t = 0$ $\forall t$.
+    \item the second, under the forward probability measure $\Qmeas^T$, is related to the stock market with $r_t = 0$ $\forall t$.
 \end{itemize}
-Using this procedure we manage to disentangle the computation of the conditional expected value of the discount factor from the one of the payoff. By doing so, the randomness of the interest rate is all included in the green term. The price we pay is that we need to consider a new probability measure $\Qmeas^T$ -- which is different from the risk neutral probability measure $\Qmeas$ -- and now we have to understand which is the dynamics of the underlying under it.\\
+Using this procedure we are able to disentangle the computation of the conditional expected value of the discount factor from the one of the payoff. By doing so, the randomness of the interest rate is all included in the green term. The price we pay is that we need to consider a new probability measure $\Qmeas^T$ -- which is different from the risk neutral probability measure $\Qmeas$ -- and now we have to understand which is the dynamics of the underlying under it.\\
 Finally, from the usual risk neutral approach, we found that the price of the payoff is given by:
 \begin{align}
     price_t(\pay_T) &= \mathbb{E}_t^{\Qmeas} \left[e^{-\int_t^T r_s\,\dd s}\pay_T\right] \label{11} \\
-    &= 
-    \mathbb{E}_t^{\Qmeas^T}\left[\mathbb{E}_t^{\Qmeas} \left[e^{-\int_t^T r_s\,\dd s}\right]\pay_T\right] \label{22}
+    &=
+    \mathbb{E}_t^{\Qmeas^T}\left[\mathbb{E}_t^{\Qmeas} \left[e^{-\int_t^T r_s\,\dd s}\right]\pay_T\right]. \label{22}
 \end{align}
 Comparing \eqref{11} and \eqref{22} we have that:
 \begin{equation}
-    \mathbb{E}_t^{\Qmeas^T}[\pay_T] = \mathbb{E}_t^{\Qmeas}\left[\pay_T \hlc{mylightblue}{\frac{e^{-\int_t^T r_s\,\dd s}}{B(t,T)}}\right]
+    \mathbb{E}_t^{\Qmeas^T}[\pay_T] = \mathbb{E}_t^{\Qmeas}\left[\pay_T \hlc{mylightblue}{\frac{e^{-\int_t^T r_s\,\dd s}}{B(t,T)}}\right].
 \end{equation}
-From this equality we deduce that the highlighter term plays the role of the Radon-Nikodym derivative for the change of measure $\Qmeas\to\Qmeas^T$:
+From this equality we deduce that the highlighted term plays the role of the Radon-Nikodym derivative for the change of measure $\Qmeas\to\Qmeas^T$:
 \begin{equation}
-    \eval{\frac{\dd \Qmeas^T}{\dd \Qmeas}}_t = \frac{e^{-\int_t^T r_s\,\dd s}}{B(t,T)}
+    \eval{\frac{\dd \Qmeas^T}{\dd \Qmeas}}_t = \frac{e^{-\int_t^T r_s\,\dd s}}{B(t,T)}.
 \end{equation}
