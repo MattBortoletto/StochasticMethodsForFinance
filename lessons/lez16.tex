@@ -40,7 +40,7 @@ Let's use $S_2$ as numéraire:
 \begin{equation}
     (S_1,S_2)\longrightarrow(\nicefrac{S_1}{S_2}, 1).
 \end{equation}
-We have to look for the probability measure under which $\nicefrac{S_1}{S_2}$ becomes a $\Qmeas^{S_2}$-martingale. If we define
+We have to look for the probability measure $\Qmeas^{S_2}$ under which $\nicefrac{S_1}{S_2}$ becomes a martingale. If we define
 \begin{equation}
     \frac{S_1}{S_2} \coloneqq Z_t
 \end{equation}
@@ -50,7 +50,7 @@ the dynamics of $Z_t$ must involve only a drift. Using the Itô's formula we hav
 \end{align}
 Let's start from
 \begin{align*}
-    \dd\left(\frac{1}{S_2}\right) &= \dfrac{1}{S_2}\dd S_2 + \dfrac{1}{S^2}(\dd S_2)^2 \\
+    \dd\left(\frac{1}{S_2}\right) &= -\dfrac{1}{S_2^2}\dd S_2 + \dfrac{1}{S^3_2}(\dd S_2)^2 \\
     &=
     -\frac{1}{S_2}(\mu_2 + \sigma_{21}\dd W_1^{\Pmeas} + \sigma_{22}\dd W_2^{\Pmeas}) + \dfrac{1}{S_2}\dfrac{\cancel{S_2^2}}{\cancel{S_2^2}}(\sigma_{21}^2+ \sigma_{22}^2)\dd t.
 \end{align*}
@@ -72,7 +72,7 @@ The key point is that:
 \begin{align}
     \frac{price_t(\pay_T)}{S_2(t)} &= \mathbb{E}_t^{\Qmeas^{S_2}} \left[\frac{(S_1(T)-S_2(T))^+}{S_2(T)}\right]\\
     &=
-    \mathbb{E}_t^{\Qmeas^{S_2}}[(Z(T)-1)^+]].
+    \mathbb{E}_t^{\Qmeas^{S_2}}[(Z(T)-1)^+].
 \end{align}
 This is exactly the problem of pricing a call option on $Z$ with strike $K=1$ and $r=0$. In order to write the pricing function using the B\&S formula, we need the value of the volatility corresponding to $Z$:
 \begin{equation}
@@ -83,7 +83,7 @@ where $c=\sigma\sigma^T$. Finally, by applying the B\&S formula, we get:
     \frac{price_t(\pay_T)}{S_2(t)} = Z_t\Phi(d_1) - \Phi(d_2),
 \end{equation}
 which -- after some simplifications -- can be written as
-\begin{equation}
+\begin{equation}\label{egrgeh}
     price_t(\pay_T) = S_1(t)\Phi(d_1) - S_2(t)\Phi(d_2)
 \end{equation}
 with
@@ -103,11 +103,11 @@ where $\lambda$ is the shift:
     \dd W_2^{\Pmeas}(t) &\longrightarrow \dd W_2^{\Qmeas^{S_2}}(t) + \lambda_2(t)\dd t.
 \end{align}
 \begin{remark}
-    In the B\&S formula \eqref{bsex} there is no discounting. This is not surprising, because the exchange option is like a bet of one asset with respect to another one, so there is no interest rate (in the standard call option we are betting an asset with respect to a deterministic/constant strike, so there must be an interest rate).
+    In the B\&S formula \eqref{egrgeh} there is no discounting. This is not surprising, because the exchange option is like a bet of one asset with respect to another one, so there is no interest rate (in the standard call option we are betting an asset with respect to a deterministic/constant strike, so there must be an interest rate).
 \end{remark}
 
 \subsection[Forward Measures]{Application in the case of stochastic interest rates: Forward Measures} % Bjork 26.4
-The starting point is, as always, the B\&S formula:
+The starting point is, as always, the B\&S PDE:
 \begin{equation}
     \begin{cases}
     \frac{\dd S}{S} = r_t\dd t + \sigma\dd W^{\Qmeas}(t) \\

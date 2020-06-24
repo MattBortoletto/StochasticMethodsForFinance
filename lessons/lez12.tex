@@ -3,7 +3,7 @@ Start with the risk neutral dynamics of the assets:
 \begin{equation}
     \frac{\dd S}{S} = \mu\dd t + \sigma \dd W^{\Qmeas}, \qquad \frac{\dd B}{B} = r\dd t.
 \end{equation}
-The call option is given by
+The call option payoff is given by
 \begin{equation}
     \call_T = (S_T - K)^+ = \pay_T.
 \end{equation}
@@ -19,7 +19,7 @@ where $W_T^{\Qmeas}=\sqrt{T}\mathcal{N}(0,1)$. So, we have to compute:
 \begin{equation}
     price_0(\call) = e^{-rt}\int_{\mathbb{R}}\left(S_0\exp{\left(r-\dfrac{\sigma^2}{2}\right)T+\sigma \sqrt{T}y}-K\right)^+\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}\dd y.
 \end{equation}
-Now we want to remove the non linearity given by the positive part, so we study the sign of the expression:
+In order to remove the non-linearity given by the positive part, we study the sign of the expression:
 \begin{align}
     S_0\exp{\left(r-\dfrac{\sigma^2}{2}\right)T+\sigma \sqrt{T}y}-K \ge 0.
 \end{align}
@@ -42,7 +42,7 @@ So, if $y\ge\hat{y}$ we can remove the positive part:
     \overset{(c)}&{=}
     \notag \frac{S_0}{\sqrt{2\pi}}\int_{\hat{y}-\sigma\sqrt{T}}^{+\infty}e^{-\dfrac{z^2}{2}}\dd z - Ke^{-rt}\Phi(-\hat{y}) \\
     &=
-    S_0\Phi(\sigma\sqrt{T}-\hat{y})-Ke^{-rt}\Phi(-\hat{y}).
+    S_0\Phi(\sigma\sqrt{T}-\hat{y})-Ke^{-rt}\Phi(-\hat{y}),
 \end{align}
 where:
 \begin{itemize}

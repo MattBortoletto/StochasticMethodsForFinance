@@ -57,7 +57,7 @@ If vega is highly positive or highly negative, the portfolio’s value is very s
 \newline The fact that $\mathcal{V}>0$ means that there is a monotone increasing relationship between price and volatility. In other words, the higher the volatility of the option, the higher the price of the option. We can exploit this relationship to invert the B\&S formula and find the volatility in terms of the price. Let us fix the maturity $T$ and suppose that we want to price a set of options indexed by different strikes $K_1,\dots,K_n$: $$B\&S(S,T-t,r,K_1,\sigma),\dots,B\&S(S,T-t,r,K_n,\sigma).$$
 Now, if we consider the quoted prices
 $$mkt(S,T-t,K_1),\dots,mkt(S,T-t,K_n)$$
-we can look for the value of the volatility -- called \emph{implied volatility} -- to plug in the B\&S formula in order to obtain this prices. If the B\&S model is correct we should get always the same value of $\sigma_{imp}$, but indeed in practice we find non-constant values. This distortion is known as \emph{smile effect} and it is the proof that the B\&S model is not correct.
+we can look for the value of the volatility -- called \emph{implied volatility} -- to plug in the B\&S formula in order to obtain this prices. If the B\&S model is correct we should get always the same value of $\sigma_{imp}$, but indeed in practice we find non-constant values. This distortion is known as \emph{smile effect} and it is the proof that the B\&S model is not 100\% correct.
 \begin{figure}[htp]
     \centering
     \includegraphics[scale=0.2]{fig/tmp/fig18.png}
@@ -95,7 +95,7 @@ In this case the delta of the put is always negative, as we can see in Figure \r
 \begin{equation}\label{vegaput}
     \mathcal{V}^{put} = \mathcal{V}^{call}.
 \end{equation}
-Eq. \eqref{vegaput} is very important because it says that the price of the put is an increasing function of the corresponding volatility. This mean that we can repeat the procedure of inverting the formula of the price of the put in terms of the volatility in order to get the quoted market price. Even in this case we will have the smile effect.\\
+Eq. \eqref{vegaput} is very important because it says that the price of the put is an increasing function of the corresponding volatility. This means that we can repeat the procedure of inverting the formula of the price of the put in terms of the volatility in order to get the quoted market price. Even in this case we will have the smile effect.\\
 \textbf{What happens to the Greeks and to the price if there is an upward shift in the volatility?} Consider a call option. In any case there are the constraints to start from zero and to converge to the straight line $(S_t-K)^+$. Then we know that for higher volatility we will have higher prices. So, for $\sigma_2>\sigma_1$ the curve will stay above the original price.
 The delta will change such that it will be convenient to buy the underlying earlier and to sell it immediately after the strike.
 \begin{figure}[htp]
@@ -110,7 +110,7 @@ If the gamma corresponding to $\sigma_1$ was like a Dirac delta, the one for $\s
 In other words, there is a smoothing effect both on the price and on the Greeks.
 
 \section{Portfolio immunization}
-We would like our portflio to be $\Delta$-neutral, i.e. we would like the global delta of our hedging strategy to match exactly with the global delta of the corresponding portfolio derivatives. However, immediately after we balanced the portfolio, there can be a shock in the market. In other words, there is no guarantee for us to stay with the same hedging portfolio for too long. In order to stay safe for a while we need our portfolio to be $\Gamma$-neutral, so that the re-balance frequency is low. Moreover, since the volatility is a crucial ingredient we would like our portfolio to be also $\mathcal{V}$-neutral.\\
+We would like our portflio to be $\Delta$-neutral, i.e. we would like the global delta of our hedging strategy to match exactly the global delta of the corresponding portfolio derivatives. However, immediately after we balanced the portfolio, there can be a shock in the market. In other words, there is no guarantee for us to stay with the same hedging portfolio for too long. In order to stay safe for a while we need our portfolio to be $\Gamma$-neutral, so that the re-balance frequency is low. Moreover, since the volatility is a crucial ingredient we would like our portfolio to be also $\mathcal{V}$-neutral.\\
 For example, from the B\&S PDE
 \begin{equation}
     \pdv{F}{t} + rS\pdv{F}{S} + \frac{1}{2}\sigma^2S^2\pdv[2]{F}{S} = rF
@@ -123,7 +123,7 @@ For a $\Delta$-neutral portfolio ($\Delta = 0$) we have
 \begin{equation}
     \Theta + \frac{1}{2}\sigma^2S^2 \Gamma = r\, price.
 \end{equation}
-From this equality we immediately understand that if $\Theta<0$ then $\Gamma>0$, which is true for \emph{vanilla options} (call/put). Conversely, if $\Gamma>0$ then $\Theta<0$, which typically happens to \emph{exotic options}. In order to understand what does it mean to have a $\Gamma<0$, let's start from the dynamics of the hedging portfolio:
+From this equality we immediately understand that if $\Theta<0$ then $\Gamma>0$, which is true for \emph{vanilla options} (call/put). Conversely, if $\Gamma<0$ then $\Theta>0$, which typically happens to \emph{exotic options}. In order to understand what does it mean to have a $\Gamma<0$, let's start from the dynamics of the hedging portfolio:
 \begin{equation}
     \dd price_t = \Theta\,\dd t + S\Delta\,\dd S + \frac{1}{2}\sigma^2\Gamma\,\dd S^2.
 \end{equation}
@@ -160,7 +160,7 @@ If we impose $\Delta_t^{tot}=0$ in the last equation we have that the number of 
 \begin{equation}
     \alpha = -\Delta^V_t.
 \end{equation}
-Furthermore, if we want also to neutralize the portfolio with respect to the \emph{gamma risk} (related to the frequency of re-balancing) then linear contracts are useless, because their second derivative with respect to $S$ is zero and so $\Gamma=0$. The idea is to take a position in the option market. The portfolio will be
+Furthermore, if we want also to neutralize the portfolio with respect to the \emph{gamma risk} (related to the frequency of re-balancing) then linear contracts are useless, because their second derivative with respect to $S$ is zero and so $\Gamma=0$. The idea is to take a position in the options market. The portfolio will be
 \begin{equation}
     V^{tot}_t = V_t + \alpha\fwd_t + \beta \call(T,K)
 \end{equation}

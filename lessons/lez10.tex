@@ -40,7 +40,7 @@ whereas the cost for the consumption rate $c(t)$ is given by $c(t)\Delta t$. The
     h(t-\Delta t)S(t) = h(t)S(t) + c(t)\Delta t,
 \end{equation}
 \begin{equation*}
-    (h(t)-h(t-\Delta t)S(t) + c(t)\Delta t = 0,
+    (h(t)-h(t-\Delta t))S(t) + c(t)\Delta t = 0,
 \end{equation*}
 \begin{equation}\label{6.3}
     \Delta h(t)S(t) + c(t)\Delta t = 0.
@@ -54,10 +54,10 @@ In order to get Itô differentials we thus have to reformulate eq. \eqref{6.3}. 
 \begin{align*}
     \Delta h(t)S(t) + c(t)\Delta t + S(t- \Delta t)\Delta h(t) - S(t- \Delta t)\Delta h(t) = 0
 \end{align*}
-\begin{equation*}\label{6.4}
+\begin{equation}\label{6.4444}
     S(t - \Delta t)\Delta h(t)+\Delta S(t)\Delta h(t) + c(t)\Delta t = 0
-\end{equation*}
-Now, at last, we may let $\Delta t \to 0$ in the budget eq. \eqref{6.4}, giving us
+\end{equation}
+Now, at last, we may let $\Delta t \to 0$ in the budget eq. \eqref{6.4444}, giving us
 \begin{equation}\label{6.7}
     S(t)\dd h(t) + \dd h(t)\dd S(t) + c(t)\dd t = 0.
 \end{equation}
@@ -78,7 +78,7 @@ In particular, in a situation without any consumption we have the following V-dy
     \dd V(t) = h(t)\dd S(t).
 \end{equation}
 This is the so called \emph{self-financing portfolio}, i.e. a portfolio with no exogenous infusion or withdrawal of money. In other words, the purchase of a new portfolio, as well as all consumption, must be financed solely by selling assets already in the portfolio.\\
-The natural economic interpretation of eq. \eqref{6.9} is that in a model without any exogenous income, all change of wealth is due to changes in asset prices. In other words, the fact that the portfolio fluctuates does not depend on our strategy $h$ but only on the fact that in a infinitesimal interval there has been a fluctuation in the market due to a shock in the risky asset.
+The natural financial interpretation of eq. \eqref{6.9} is that in a model without any exogenous income, all change of wealth is due to changes in asset prices. In other words, the fact that the portfolio fluctuates does not depend on our strategy $h$ but only on the fact that in a infinitesimal interval there has been a fluctuation in the market due to a shock in the risky asset.
 
 \section{Option pricing in the Black \& Scholes model} % ch. 7 Bjork
 Let us consider a financial market consisting of only two assets:
@@ -201,7 +201,7 @@ By a change of variable, there is the possibility to reduce \eqref{BSpde} to the
     \begin{align*}
         F(T,x) - F(t,x) &= \int^T_t \left(\pdv{F}{u} + \mu\pdv{F}{x} + \dfrac{1}{2}\pdv[2]{F}{x}\sigma^2 \right)\dd u + \int^T_t \pdv{F}{x}\sigma \dd W_u \\
         \overset{\eqref{bvp}}&{=}
-        F(T,x) - F(t,x) = \int^T_t \pdv{F}{x}\sigma \dd W_u.
+        \int^T_t \pdv{F}{x}\sigma \dd W_u.
     \end{align*}
     Now we want to remove the stochastic integral, so we take the expected value:
     \begin{equation*}
@@ -244,9 +244,9 @@ We consider also another version which appears over and over again in the study 
 \begin{proof}
     Let's consider the Itô development of the discounted value of $F$:
     \begin{align*}
-        \dd(e^{-rt}F(t,x)) &= (-re^{-rt}\dd t)F + e^{-rt}F + \order{\dd t\dd W}\\
+        \dd(e^{-rt}F(t,x)) &= (-re^{-rt}\dd t)F + e^{-rt}\,\dd F + \order{\dd t\dd W}\\
         &=
-        -re^{-rt}\dd tF + e^{-rt}F \\
+        -re^{-rt}\dd tF + e^{-rt}\,\dd F \\
         &=
         -re^{-rt}\dd tF + e^{-rt}\left(\pdv{F}{t}\dd t + \pdv{F}{x}\dd x + \dfrac{1}{2}\pdv[2]{F}{x}\dd\expval{x}\right) \\
         &=

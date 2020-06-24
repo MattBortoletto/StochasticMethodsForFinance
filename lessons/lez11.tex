@@ -146,7 +146,7 @@
 Let's consider the Black \& Scholes PDE
 \begin{equation}
     \begin{cases}
-    \pdv{F(t,S(t))}{t} + r\pdv{F(t,S(t))}{S(t)} S(t) + \dfrac{1}{2}\pdv[2]{F(t,S(t))}{S(t)}\sigma^2S(t)^2 - rF(t,S(t))\\
+    \pdv{F(t,S(t))}{t} + r\pdv{F(t,S(t))}{S(t)} S(t) + \dfrac{1}{2}\pdv[2]{F(t,S(t))}{S(t)}\sigma^2S(t)^2 - rF(t,S(t)) = 0\\
     F(T,S(T)) = \mbox{payoff}_T.
     \end{cases}
 \end{equation}
@@ -162,7 +162,7 @@ Notice that our starting point was a probability space with subjective/historica
 \begin{equation}
     \dd S(t) =  \mu S(t)\dd t + \sigma S(t)\dd W^{\mathbb{P}},
 \end{equation}
-but now under the probability $\hat{\mathbb{P}}$ we have a new drift $r$. Now we would like to give some financial meaning to this fact.
+but now under the probability $\hat{\mathbb{P}}$ we have a new drift $r$. Now we would like to give a financial meaning to this fact.
 \begin{proposition}[Risk neutral valuation]
     The arbitrage free price of a general payoff $\Phi(S(T))$ is given by
     \begin{equation}\label{rnv}
@@ -214,7 +214,7 @@ There is also the equivalent of the Second Fundamental Theorem.
 \end{theorem}
 
 \subsection[Application to the Black \& Scholes model]{Application of the martingale approach to the Black \& Scholes model}
-In this model the dynamics of the asset price is given by
+In the B\&S model the dynamics of the asset price is given by
 \begin{equation}\label{s}
     \dfrac{\dd S_t}{S_t} = \mu \dd t + \sigma \dd W_t^{\Pmeas}
 \end{equation}
@@ -245,7 +245,7 @@ is a true martingale, then
 \begin{equation}\label{shift}
     W^{\Qmeas}_t \coloneqq W_t^{\Pmeas} - \left(\frac{r-\mu}{\sigma}\right)t
 \end{equation}
-is a $\Qmeas$-Brownian motion. But this is true, in fact the Novikov condition holds
+is a $\Qmeas$-Brownian motion. But this is true, in fact the Novikov condition holds:
 \begin{equation}
     \mathbb{E}\left[e^{\frac{1}{2}\int^T_0\left(\frac{r-\mu}{\sigma}\right)^2\dd s}\right] \sim e^{constant\cdot T} < \infty
 \end{equation}

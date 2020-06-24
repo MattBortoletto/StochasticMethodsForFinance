@@ -15,9 +15,9 @@ This means that the information available immediately after $t$ coincides with t
 \begin{equation*}
     \int_0^t H_s\,``\dd W_s"
 \end{equation*}
-where $H\in\mathcal{H}$, being $\mathcal{H}$ the class of adapted processes such that $\mathbb{E}[\int_0^t H^2_s\,\dd s<\infty]$.
+where $H\in\mathcal{H}$, being $\mathcal{H}$ the class of adapted processes such that $\mathbb{E}[\int_0^t H^2_s\,\dd s]<\infty$.
 % completare questa parte mettendo qualcosa degli appunti di models, anche riguardo al fatto che il Brownian motion non è differenziabile ma si può definire una misura e calcolare formalmente un integrale bla bla bla
-Since that the Brownian motion is not differentiable it is not possible to define a differential. However, if we are able to define the integral with respect to the Brownian motion then we can define the differential operator as the derivative of the integral:
+Since the Brownian motion is not differentiable it is not possible to define a differential. However, if we are able to define the integral with respect to the Brownian motion then we can define the differential operator as the derivative of the integral:
 \begin{equation*}
     \dd\left(\int^t_0 H_s \dd W_s\right) \to H_t``\dd W_t"
 \end{equation*}
@@ -81,7 +81,7 @@ Luckily, $\mathcal{H}$ is a very rich class which contains also Brownian motions
 \begin{align*}
     \mathbb{E}\left[\int^t_0W_s^2\dd s\right] &= \int^t_0\mathbb{E}[W_s^2]\,\dd s = \int^t_0\Var(W_s)\,\dd s = \int^t_0s\,\dd s = \dfrac{t^2}{2} < \infty.
 \end{align*}
-We can extend the notion of stochastic integral even when $H_s\notin\mathcal{H}$, requiring a weaker weaker condition, i.e.
+We can extend the notion of stochastic integral even when $H_s\notin\mathcal{H}$, requiring a weaker condition, i.e.
 \begin{equation*}
     H_s \in \Tilde{\mathcal{H}} = \bigg\{H\mbox{ adapted }: \mathbb{P}\left(\int_0^t H^2_s\,\dd s <\infty\right)=1\bigg\},
 \end{equation*}
@@ -207,7 +207,7 @@ and can be written as a constant plus a stochastic integral, which at least is a
 \begin{equation}
     Z_t = Z_0 + \int_0^t H_s Z_s\,\dd W_s^{\mathbb{P}}
 \end{equation}
-Eq. \eqref{RN} is called \emph{Radon-Nikodym derivative}: the choice of notation and the name of the function reflects the fact that the it is analogous to a derivative in calculus, in the sense that it describes the rate of change of density of one measure with respect to another\footnote{See \url{https://en.wikipedia.org/wiki/Radon\%E2\%80\%93Nikodym_theorem}}. \\
+Eq. \eqref{RN} is called \emph{Radon-Nikodym derivative}: the choice of notation and the name of the function reflects the fact that it is analogous to a derivative in calculus, in the sense that it describes the rate of change of density of one measure with respect to another\footnote{See \url{https://en.wikipedia.org/wiki/Radon\%E2\%80\%93Nikodym_theorem}}. \\
 One possible issue is that in the change from $\mathbb{P}$ to $\mathbb{Q}$ there can be a loss of probability mass, ending up with a $\mathbb{Q}$ which is not normalized to 1. In order to avoid that, $\int_0^t H_s Z_s\,\dd W_s^{\mathbb{P}}$ must be a global martingale. This is the assumption of Girsanov Theorem.
 \begin{theorem}[Girsanov Theorem]
     Consider a Brownian motion under a probability measure $\mathbb{P}$. Then, a candidate Brownian motion under a different probability measure $\mathbb{Q}$ is a true $\mathbb{Q}$-Brownian motion if the change of measure characterized by $Z_t$ is a true martingale.

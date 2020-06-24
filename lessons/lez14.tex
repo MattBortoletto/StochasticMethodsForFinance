@@ -1,5 +1,5 @@
 \section{Digital options}\lesson{14}{09/04/2020}
-Digital options are related to a specific type of European options in which the payoff is either some fixed monetary amount or nothing at all:
+Digital options are related to a specific type of European options for which the payoff is either some fixed monetary amount or nothing at all:
 \begin{equation}
     \pay_T = \mathds{1}_{S_T\ge K}.
 \end{equation}
@@ -197,14 +197,14 @@ In this case we speak about \emph{proportional dividends}, and the corresponding
     \end{cases}
 \end{equation}
 Now we apply the Feynman-Kac methodology in order to say that if $F$ is a solution of this PDE then there exist a probability space and a probability measure $\Qmeas^q$ under which we can define the B\&S equation
-\begin{equation}
+\begin{equation}\label{gheogjegojrgi}
     \dfrac{\dd S}{S} = (r-q)\dd t + \sigma \dd W^{\Qmeas^q}.
 \end{equation}
 Such solution of the PDE can be written as
 \begin{equation}
     F(S_t,t) = e^{-r(T-t)}\mathbb{E}^{\Qmeas^q}_t[\pay_T].
 \end{equation}
-Recall that $S_t$ is the solution of the geometric Brownian motion equation. In presence of dividends we have:
+Recall that $S_t$ is the solution of the geometric Brownian motion equation \eqref{gheogjegojrgi}. In presence of dividends we have:
 \begin{align}
     S_t &= S_0e^{\left(r-q-\frac{1}{2}\sigma^2\right)T+\sigma W_T^{\Qmeas^q}} \\
     &=

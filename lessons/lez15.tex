@@ -7,7 +7,7 @@ The entire asset price vector is denoted by $S(t)$, and in matrix notation we wi
 \begin{equation}
     S(t) = (S_0(t), S_1(t),\dots,S_n(t))^T.
 \end{equation}
-According to the B\&S formula, the singular risky asset dynamic follows the equation:
+According to the B\&S model, the individual risky asset dynamics follows the equation:
 \begin{equation}
     \dfrac{\dd S_i(t)}{S_i(t)} = \mu_i\,\dd t + \sum^d_{j=1}\sigma_{ij}\,\dd W_j^{\Pmeas}(t),
 \end{equation}
@@ -48,7 +48,7 @@ Let's consider a triangular construction involving, asset after asset, a new Bro
     %\dfrac{\dd S_3(t)}{S_3(t)} &= \mu_3\,\dd t + \sigma_{3}\underbrace{(??\,\dd W_1^{\Pmeas}(t) + ??\,\dd W_2^{\Pmeas} + ??\,\dd W_3^{\Pmeas}(t))}_{\expval{\cdot}_t=t}
 \end{align}
 where $\rho$ represents the correlation between the two Brownian motions (i.e. between the two assets). This approach has two advantages: first, there is the possibility to decompose the matrix $\sigma$ using the Cholesky decomposition\footnote{The Cholesky decomposition of a Hermitian positive-definite matrix $A$ is a decomposition of the form
-$A=LL^*$ where $L$ is a lower triangular matrix with real and positive diagonal entries, and $L^*$ denotes the conjugate transpose of $L$. Every Hermitian positive-definite matrix (and thus also every real-valued symmetric positive-definite matrix) has a unique Cholesky decomposition.}; second, it allows to introduce additional assets without affecting the evolution of the previous assets.
+$A=LL^*$ where $L$ is a lower triangular matrix with real and positive diagonal entries, and $L^*$ denotes the conjugate transpose of $L$. Every Hermitian positive-definite matrix (and thus also every real-valued symmetric positive-definite matrix) has a unique Cholesky decomposition.}; second, it allows to introduce additional assets without affecting the evolution of the previous ones.
 
 \subsection{Absence of arbitrage}
 Recall that the absence of arbitrage is related to the existence of a probability measure $\Qmeas$ under which all the assets are martingales:
@@ -67,7 +67,7 @@ The fact that
 \begin{equation}\label{159}
     \mu + \sigma\lambda = (r,\dots,r)^T \in \mathbb{R}^n
 \end{equation}
-means that, after the change of measure, the drifts $\mu_i$ are transformed into the drifts which is equal to $r$ for all the components. $\mu$, $\sigma$, and $r$ are given a priori and we want to solve for $\lambda$. Therefore, for each $t$, the $n$-dimensional vector $\mu(t)-r(t)$ must be in the image of the diffusion matrix $\sigma(t)$. This leads to the following result.
+means that, after the change of measure, the drifts $\mu_i$ are transformed into drifts which are equal to $r$ for all the components. $\mu$, $\sigma$, and $r$ are given a priori and we want to solve for $\lambda$. Therefore, for each $t$, the $n$-dimensional vector $\mu(t)-r(t)$ must be in the image of the diffusion matrix $\sigma(t)$. This leads to the following result.
 \begin{proposition}
     A necessary condition for the absence of arbitrage is that
     \begin{equation}
@@ -83,7 +83,7 @@ We then have the following central result.
     \end{equation}
     is surjective, i.e. if and only if the volatility matrix $\sigma(t)$ has rank $n$.
 \end{proposition}
-From this result it follows that in order to have absence of arbitrage we must necessarily have $d\ge n$, i.e. we must have at least as many independent Wiener processes as we have risky assets (as we said before).
+From this result it follows that in order to have absence of arbitrage we must necessarily have $d\ge n$, i.e. we must have at least as many independent Wiener processes as the number of risky assets (as we said before).
 
 \subsection{Completeness}
 We now go on to obtain conditions for the model to be complete. In order to avoid pathological cases we assume that the model is generically arbitrage free. From the Second Fundamental Theorem \ref{secondfundth} we know that the model is complete if and only if the martingale measure is unique, so it is tempting to draw the conclusion that we have completeness if and only if equation \eqref{159} has a unique solution, i.e. if and only if the condition
@@ -126,7 +126,7 @@ We want to price a contract which payoff $\Phi(S_1(t),S_2(t))$ depends on both a
     &=
     F(t,S_1,S_2),
 \end{align}
-where in (a) we used the Feynman-Kac formula, as the payoff depends only on the terminal value of the underlying. $F$ solves the PDE: %S_1,S_2 = x_1,x_2
+where in we used the Feynman-Kac formula, as the payoff depends only on the terminal value of the underlying. $F$ solves the PDE: %S_1,S_2 = x_1,x_2
 \begin{equation}\label{bspdee}
     \begin{cases}
     \pdv{F}{t} + r\left(x_1\pdv{F}{x_1} + x_2\pdv{F}{x_2}\right) + \dfrac{1}{2}\left(x_1^2\pdv[2]{F}{x_1}c_{11} + 2x_1x_2\pdv{F^2}{x_1x_2}c_{12} + x_2^2\pdv[2]{F}{x_2}c_{22}\right) - rF = 0 \\
