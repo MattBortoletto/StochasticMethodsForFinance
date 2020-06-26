@@ -23,22 +23,22 @@ Recall the main features of the forward contract:
     \end{equation}
     Let's compute the expected value in \eqref{pr03} for $0<t<T$:
     \begin{align*}
-        \eqref{pr03} &= e^{-\int_t^T r_s\,\dd s}\expect_t\left[e^{-\int_0^T r_s\,\dd s}(S(T)\right] - K(0,T)B(t,T) \\
+        \eqref{pr03} &= e^{-\int_t^T r_s\,\dd s}\expect_t\left[e^{-\int_0^T r_s\,\dd s}S(T)\right] - K(0,T)B(t,T) \\
         \overset{(a)}&{=}
-        \cancel{e^{-\int_0^t r_s\,\dd s}}\cancel{e^{-\int_0^t r_s\,\dd s}}S(t)- - K(0,T)B(t,T) \\
+        \cancel{e^{-\int_0^t r_s\,\dd s}}\cancel{e^{-\int_0^t r_s\,\dd s}}S(t) - K(0,T)B(t,T) \\
         &=
         S(t) - K(0,T)B(t,T)
     \end{align*}
-    where in (a) we used the fact that the discounted asset $S(t)e^{-\int_0^t}r_s\,\dd s$ is a true $\Qmeas$-martingale. \\
+    where in (a) we used the fact that the discounted asset $S(t)e^{-\int_0^t r_s\,\dd s}$ is a true $\Qmeas$-martingale. \\
     If the interest rate is flat, $r_t = r$ $\forall t$, we have:
     \begin{align}\label{eq4}
         price_t(S(T)-K(0,T)) = S(t) - K(0,T)e^{-r(T-t)} \gtrless 0
     \end{align}
-    which can be positive or negative. Introducing the expression forward strike at time $t$:
+    which can be positive or negative. Introducing the expression of the forward strike at time $t=0$,
     \begin{equation*}
-        K(t,T) = S(t)e^{r(T-t)} \qquad\Rightarrow\qquad K(0,T) = S(0)e^{rT}
+        K(0,T) = S(0)e^{rT},
     \end{equation*}
-    we can rewrite \eqref{eq4}:
+    we can rewrite \eqref{eq4} as
     \begin{align}
         \label{eq1}
         price_t(S(T)-K(0,T)) &= S(t) - K(0,T)e^{-r(T-t)} \\
@@ -99,7 +99,7 @@ so we are left with:
 \begin{align}\label{it}
     \int_0^t e^{-\int_0^s r_u\,\dd u}\,\dd F_s \overset{(a)}{=} \int_0^t h_s\,\dd W_s^{\Qmeas}
 \end{align}
-where in (a) we used the representation theorem of continuous (Brownian) martingales, which allows us to write the integral as a Brownian integral introducing an appropriate adapted process $h_s$. Writing \eqref{it} in its infinitesimal form we have:
+where in (a) we used the representation theorem for continuous (Brownian) martingales, which allows us to write the integral as a Brownian integral introducing an appropriate adapted process $h_s$. Writing \eqref{it} in its infinitesimal form we have:
 \begin{equation}
     e^{-\int_0^s r_u\,\dd u}\,\dd F_t = h_s\,\dd W_s^{\Qmeas} \qquad\Rightarrow\qquad \dd F(t,T) = \left(e^{\int_0^s r_u\,\dd u}h_t\right)\,\dd W_s^{\Qmeas}.
 \end{equation}
@@ -136,9 +136,9 @@ In this case
 \end{equation*}
 so we have:
 \begin{align*}
-    price_t(\call(\fut)) &= e^{-r(T_1-T)} \left(S(t)\Phi(d_1)-e^{-r(T-t)}Xe^{-r(T_1-T)}\Phi(d_2)\right) \\
+    price_t(\call(\fut)) &= e^{r(T_1-T)} \left(S(t)\Phi(d_1)-e^{-r(T-t)}Xe^{-r(T_1-T)}\Phi(d_2)\right) \\
     &=
-    e^{-r(T_1-T)}S(t)\Phi(d_1)-e^{-r(T-t)}Xe\Phi(d_2) \\
+    e^{r(T_1-T)}S(t)\Phi(d_1)-e^{-r(T-t)}Xe\Phi(d_2) \\
     &=
     e^{-r(T-t)}\left(\underbrace{S(t)e^{-r(T_1-t)}}_{F(t,T_1)}\Phi(d_1) - X\Phi(d_2)\right)
 \end{align*}

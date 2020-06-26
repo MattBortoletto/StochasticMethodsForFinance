@@ -38,8 +38,8 @@ This density has its support on the interval $(\beta,\infty)$ if $\alpha > \beta
     \end{equation}
 \end{definition}
 \begin{proposition}\label{f}
-    The density $f_{\beta}(x;t,\alpha)$ of the absorbed process $X(t\wedge T_{\beta}))$ is given by
-    \begin{equation}
+    The density $f_{\beta}(x;t,\alpha)$ of the absorbed process $X(t\wedge T_{\beta})$ is given by
+    \begin{equation}\label{opopoopopo}
         f_{X(t\wedge T_{\beta})}(x;t,\alpha) = \varphi(x;\mu t+ \alpha, \sigma\sqrt{t})-\exp{-\frac{2\mu(\alpha-\beta)}{\sigma^2}}\varphi(x;\mu t - \alpha + 2\beta, \sigma\sqrt{t})
     \end{equation}
     The support of this density is the interval $(\beta,\infty)$ if $\alpha > \beta$, and the interval $(-\infty,\beta)$ if $\alpha < \beta$.
@@ -68,18 +68,17 @@ The contract $Z_{LO}$ is called the “down-and-out” version of the contract $
 Concerning the notation, $L$ as a subscript indicates a ``down"-type contract, whereas the letter $O$ indicates that we are considering an ``out" claim.
 \begin{theorem}[Pricing down-and-out contracts]\label{daoprice}
     The pricing function, denoted by $F_{LO}$, of a down-and-out contract $Z_{LO}$ is given by
-    \begin{equation}
-        F_{LO}(t,S(t)=s,\Phi) = \left[F(t,s,\Phi_L) - \left(\dfrac{L}{s}\right)^{\frac{2\left(r-\frac{\sigma^2}{2}\right)}{\sigma^2}}F\left(t,\frac{L^2}{s},\Phi_L\right)\right]\mathds{1}_{s>L}
+    \begin{equation}\label{uiuiuiu}
+        F_{LO}(t,S(t)=s,\Phi) = \left[F(t,s,\Phi_L) - \left(\dfrac{L}{s}\right)^{\frac{2\left(r-\tfrac{\sigma^2}{2}\right)}{\sigma^2}}F\left(t,\frac{L^2}{s},\Phi_L\right)\right]\mathds{1}_{s>L}
     \end{equation}
     where
     \begin{equation}
         \Phi_L(X) = \Phi(X)\mathds{1}_{x>L}. % Phi = payoff
     \end{equation}
 \end{theorem}
-Notice that the indicator function $(X)\mathds{1}_{x>L}$ represents an European-style
-barrier, because it involves the terminal value of the underlying. So, this theorem tells us that the price of the barrier option can be written as a combination of price of the usual European options.
+Notice that the indicator function $\mathds{1}_{x>L}$ represents an European-style barrier, because it involves the terminal value of the underlying. So, this theorem tells us that the price of the barrier option can be written as a combination of prices of the usual European options.
 \begin{proof}
-    Without loss of generality we may set $t = 0$. Assume then that $S(0) = s > L$, and recall that $S(T\wedge T_L)$ denotes the process $S$ with (possible) absorption at $L$. Using risk neutral valuation we have:
+    Without loss of generality we may set $t = 0$. Assume then that $S(0) = s > L$, and recall that $S(T\wedge T_L)$ denotes the process $S$ with (possible) absorption at $L$. Using the risk neutral valuation we have:
     \begin{align*}
         F_{LO}(0,S(0)=s,\Phi) &= e^{-rT}\expect_{0,s}[Z_{LO}] = e^{-rT}\expect_{0,s} \left[\Phi(S(T))\mathds{1}_{\inf_{0\le t\le T}S(t)>L}\right] \\
         &=
@@ -95,7 +94,7 @@ barrier, because it involves the terminal value of the underlying. So, this theo
         &=
         e^{\ln s + \Tilde{r}T + \sigma W^{\Qmeas}(T)} = e^{X(T)}
     \end{align*}
-    where we used the notation $\Tilde{r} = r - \frac{\sigma^2}{2}$ and where the process $X$ is defined by
+    where we used the notation $\Tilde{r} = r - \tfrac{\sigma^2}{2}$ and where the process $X$ is defined by
     \begin{equation*}
         \begin{cases}
         \dd X(t) = \Tilde{r}\,\dd t + \sigma\dd W(t)\\
@@ -165,7 +164,7 @@ We now describe the up-and-out version of $Z$. This is the contract which at the
 \begin{equation}
     Z^{LO} = \Phi(S(T))\mathds{1}_{S(t)<L\,\forall t\in[0,T]} =
     \begin{cases}
-    \Phi(S(T)) & \text{if} S(t)<L\,\,\forall t\in[0,T] \\
+    \Phi(S(T)) & \text{if } S(t)<L\,\,\forall t\in[0,T] \\
     0 & \text{otherwise}
     \end{cases}
 \end{equation}
@@ -188,13 +187,13 @@ $L$ as a superscript indicates an ``up"-type contract, whereas the superscript $
     \end{equation}
 \end{theorem}
 \begin{remark}
-    From eqs. \eqref{daoprice} and \eqref{uaoprice} we see that the price of a barrier option is given by a difference between the price of a contract and the price of a modified version of the same contract, which is positive. This means that a barrier option is cheaper than the corresponding vanilla option (for example a barrier call option will be cheaper than a vanilla call). On the other hand, entering a barrier option in order to hedge is dangerous, because if the underlying touches the barrier then there every possibility to hedge is lost.
+    From eqs. \eqref{uiuiuiu} and \eqref{uaoprice} we see that the price of a barrier option is given by a difference between the price of a contract and the price of a modified version of the same contract, which is positive. This means that a barrier option is cheaper than the corresponding vanilla option (for example a barrier call option will be cheaper than a vanilla call). On the other hand, entering a barrier option in order to hedge is dangerous, because if the underlying touches the barrier then there every possibility to hedge is lost.
 \end{remark}
 
 \subsubsection{Examples}
 Let us define the following standard contracts, which will be the basic building blocks in the sequel. Fix a delivery time $T$. For fixed parameters $K$ and $L$ define the following claims:
 \begin{itemize}
-    \item $ST(x) = x$ is the payoff which gives (the price of) one unit of the underlying stock at delivery time $T$. Basically, it is a long position in the underlying $S(t)$;
+    \item $ST(x) = x$ is the payoff which gives (the price of) one unit of the underlying stock at delivery time $T$. Basically, it is a long position on the underlying $S(t)$;
     \item $BO(x) = 1$ is an ordinary zero coupon bond paying one at maturity $T$;
     \item $H(x,L) = \mathds{1}_{x>L}$ gives the owner one if the value of the underlying stock exceeds $L$ at delivery time $T$, otherwise nothing is paid out (digital call);
     \item $C(x,K) = (x-K)^+$ is the ordinary European call with strike price $K$.

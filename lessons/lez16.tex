@@ -127,7 +127,7 @@ we have that $\nicefrac{S}{S_0}$ is a $\Qmeas$-martingale and
     \frac{price_t(\pay_T)}{S_0(t)} = \mathbb{E}_t^{\Qmeas} \left[\frac{\pay_T}{S_0(T)}\right].
 \end{equation}
 So, we have:
-\begin{equation}
+\begin{equation}\label{label0}
     price_t(\pay_T) = e^{\int_0^t r_s\,\dd s}\mathbb{E}_t^{\Qmeas} \left[e^{-\int_0^T r_s\,\dd s}\pay_T\right] = \mathbb{E}_t^{\Qmeas} \left[\hlc{mytweed}{e^{-\int_t^T r_s\,\dd s}}\pay_T\right].
 \end{equation}
 The problem is that the highlighted term is not $\mathcal{F}_t$-measurable, because it involves future realizations of the interest rate $r$. Moreover, the payoff typically involves the interest rate. So, the highlighted term and the payoff are not independent and -- in general -- the computation of this expected value is a very difficult problem.\\
@@ -155,7 +155,7 @@ which leads to
 \begin{align}
     \notag price_t(\pay_T) &= B(t,T) \mathbb{E}^{\Qmeas^T}_t\left[\frac{\pay_T}{B(T,T)}\right] \\
     &=
-    \hlc{mytweed}{\expect_t\left[e^{-\int_t^T r_s\,\dd s}\right]} \mathbb{E}^{\Qmeas^T}_t[\pay_T],
+    \hlc{mytweed}{\expect_t\left[e^{-\int_t^T r_s\,\dd s}\right]} \mathbb{E}^{\Qmeas^T}_t[\pay_T], \label{label1}
 \end{align}
 where we use the fact that $B(T,T)=1$. We end up with two conditional expected values:
 \begin{itemize}
@@ -163,13 +163,13 @@ where we use the fact that $B(T,T)=1$. We end up with two conditional expected v
     \item the second, under the forward probability measure $\Qmeas^T$, is related to the stock market with $r_t = 0$ $\forall t$.
 \end{itemize}
 Using this procedure we are able to disentangle the computation of the conditional expected value of the discount factor from the one of the payoff. By doing so, the randomness of the interest rate is all included in the green term. The price we pay is that we need to consider a new probability measure $\Qmeas^T$ -- which is different from the risk neutral probability measure $\Qmeas$ -- and now we have to understand which is the dynamics of the underlying under it.\\
-Finally, from the usual risk neutral approach, we found that the price of the payoff is given by:
-\begin{align}
-    price_t(\pay_T) &= \mathbb{E}_t^{\Qmeas} \left[e^{-\int_t^T r_s\,\dd s}\pay_T\right] \label{11} \\
-    &=
-    \mathbb{E}_t^{\Qmeas^T}\left[\mathbb{E}_t^{\Qmeas} \left[e^{-\int_t^T r_s\,\dd s}\right]\pay_T\right]. \label{22}
-\end{align}
-Comparing \eqref{11} and \eqref{22} we have that:
+%Finally, from the usual risk neutral approach, we found that the price of the payoff is given by:
+%\begin{align}
+%    price_t(\pay_T) &= \mathbb{E}_t^{\Qmeas} \left[e^{-\int_t^T r_s\,\dd s}\pay_T\right] \label{11} \\
+%    &=
+%    \mathbb{E}_t^{\Qmeas^T}\left[\mathbb{E}_t^{\Qmeas} \left[e^{-\int_t^T r_s\,\dd s}\right]\pay_T\right]. \label{22}
+%\end{align}
+Comparing \eqref{label0} and \eqref{label1} we have 
 \begin{equation}
     \mathbb{E}_t^{\Qmeas^T}[\pay_T] = \mathbb{E}_t^{\Qmeas}\left[\pay_T \hlc{mylightblue}{\frac{e^{-\int_t^T r_s\,\dd s}}{B(t,T)}}\right].
 \end{equation}

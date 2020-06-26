@@ -4,7 +4,7 @@ For example, the transfer between \EUR{1} and 1\,\$ is given through an \emph{ex
 \begin{equation}
     X(t)^{\text{EURUSD}} = \dfrac{\text{\EUR{1}}}{1\,\$}
 \end{equation}
-which is usually given using the \emph{FORDOM} (foreign-domestic currency) notation. If we consider a third additional currency, for example the Japanese Yen \textyen, in order to be consistent it must be that if $X_1, X_2$ are two exchange rate, then $X_3 = X_1X_2$. So, the product of two exchange rates is an exchange rate.\\
+which is usually given using the \emph{FORDOM} (foreign-domestic currency) notation. If we consider a third additional currency, for example the Japanese Yen \textyen, in order to be consistent it must be that if $X_1, X_2$ are two exchange rates, then $X_3 = X_1X_2$. So, the product of two exchange rates is an exchange rate.\\
 In general, the interest rates in different countries are different, so  -- at least in principle -- there can be a potential arbitrage opportunity. However, this is only an apparent problem since, as soon as we may want to exploit this arbitrage, we would have to consider the currency conversion, which works through a stochastic quantity, the interest rate. \\
 As starting point, we assume that the evolution of the exchange rate between the two currencies is given by a B\&S dynamics under the subjective probability measure $\Pmeas$:
 \begin{align}
@@ -63,7 +63,7 @@ we can apply the Girsanov theorem:
 \end{equation*}
 Then:
 \begin{align}
-    \eqref{al2} &= \Tilde{B}_f(r_d\,\dd t + \sigma_X\dd W^{\Qmeas^d})
+    \dd\Tilde{B}_f &= \Tilde{B}_f(r_d\,\dd t + \sigma_X\dd W^{\Qmeas^d})
 \end{align}
 So, the dynamics of $X_t$ under the domestic risk neutral pricing probability measure $\Qmeas^d$ is given by:
 \begin{equation}\label{dynX}
@@ -84,7 +84,7 @@ Now we are ready to price an exchange option.
     where the dynamics of $X_t$ is given by \eqref{dynX};
     \item the solution:
     \begin{equation}
-        price_t = F(t.X_t)
+        price_t = F(t,X_t)
     \end{equation}
     of the PDE:
     \begin{equation}
@@ -127,7 +127,7 @@ for the domestic asset and by
 \begin{equation}
     \frac{\dd S_f}{S_f} = \mu_f\,\dd t + \sigma_f\cdot\dd W^{\Pmeas}
 \end{equation}
-where we used the scalar product $(\cdot)$ because $\sigma$ is a row vector and $\dd W$ is a column vector.\\
+for the foreign asset. We used the scalar product $(\cdot)$ because $\sigma$ is a row vector and $\dd W$ is a column vector.\\
 The volatility matrix of our market is given by
 \begin{equation}
     \sigma =

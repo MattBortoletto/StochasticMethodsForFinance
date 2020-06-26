@@ -28,7 +28,7 @@ Now we consider something which is not quoted in the market but that is a buildi
     \begin{equation*}
       ST_L(x) = (x-L+L)\mathds{1}_{x>L} = (x-L)^+ + L\mathds{1}_{x>L}
     \end{equation*}
-    which is a payoff of a call option plus a digital option, which gives the up shift at $x=L$:
+    which is a payoff of a call option plus a digital option, which gives a up shift at $x=L$:
     \begin{equation*}
       ST_L(x) = LH(x,L) + C(x,L)
     \end{equation*}
@@ -58,7 +58,7 @@ In order to price this contract we have to consider the modified payoff
 \end{equation}
 According to the possible values of $L$ and $K$ we have different situations:
 \begin{itemize}
-  \item if $K>L$ then the indicator function $\mathds{1}_{S(t)>L}$ is redundant nd the modification of the payoff coincides with the original payoff. However, even if the modification of the payoff coincides with the original payoff, we cannot say that the barrier option price coincides with the vanilla call option price, as we will see.
+  \item if $K>L$ then the indicator function $\mathds{1}_{S(t)>L}$ is redundant and the modification of the payoff coincides with the original payoff. However, even if the modification of the payoff coincides with the original payoff, we cannot say that the barrier option price coincides with the vanilla call option price, as we will see.
   \item if $K>L$ then we can exercise the contract but due to the presence of the indicator function of $L$ the terminal payoff can be different. In this case the indicator function $\mathds{1}_{S(t)>K}$ is redundant and the modified payoff is given by
   \begin{equation*}
     (S(T)-K)\mathds{1}_{S(T)>L}
@@ -67,7 +67,7 @@ According to the possible values of $L$ and $K$ we have different situations:
   \begin{align*}
     (S(T)-K)\mathds{1}_{S(T)>L} &= (S(T)-L+L-K)\mathds{1}_{S(T)>L} \\
     &=
-    (S(T)-L)^+ (L-K)\mathds{1}_{S(T)>L}
+    (S(T)-L)^+ + (L-K)\mathds{1}_{S(T)>L}
   \end{align*}
 \end{itemize}
 The result for the pricing function in these two cases is as follows.
@@ -104,7 +104,7 @@ We now want to compute the price of a European \textbf{up-and-out put option} (U
 \end{equation}
 There are two possibilities:
 \begin{itemize}
-    \item if $L > K$ then the indicator function 1x<L is redundant and the modification of the payoff is the same of the vanilla put:
+    \item if $L > K$ then the indicator function $\mathds{1}_{x<L}$ is redundant and the modification of the payoff is the same of the vanilla put:
     \begin{equation*}
         P^L(x, K) = (K - x)^+
     \end{equation*}
@@ -115,7 +115,7 @@ There are two possibilities:
         &=
         (L-x)^+ +(K-L)-(K-L)\mathds{1}_{x<L}
     \end{align*}
-    which is the combination of the payoff of a put options and two digital options.
+    which is the combination of the payoff of a put option and two digital options.
 \end{itemize}
 Now we know how to price every building block of the up-and-out, so we can give the pricing function.
 \begin{proposition}[Up-and-out put pricing]
@@ -160,11 +160,11 @@ $L$ as a subscript indicates a ``down" contract, whereas the subscript $I$ denot
 \begin{proof}
     If, at time $t$, we have a portfolio consisting of a down-and-out version of $Z$ as well as a down-and-in version of $Z$ (with the same barrier $L$) then
     \begin{equation*}
-        Z_{LI} + Z_{LO} = \Phi
+        Z_{LI} + Z_{LO} = \Phi,
     \end{equation*}
     so we wil receive exactly $Z$ at time $T$. We thus have
     \begin{equation*}
-        F_{LI} (t, s, \Phi) = F(t, s, \Phi) - F_{LO}(t, s, \Phi)
+        F_{LI} (t, s, \Phi) = F(t, s, \Phi) - F_{LO}(t, s, \Phi).
     \end{equation*}
 \end{proof}
 We can now formulate the basic result.
@@ -207,11 +207,11 @@ As an example, we give the pricing formula for a \textbf{down-and-in European ca
 \end{proposition}
 
 \subsubsection{Lookbacks}
-Lookback options are contracts which at the delivery time T allow us to take advantage of the realized maximum or minimum of the underlying price process over the entire contract period. Typical examples are:
+Lookback options are contracts which at the delivery time $T$ allow us to take advantage of the realized maximum or minimum of the underlying price process over the entire contract period. Typical examples are:
 \begin{align*}
     \Phi(T) = (S(T)-\min_{t\le T}S(t)) \qquad &\text{Lookback call} \\
     \Phi(T) = \max_{t\le T}S(t) - S(t) \qquad &\text{Lookback put} \\
-    \Phi(T) = \left(\max_{t\le T}S(t) - K\right)^+ \qquad &\text{Forward lookback call}
+    \Phi(T) = \left(\max_{t\le T}S(t) - K\right)^+ \qquad &\text{Forward lookback call} \\
     \Phi(T) = \left(K-\min_{t\le T}S(t)\right)^+ \qquad &\text{Forward lookback put}
 \end{align*}
 In order to price this kind of contracts, we need the distribution of the maximum
@@ -233,15 +233,15 @@ where
         X(0) = \ln s
     \end{cases}
 \end{equation*}
-Thus we see that
+Therefore
 \begin{equation*}
     M_S(t) = e^{M_X(t)}
 \end{equation*}
 The distribution for $M_X(T)$ is known to us from Proposition \ref{f}. Thanks to this proposition we obtain the distribution function, $F$, for $M_X(T)$:
 \begin{equation}
     F_{\max_{s\le t}X_s}(x) = \left[
-    N\left(\frac{x-\alpha-\mu t}{\sigma\sqrt{t}}\right)
-    -\exp{-\frac{2\mu(\alpha-\beta)}{\sigma^2}}N\left(-\frac{x-\alpha+\mu t}{\sigma\sqrt{t}}\right)
+    \varphi\left(\frac{x-\alpha-\mu t}{\sigma\sqrt{t}}\right)
+    -\exp{-\frac{2\mu(\alpha-\beta)}{\sigma^2}}\varphi\left(-\frac{x-\alpha+\mu t}{\sigma\sqrt{t}}\right)
     \right]\mathds{1}_{x\ge\ln s}
 \end{equation}
 From this expression we may compute the density function $f=F'$ and then the expected value
@@ -252,7 +252,7 @@ After a series of elementary, but extremely tedious, partial integrations we end
 \begin{proposition}
     The price, at $t=0$, of the lookback put is given by
     \begin{equation}
-        price_0(\mbox{\emph{lookback put}}) = -sN(-d) + se^{-rT}N\left(-d+\sigma\sqrt{T}\right)\left(1-\frac{\sigma^2}{2r}+ \frac{s\sigma^2}{2r}N(d)\right)
+        price_0(\mbox{\emph{lookback put}}) = -s\varphi(-d) + se^{-rT}\varphi\left(-d+\sigma\sqrt{T}\right)\left(1-\frac{\sigma^2}{2r}+ \frac{s\sigma^2}{2r}N(d)\right)
     \end{equation}
     where
     \begin{equation}
