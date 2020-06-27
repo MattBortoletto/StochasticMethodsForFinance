@@ -51,7 +51,7 @@ Simplifying the first equation we get
 \begin{equation*}
     \left(\pdv{A}{t} - \pdv{B}{t}r\right) - B\mu + \frac{1}{2}\sigma^2 B^2 -r = 0
 \end{equation*}
-Notice that there is a linear dependence on $r$ and then a generic dependence on $\mu$ and $\sigma^2$. If $\mu$ and $\sigma^2$ are both affine (i.e. linear plus a constant) functions of $r$, with possibly time dependent coefficients, then the differential equation becomes a separable.
+Notice that there is a linear dependence on $r$ and then a generic dependence on $\mu$ and $\sigma^2$. If $\mu$ and $\sigma^2$ are both affine (i.e. linear plus a constant) functions of $r$, with possibly time dependent coefficients, then the differential equation becomes separable.
 Assume thus that $\mu$ and $\sigma$ assume the following form
 \begin{equation*}
     \mu(t,r) = \alpha(t)r + \beta(t), \qquad \sigma(t,r) = \sqrt{\gamma(t)r + \delta(t)}.
@@ -95,7 +95,7 @@ Once we know the solution $B(t,T)$, solving the ODE for a is trivial.
     A(T,T) = 0
     \end{cases}
     \end{equation}
-    Equation \eqref{VBeq} is, for each fixed T, a simple linear ODE in the t-variable. It can solved as
+    Equation \eqref{VBeq} is, for each fixed $T$, a simple linear ODE in the $t$-variable. It has solution
     \begin{equation*}
         B(t,T) = \frac{1}{a}\left(1-e^{-a(T-t)}\right)
     \end{equation*}
@@ -105,7 +105,7 @@ Once we know the solution $B(t,T)$, solving the ODE for a is trivial.
     \end{equation*}
     and, substituting the expression for B above, we obtain
     \begin{equation*}
-        A(t,T) = \frac{(B(t,T)-T+t)(ab-\tfrac{1}{2}\sigma^2)}{a^2} -            \frac{\sigma^2 B^2(t,T)}{4a}.
+        A(t,T) = \frac{(B(t,T)-T+t)(ab-\tfrac{1}{2}\sigma^2)}{a^2} - \frac{\sigma^2 B^2(t,T)}{4a}.
     \end{equation*}
     The bond prices are given by
     \begin{equation*}
@@ -117,7 +117,7 @@ Once we know the solution $B(t,T)$, solving the ODE for a is trivial.
     \begin{equation*}
         \dd r(t) = \Theta(t)\,\dd t + \sigma\,\dd W(t)
     \end{equation*}
-    so $alpha = \gamma = 0$. The ATS equations become
+    so $\alpha = \gamma = 0$. The ATS equations become
     \begin{equation*}
     \begin{cases}
         \dot{B} - aB = -1 \\
@@ -139,7 +139,7 @@ Once we know the solution $B(t,T)$, solving the ODE for a is trivial.
     \begin{equation*}
         \dd r(t) = a(b-r(t))\dd t + \sigma\sqrt{r(t)}\,\dd W(t)
     \end{equation*}
-    Notice that even if $\sqrt{r(t)}$ is not Lipschitz, the existence of a strong solution is guaranteed by the fact that it is Hölder continuous, so the Yamada condition can be applied. Since $\gamma = 1$, we get a true Riccati equation:
+    Notice that even if $\sqrt{r(t)}$ is not Lipschitz, the existence of a strong solution is guaranteed by the fact that it is Hölder continuous\footnote{A real or complex-valued function $f$ on $d$-dimensional Euclidean space is Hölder continuous when there are non-negative real constants $C$ and $\alpha>0$ such that $$\abs{f(x)-f(y)}\leq C \norm{x-y}^{\alpha}$$ for all $x$ and $y$ in the domain of $f$.}, so the Yamada condition\footnote{See \url{https://fam.tuwien.ac.at/~schmock/notes/Yamada-Watanabe.pdf}.} can be applied. Since $\gamma = 1$, we get a true Riccati equation:
     \begin{equation*}
     \begin{cases}
         \dot{B} - aB - \frac{1}{2}\sigma^2 B^2 = -1 \\
@@ -169,11 +169,11 @@ It is possible to use the square root of the instantaneous variance instead of t
 \begin{equation}
     \frac{\dd S}{S} = r\,\dd t + \sqrt{V(t)}\,\dd W^{\Qmeas}(t)
 \end{equation}
-One of the pioneering models for stochastic volatility is due to Heston (1993), who borrowed the CIR process for the interest rate and applied to the volatility:
+One of the pioneering models for stochastic volatility is due to Heston (1993), who borrowed the CIR process for the interest rate and applied it to the volatility:
 \begin{equation}
     \dd V(t) = k(V(\infty)-V(t))\dd t + \eta\sqrt{V(t)}(\rho\,\dd W^{\Qmeas}(t) + \sqrt{1-\rho^2}\,\dd W^{\perp}(t))
 \end{equation}% 14:00 ho skippato tutto il discorso che ha fatto
-where $W^{\Qmeas}\indep W^{\perp}$. The parameter $\eta$ is called \emph{volatility of volatility parameter} and the parameter $\rho$ is called \emph{correlation parameter}. One interesting feature of this model is that the quadratic covariation between the asset returns and the instantaneous variance we get
+where $W^{\Qmeas}\indep W^{\perp}$. The parameter $\eta$ is called \emph{volatility of volatility parameter} and the parameter $\rho$ is called \emph{correlation parameter}. One interesting feature of this model is that the quadratic covariation between the asset returns and the instantaneous variance is
 \begin{equation*}
     \expval{\frac{\dd S}{S}, V} = V\eta\rho
 \end{equation*}

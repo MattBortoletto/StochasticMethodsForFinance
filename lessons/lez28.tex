@@ -4,8 +4,10 @@
 \end{equation}
 We define the BESQ process parametrized by $\delta$ and starting from the value $x$ such that it satisfies
 \begin{align}
-    \dd\rho(t) &= \delta\,\dd t + 2\sqrt{\rho(t)}\,\dd W(t)
-    \rho(0) &= x \ge 0
+    \begin{cases}
+    \dd\rho(t) = \delta\,\dd t + 2\sqrt{\rho(t)}\,\dd W(t) \\
+    \rho(0) = x \ge 0
+    \end{cases}
 \end{align}
 (where $\rho$ has nothing to do with the correlation parameter). The parameter $\delta\ge 0$ is related to the dimension of the BESQ. Another way to parametrize the process is to define the \emph{index} $\nu = \tfrac{\delta}{2}-1$:
 \begin{equation*}
@@ -28,7 +30,7 @@ We define the BESQ process parametrized by $\delta$ and starting from the value 
     \end{align*}
     where $\bar{W}(t)$ is the scalar Brownian motion defined as
     \begin{equation*}
-        \bar{W}(t) = \frac{1}{R(t)}\sum_{i=1}^n W_i\,\dd W_i
+        \bar{W}(t) = \frac{1}{R(t)}\sum_{i=1}^n W_i\,\dd W_i.
     \end{equation*}
 \end{remark} %discorso 7:00
 Now, let's consider the classification of the boundary:
@@ -47,13 +49,13 @@ Now, let's consider the classification of the boundary:
     \end{equation*}
     where $\rho(t)\sim \besqxd$ with $\delta = \tfrac{4k\theta}{\sigma^2}$. Moreover, the Feller condition is given by
     \begin{equation*}
-        r(t) > 0\,\, \forall t \Leftrightarrow 2k\theta \ge \sigma^2.
+        r(t) > 0\,\, \forall t \qquad \Leftrightarrow \qquad 2k\theta \ge \sigma^2.
     \end{equation*}
 \end{itemize}
 
 \subsection{The pricing problem with stochastic volatility}
 Now we consider the problem of pricing a contract in this framework. The problem is that we loose the information about the distribution of the asset price, so even if the risk neutral methodology still holds true we cannot compute conditional expected values.\\
-Of course, the underlying evolves according to the B\&S formula with stochastic volatility:
+Of course, the underlying evolves according to the B\&S equation with stochastic volatility:
 \begin{equation}
     \frac{\dd S}{S} = r\,\dd t + \sqrt{V(t)}\,\dd W(t)
 \end{equation}
@@ -71,7 +73,7 @@ we cannot do it, because the conditional density function $f(x_T\mid x_t)$ is un
 \begin{equation*}
     \hat{f}(z) = \int_{\mathbb{R}}e^{itx}f(x\mid x_t)\,\dd x
 \end{equation*}
-In general $z$ is real, but we can extend $z$ to a complex domain $\mathbb{C}$ and get the so called generalized Fourier transform, also known as the Laplace transform. From the FT we can recover the density as
+In general $z$ is real, but we can extend $z$ to a complex domain $\mathbb{C}$ and get the so called \emph{generalized Fourier transform}, also known as the \emph{Laplace transform}. From the FT we can recover the density as
 \begin{equation*}
     f(x_T\mid x_t) = \frac{1}{2\pi}\int_{\mathbb{R}}e^{-izx}\hat{f}(z)\,\dd t
 \end{equation*}
@@ -81,14 +83,14 @@ We have that
 \end{equation*}
 so we can write the price of the payoff as
 \begin{align*}
-    price_t(\pay_T) &= e^{-r(T-t)}\int_{\mathbb{R}}(e^{x_T}-K)^+ \left(\frac{1}{2\pi}\int_{\mathbb{R}}e^{-izx_T}\hat{f}\,\dd z\right)\,\dd x_T \\
+    price_t(\pay_T) &= e^{-r(T-t)}\int_{\mathbb{R}}(e^{x_T}-K)^+ \left(\frac{1}{2\pi}\int_{\mathbb{R}}e^{-izx_T}\hat{f}(z)\,\dd z\right)\,\dd x_T \\
     &=
     \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\,\dd z \int_{\mathbb{R}}(e^{x_T}-K)^+e^{-izx}\,\dd x \\
     &=
-    \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\hat{\pay}(-z)\,\dd z
+    \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\widehat{\pay}(-z)\,\dd z
 \end{align*}
-where $\hat{\pay}$ is the FT of the payoff. This integral is computed numerically. Notice that $\hat{f}(z) = \expect_t[e^{izx_T}]$ is product independent and model dependent, so once we found the characteristic function of the log-asset price in the Heston model we can use it to price whatever option (we just have to change the payoff). On the contrary, the FT of the payoff is product dependent and model independent.\\
-So, the problem of pricing within the stochastic volatility framework consists in computing the integral of the product of two quantities that can be separately computed: the characteristic function of the model (which is computed only one time) and the Fourier transform of the payoff. To speed up the computation of the FT, in 1999 Carr and Madan introduced the Fast Fourier Transform in finance. \\ %discorso %fine parte 1
+where $\widehat{\pay}$ is the FT of the payoff. This integral is computed numerically. Notice that $\hat{f}(z) = \expect_t[e^{izx_T}]$ is product independent and model dependent, so once we found the characteristic function of the log-asset price in the Heston model we can use it to price whatever option (we just have to change the payoff). On the contrary, the FT of the payoff is product dependent and model independent.\\
+So, the problem of pricing within the stochastic volatility framework consists in computing the integral of the product of two quantities that can be separately computed: the characteristic function of the model (which is computed only one time) and the Fourier transform of the payoff. To speed up the computation of the FT, in 1999 Carr and Madan introduced the \emph{Fast Fourier Transform} in finance. \\ %discorso %fine parte 1
 Let's consider some examples of payoff FT.
 
 \subsubsection{Covered call option}
@@ -166,7 +168,7 @@ If we write $z$ as $z = a + ib$ then we have
 where $S$ is the underlying and $b\ge 1$. We know that, in principle, once discounted, $S$ will be a martingale, i.e. integrable. Hovever, this is not guaranteed for its moments. So we need to consider a strip of integrability such that these moments do not explode (for the B\&S model all the moments converge).
 
 \subsubsection{Put option}
-The payoff of the call option is
+The payoff of the put option is
 \begin{equation}
     g(x_T) = (K-e^{x_T})^+
 \end{equation}
@@ -201,7 +203,7 @@ then the characteristic function is
 \begin{equation*}
     \varphi(z) = \expect_{t,x}[e^{izx_T}]
 \end{equation*}
-We know that in principle this guy can be also the solution of the corresponding PDE by the Feynman-Kac argument, so our guess is a function depending on the time to maturity $T-t$, on $z$, on the initial value $x$ of the process and also on a state variable $v$ related to the volatility Brownian motion:
+We know that in principle this guy can be also the solution of the corresponding Feynman-Kac PDE, so our guess is a function depending on the time to maturity $T-t$, on $z$, on the initial value $x$ of the process and also on a state variable $v$ related to the volatility Brownian motion:
 \begin{equation*}
     \varphi(z) = G(T-t,z,x,v).
 \end{equation*}

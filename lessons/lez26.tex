@@ -33,10 +33,10 @@ An important concept in bond portfolio management is the duration. Without loss 
 \begin{definition}[Duration]
     For the fixed coupon bond above, with price $p$ at $t = 0$, and yield to maturity $y$, the duration, $D$, is defined as
     \begin{equation}
-        D = \frac{\sum_{i=1}^n T_i c_i e{-yT_i}}{p}.
+        D = \frac{\sum_{i=1}^n T_i c_i e^{-yT_i}}{p}.
     \end{equation}
 \end{definition}
-The duration is thus a weighted average of the coupon dates of the bond, where the discounted values of the coupon payments are used as weights, and it will in a sense provide you with the ``mean time to coupon payment". As such it is an important concept, and it also acts a measure of the sensitivity of the bond price w.r.t. changes in the yield:
+The duration is thus a weighted average of the coupon dates of the bond, where the discounted values of the coupon payments are used as weights, and it will in a sense provide you with the ``mean time to coupon payment". It also acts as a measure of the sensitivity of the bond price w.r.t. changes in the yield:
 \begin{equation*}
     \frac{\dd p}{\dd y} = -Dp
 \end{equation*}
@@ -120,10 +120,10 @@ This payoff is paid at time $T_i$ but it involves quantities that are measurable
 So, in the end, the cap is a portfolio of put options on zero coupon bonds. % to continue we need a model to simulate the evolution of the discount factor, for example the B&S.
 
 \subsubsection{After the crisis}
-After the crisis we cannot consider the discount factor, so there will be a conditional expected value of the future realizations of the forward LIBOR, which in general are different for different tenors. Then, we would need a model to descrive the LIBOR.
+After the crisis we cannot consider the discount factor, so there will be a conditional expected value of the future realizations of the forward LIBOR, which in general are different for different tenors. Then, we would need a model to describe the LIBOR.
 
 \section{Short interest rates} % bjork ch. 24
-We now consider different possible specification for the short interest rate. We altready introduced the Vašíček model, which describes the evolution of the short rate using a Brownian motion plus a drift and for which the distribution of the interest rate is gaussian. We also were able to find the price of the corresponding zero coupon bond (at least the diffusive part). Now we would like to consider other short interest rate models. \\
+We now consider different possible specifications for the short interest rate. We altready introduced the Vašíček model, which describes the evolution of the short rate using a Brownian motion plus a drift and for which the distribution of the interest rate is gaussian. We also were able to find the price of the corresponding zero coupon bond (at least the diffusive part). Now we would like to consider other short interest rate models. \\
 First, we need to extend the Feynman-Kac methodology to stochastic interest rates. If we define the infinitesimal generator
 \begin{equation*}
     \mathcal{A} = \pdv{}{x}K + \frac{1}{2}\pdv[2]{}{x}H^2
@@ -161,7 +161,7 @@ The CIR model was introduced in order to prevent the negativity of $r(t)$. It is
 \begin{equation}
     \dd r(t) = a(b-r(t))\,\dd t + \sigma\sqrt{r(t)}\,\dd W(t)
 \end{equation}
-and it is an affine model (the first term and the square root of the second terms are affine). A process that evolves according this equation is called \emph{squared Bessel process} and it is possible to prove that is has a strong unique solution and that if $ab>\nicefrac{\sigma}{2}$ then $\Pmeas(r(t)>0)=1$. It also holds that CIR $\sim$ Vašíček $\sim \chi^2$.
+and it is an affine model (the first term and the square root of the second term are affine). A process that evolves according this equation is called \emph{squared Bessel process} and it is possible to prove that is has a strong unique solution and that if $ab>\nicefrac{\sigma}{2}$ then $\Pmeas(r(t)>0)=1$. It also holds that CIR $\sim$ Vašíček $\sim \chi^2$.
 
 \subsubsection{Dothan model}
 The dynamics is given by

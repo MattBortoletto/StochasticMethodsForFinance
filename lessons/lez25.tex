@@ -2,7 +2,7 @@
 \begin{remark}\lesson{25}{07/05/2020} % Bjork ch. 22.2
     For $S-T=\Delta\to 0$, the LIBOR rate tends to the \emph{spot short rate}, $L(t,t,t+\Delta)$.
 \end{remark}
-So, we can recover the notion of short rate in terms of LIBOR, we just need a change of notation.
+So, we can recover the notion of short rate in terms of LIBOR. We just need a change of notation.
 \begin{definition}[Continuously compounded forward rate]
     The continuously compounded forward rate is defined by the equation
     \begin{equation}
@@ -137,7 +137,7 @@ Under these regularity assumptions we have the following result.
     \begin{align*}
         p(t,T) = e^{\int_t^T f(t,s)\,\dd s} \equiv e^{Y(t,T)}
     \end{align*}
-    From the Itoˆ formula we then obtain the bond dynamics as
+    From the Itô formula we then obtain the bond dynamics as
     \begin{align*}
         \frac{\dd p(t,T)}{p(t,T)} = \dd Y(t,T) + \frac{1}{2}\dd \expval{Y(\cdot, T)}_t
     \end{align*}
@@ -149,7 +149,7 @@ Under these regularity assumptions we have the following result.
     \begin{align*}
         \dd Y(t,T) &= \dd\left(-\int_t^T f(t,s)\,\dd t\right) \\
         &=
-        -\pdv{}{t}\left(-\int_t^T f(\hat{t},s)\,\dd s\right)\dd t - \int_t^T \dd f(t,s)\,\dd s \\ % hat(t) means that t is fixed
+        -\pdv{}{t}\left(\int_t^T f(\hat{t},s)\,\dd s\right)\dd t - \int_t^T \dd f(t,s)\,\dd s \\ % hat(t) means that t is fixed
         &=
         f(t,t)\,\dd t - \int_t^T (\alpha(t,s)\,\dd t + \sigma(t,s)\,\dd W(t))\dd s \\
         &=
@@ -161,7 +161,7 @@ Under these regularity assumptions we have the following result.
     \end{align*}
     Then
     \begin{align*}
-        \dd p(t,T) &= r(t)\,\dd t + \left(- \int_t^T \alpha(t,s)\,\dd s + \frac{1}{2}\left(\int_t^T \sigma(t,s)\,\dd s\right)^2\right)\dd t + \\
+        \frac{\dd p(t,T)}{p(t,T)} &= r(t)\,\dd t + \left(- \int_t^T \alpha(t,s)\,\dd s + \frac{1}{2}\left(\int_t^T \sigma(t,s)\,\dd s\right)^2\right)\dd t + \\
         &\qquad\qquad
         + \left(\int_t^T \sigma(t,s)\,\dd s\right)\dd W(t) \\
         &=
@@ -171,18 +171,18 @@ Under these regularity assumptions we have the following result.
 \end{proof}
 
 \section{Linear fixed income products}
-Linear fixed income products are interest market's products for which the income is fixed by a certain rate if return, even if we know that the return can vary over time due to the randomness of the interest rate. The basic products that we know are the zero coupon bond and the FRA, which are the building blocks that allow to construct the first non trivial product that we consider: the \emph{fixed coupon bond}. This is a bond which, at some intermediary points in time, will provide predetermined payments (coupons) to the holder of the bond. The formal description is as follows.
+Linear fixed income products are interest market's products for which the income is fixed by a certain rate of return, even if we know that the return can vary over time due to the randomness of the interest rate. The basic products that we know are the zero coupon bond and the FRA, which are the building blocks that allow to construct the first non trivial product that we consider: the \emph{fixed coupon bond}. This is a bond which, at some intermediary points in time, will provide predetermined payments (coupons) to the holder of the bond. The formal description is as follows.
 \begin{itemize}
     \item Fix a number of dates, i.e. points in time, $T_0, \dots, T_n$. Here $T_0$ is interpreted as the emission date of the bond, whereas $T_1, \dots, T_n$ are the coupon dates.
     \item At time $T_i$, $i = 1,\dots, n$, the owner of the bond receives the deterministic
     coupon $c_i$.
     \item At time $T_n$ the owner receives the face value $K$.
 \end{itemize}
-We now go on to compute the price of this bond, and it is obvious that the coupon bond can be replicated by holding a portfolio of zero coupon bonds with maturities $T_i$, $i = 1,\dots, n$. More precisely we will hold ci zero coupon bonds of maturity $T_i$, $i = 1,\dots, n-1$, and $K+c_n$ bonds with maturity $T_n$, so the price, $p(t)$, at a time $t < T_1$, of the coupon bond is given by
+We now go on computing the price of this bond. It is obvious that the coupon bond can be replicated by holding a portfolio of zero coupon bonds with maturities $T_i$, $i = 1,\dots, n$. More precisely, we will hold $c_i$ zero coupon bonds with maturity $T_i$, $i = 1,\dots, n-1$, and $K+c_n$ bonds with maturity $T_n$. So, the price $p(t)$ at a time $t < T_1$ of the coupon bond is given by
 \begin{equation}
     price_t^{\text{FIX}}(t) = K\cdot p(t,T_n) + \sum_{i=1}^n c_i\cdot p(t,T_i)
 \end{equation}
-Very often the coupons are determined in terms of return, rather than in monetary (e.g. dollar) terms. The return for the ith coupon is typically quoted as a simple rate acting on the face value $K$, over the period $[T_i-1,T_i]$. Thus, if, for example, the $i$-th coupon has a return equal to $r_i$, and the face value is $K$, this means that
+Very often the coupons are determined in terms of return, rather than in monetary (e.g. dollar) terms. The return for the $i$-th coupon is typically quoted as a simple rate acting on the face value $K$, over the period $[T_i-1,T_i]$. Thus, if, for example, the $i$-th coupon has a return equal to $r_i$, and the face value is $K$, this means that
 \begin{equation*}
     c_i = r_i(T_i - T_{i-1})K.
 \end{equation*}
@@ -199,9 +199,9 @@ price of such a bond will, for $t \le T_1$, be given by
 \section{Floating rate bonds}
 There are various coupon bonds for which the value of the coupon is not fixed at the time the bond is issued, but rather reset for every coupon period. As an example, we will confine ourselves to discussing one of the simplest floating rate bonds, where the coupon rate $r_i$ is set to the spot LIBOR rate $L(T_i-1,T_i)$. Thus
 \begin{equation*}
-    c_i = (T_i - T_i-1)L(T_i1, T_i)K,
+    c_i = (T_i - T_{i-1})L(T_{i-1}, T_i)K,
 \end{equation*}
-and we note that $L(T_i-1,T_i)$ is determined already at time $T_i-1$, but that $c_i$ is not delivered until at time $T_i$. In other words, we need an information involving the forward LIBOR rate. As a consequence, we have two possibilities to price this contract:
+and we note that $L(T_i-1,T_i)$ is determined already at time $T_i-1$, but that $c_i$ is not delivered until time $T_i$. In other words, we need an information involving the forward LIBOR rate. As a consequence, we have two possibilities to price this contract:
 \begin{itemize}
     \item Before the crisis, if we set $T_i-T_{i-1} = \delta$ (coupon dates are equally spaced) and $K=1$ we have
     \begin{equation*}
@@ -223,7 +223,7 @@ and we note that $L(T_i-1,T_i)$ is determined already at time $T_i-1$, but that 
         &=
         p(t,T_i)-p(t,T_i)
     \end{align*}
-    where we use the martingality of the first term. Since this is the price of a single $c_i$, the total price will be
+    where in (a) we use the martingality of the first term. Since this is the price of a single $c_i$, the total price will be
     \begin{align}
         price_t^{\text{FLOAT}} = p(t,T_n) + \sum_{i=1}^n p(t,T_i)-p(t,T_i) = p(t,T_0)
     \end{align}

@@ -10,7 +10,7 @@ In the next sections we will consider the following situations:
     \item If we introduce more factors we have to calibrate according to maket data (usually option prices), which can be very difficult and expensive. So, we must try to be parsimonious.
 \end{itemize}
 So, we have a trade-off between complexity and parsimony/analytical tractability (at least keep the property of the Heston model, i.e. the possibility to compute the characteristic function). The computation of the characteristic function for the payoff is not a problem, in fact the problem is to find the characteristic function of the model. In order to do that, in the classic Heston model we have to solve the Riccati equation, which is done transforming the quadratic first order ODE into a linear second order ODE. This technique works well in the one-dimensional case but not in the multi-dimensional one.  \\
-There are many ways to extend the one-dimensional case, but the most natural just introduce a vector of volatility factors. For example, in order to deal with the two-dimensional Heston model we introduce a 2-d vector with two volatility factors, one for the short term implied volatility surface and one for the long term volatility smile. In this way we can separately manage the smile and the skew of the short term and long term expiring options. However, this is not te best procedure to follow if we want to keep a certain level of analytical tractability and moreover it introduces some intrinsic constraints. In order to understand which is the right technology to exploit and which are the potential issues in the naive generalization, we proceed step by step.\\
+There are many ways to extend the one-dimensional case, but the most natural just introduces a vector of volatility factors. For example, in order to deal with the two-dimensional Heston model we introduce a 2-d vector with two volatility factors, one for the short term implied volatility surface and one for the long term volatility smile. In this way we can separately manage the smile and the skew of the short term and long term expiring options. However, this is not te best procedure to follow if we want to keep a certain level of analytical tractability and moreover it introduces some intrinsic constraints. In order to understand which is the right technology to exploit and which are the potential issues in the naive generalization, we proceed step by step.\\
 First, we need a technique to solve the Riccati ODE
 \begin{equation*}
     \begin{cases}
@@ -22,7 +22,7 @@ The linearization technique says that -- instead of considering that the solutio
 \begin{equation}\label{bhf}
     B = H^{-1}F
 \end{equation}
-where $H \ne 0$ and $F$ are deterministic functions. Assume that $H$ and $F$ are both matrices. Then, if we muliply both size of \eqref{bhf} we get
+where $H \ne 0$ and $F$ are deterministic functions. Assume that $H$ and $F$ are both matrices. Then, if we muliply by $H$ both sides of \eqref{bhf} we get
 \begin{equation*}
     HB = F
 \end{equation*}
@@ -66,10 +66,11 @@ Then, the solution of the Riccati equation at time $\tau$ will be
     B(\tau) = A_{22}^{-1}(\tau) A_{12}(\tau)
 \end{eqnarray}
 which -- provided that we are able to compute the exponential of the matrix in \eqref{HFlinearsysSol} -- is completely explicit. % fine parte 1
+
 \subsection{Matrix exponential}
 Given a $d\times d$ matrix $A\in M(\mathbb{R}_d)$, its exponential is defined as
 \begin{equation*}
-    e^A = \mathds{1} + A + \frac{A^2}{2!} + \cdot = \sum_{n=0}^{+\infty} \frac{A^n}{n!}.
+    e^A = \mathds{1} + A + \frac{A^2}{2!} + \dots = \sum_{n=0}^{+\infty} \frac{A^n}{n!}.
 \end{equation*}
 If $A$ is symmetric, $A = A^T$, all the eigenvalues are real and we can diagonalize it: there exists a matrix $P$ such that $P^{-1}=P^T$ such that
 \begin{equation*}

@@ -4,11 +4,11 @@
 \end{definition}
 In the real market not all maturities are traded, in fact there are some fixed maturities. According to the particular maturity we can invert the zero coupon bond in order to deduce the corrisponding interest rate. So, the quantity which is traded is the zero coupon bond price, not the interest rate. However, here we assume that there are quoted bonds for any maturity.
 \begin{assumption}
-    We assume the following:
+    We assume that:
     \begin{itemize}
-        \item There exists a market for $T$-bonds for every $T > 0$.
-        \item The relation $p(t, t) = 1$ holds for all $t$.
-        \item For each fixed $t$, the bond price $p(t, T)$ is differentiable w.r.t. time of maturity $T$.
+        \item there exists a market for $T$-bonds for every $T > 0$;
+        \item the relation $p(t, t) = 1$ holds for all $t$;
+        \item for each fixed $t$, the bond price $p(t, T)$ is differentiable w.r.t. the time of maturity $T$.
     \end{itemize}
 \end{assumption}
 Given this bond market, we may now define a number of interest rates, and the basic construction is as follows. Suppose that we are standing at time $t$, and let us fix two other points in time, $S$ and $T$, with $t < S < T$. The immediate project is to write a contract at time $t$ which allows us to make an investment of one unit for money at time $S$, and to have a deterministic rate of return, determined at the contract time $t$, over the interval $[S,T]$. This can easily be achieved as follows:
@@ -18,7 +18,7 @@ Given this bond market, we may now define a number of interest rates, and the ba
     \item At time $S$ the $S$-bond matures, so we are obliged to pay out one dollar.
     \item At time $T$ the $T$-bonds mature at one dollar a piece, so we will receive the amount $p(t, S)/p(t, T)$ dollars.
     \item The net effect of all this is that, based on a contract at $t$, an investment of one dollar at time $S$ has yielded $p(t, S)/p(t, T)$ dollars at time $T$.
-    \item Thus, at time $t$, we have made a contract guaranteeing a riskless rate of interest over the future interval $[S,T]$. Such an interest rate is called a \emph{forward rate}.
+    \item Thus, at time $t$, we have made a contract guaranteeing a riskless rate of interest over the future interval $[S,T]$. Such an interest rate is called \emph{forward rate}.
 \end{enumerate}
 \begin{center}
     \begin{tabular}{lccc}
@@ -30,7 +30,7 @@ Given this bond market, we may now define a number of interest rates, and the ba
            & $0$ & $-1$ & $\tfrac{p(t,S)}{p(t,T)}\in\mathcal{F}_t$ \\\bottomrule
     \end{tabular}
 \end{center}
-We now go on to compute the relevant interest rates implied by the construction above. The \emph{simple forward rate} $F(t,S,T)$, is the solution to the equation
+We now go on computing the relevant interest rates implied by the construction above. The \emph{simple forward rate} $F(t,S,T)$, is the solution to the equation
 \begin{equation}
     1 + F(t,S,T)(T-S) = \frac{p(t,S)}{p(t,T)}
 \end{equation}
@@ -42,7 +42,7 @@ where $(T-S)$ is called \emph{tenor}. If $t=S$ we are considering a particular f
 \begin{equation}
     F(S,S,T) = \frac{1}{T-S}\left(\frac{1}{p(S,T)}-1\right)
 \end{equation}
-The simple spot rate is alsa called \emph{yield to maturity}.\\
+The simple spot rate is also called \emph{yield to maturity}.\\
 At the beginning of the course we defined the forward contract as a linear contract which gives the obbligation to exchange one asset against a fixed strike. Here the notion is the same, in the sense that we exchange an interest rate with respect to the corresponding strike rate.\\
 Let's introduce the notion of \emph{forward rate agreement}, which is the analog of forward contracts for the interest rates. A forward rate agreement (FRA) is a contract, by convention entered into at $t = 0$, where the parties (a lender and a borrower) fix the rate of interest $R$ to be paid on an agreed upon date in the future period $[S,T]$.
 \begin{equation}
@@ -52,7 +52,7 @@ So, in this case, $R$ plays the role of the strike of the forward. If we suppose
 \begin{equation*}
     price_{t,FRA}(t,S,T,R) = ``e^{-r(T-t)}"\expect_t[\pay_T(\text{FRA})]
 \end{equation*}
-However, we don't know both the interest rate to put in the discounting factor and the probability measure $\Qmeas$. Moreover, we know that in presence of a generic interest rate we have to keep the discounting factor insider the expected value
+However, we don't know both the interest rate to put in the discounting factor and the probability measure $\Qmeas$. Moreover, we know that in presence of a generic interest rate we have to keep the discounting factor inside the expected value
 \begin{equation*}
     price_{t,FRA}(t,S,T,R) = \expect_t\left[``e^{-\int^T_t r_s\,\dd s}"\pay_T(\text{FRA})\right]
 \end{equation*}
@@ -66,7 +66,7 @@ where $\Qmeas^T$ is the forward risk neutral probability measure. Now the discou
 \begin{align*}
     price_{t,FRA}(t,S,T,R) &= p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[(T-S)(F(S,S,T)-R)\right] \\
     &=
-    p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[\cancel{(T-S)}(\cancel{\frac{1}{T-S}} \left(\frac{1}{p(S,T)}-1\right)-R)\right] \\
+    p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[\cancel{(T-S)}\left(\cancel{\frac{1}{T-S}} \left(\frac{1}{p(S,T)}-1\right)-R\right)\right] \\
     &=
     p(t,T)\mathbb{E}^{\Qmeas^T}_t\left[\left(\frac{p(S,S)}{p(S,T)}-1\right)-(T-S)R\right] \\
     \overset{(a)}&{=}
@@ -91,10 +91,10 @@ Before the crisis there were some quoted simple spot rates called XBOR, where X 
 \begin{equation}
     \text{LIBOR} = F(S,S,T) = \frac{1}{T-S}\left(\frac{1}{p(S,T)}-1\right)
 \end{equation}
-LIBOR stands for London Inter-Bank Offered Rate, and it is the interest rate at which different investment banks can lend or borrow money each other. The LIBOR is managed by the Intercontinental Exchange (ICE), which in turn is managed and regulated by the British Bankers Association (BBA) and the ICE Benchmark Administration (IBA).\\
+LIBOR stands for London Inter-Bank Offered Rate, and it is the interest rate at which different investment banks can lend or borrow money to each other. The LIBOR is managed by the Intercontinental Exchange (ICE), which in turn is managed and regulated by the British Bankers Association (BBA) and the ICE Benchmark Administration (IBA).\\
 In the European market there were the EURIBOR, which is managed by the European Money Markets Institute (EMMI).\\
-All these instituions were created in order to manage the behavior of the XBORs, in order to avoid manipulations of these rates, which were quoted in the market. The problem is that the LIBOR was an average interest rate calculated through submissions of interest rates by major banks across the world\footnote{Every day at 11:30 AM the banks were asked to declare which was their typical offer rate. Once they collected all these information they cut the 25\% of the lower value and of the higher and they considered the middle offer in the banks panel and the LIBOR was obtained by computing a ponderation of these values.}. Since this methodology was based only on the declarations of the banks and not on traded contracts, some banks were able to manipulate this rate. In fact, there were a series of fraudulent actions connected to the LIBOR: the scandal arose when it was discovered that banks were falsely inflating or deflating their rates so as to profit from trades, or to give the impression that they were more creditworthy than they were. \\
-If for example we consider a forward LIBOR, before the crisis it was possible to express it in terms of the zero coupon bond price, i.e. the usual forward rates
+All these instituions were created in order to manage the behavior of the XBORs, in order to avoid manipulations of these rates, which were quoted in the market. The problem is that the LIBOR was an average interest rate calculated through submissions of interest rates by major banks across the world\footnote{Every day at 11:30 AM the banks were asked to declare which was their typical offer rate. Once they collected all these information they cut the 25\% of the lower value and of the higher and they considered the middle offer in the banks panel and the LIBOR was obtained by computing a ponderation of these values.}. Since this methodology was based only on the declarations of the banks and not on traded contracts, some banks were able to manipulate this rate. In fact, there were a series of fraudulent actions connected to the LIBOR: the scandal arose when it was discovered that banks were falsely inflating or deflating their rates to profit from trades, or to give the impression that they were more creditworthy than they were. \\
+If for example we consider a \emph{forward LIBOR}, before the crisis it was possible to express it in terms of the zero coupon bond price, i.e. the usual forward rates
 \begin{equation*}
     L(t,S,T) = \mathbb{E}^{\Qmeas^T}_t(L(S,S,T)) = \frac{1}{T-S}\left(\frac{p(t,S)}{p(t,T)}-1\right) = F(t,S,T)
 \end{equation*}
@@ -107,7 +107,7 @@ but now it is no more related to the price of the zero coupon bond. In fact, now
 \begin{equation*}
     L(t,S,T) > F(t,S,T)
 \end{equation*} % la morale è che per fidarsi ora serve un bonus
-So, now the LIBOR rate becomes very risky, because in addition to the variability of the market there is also the variability in the possible degradation of the credit scoring of the firm issuing the bond. Moreover, there is the so called \emph{rollover effect}: if for example we borrow an amount of money today for a three months operation we have a certain LABOR rate, but after three months the condition of both counterparts can be different, so we cannot deduce the corresponding LIBOR is six months by putting a rollover position in terms of a spot times a forward. \\ % ???
+So, now the LIBOR rate becomes very risky, because in addition to the variability of the market there is also the variability in the possible degradation of the credit scoring of the firm issuing the bond. Moreover, there is the so called \emph{rollover effect}: if for example we borrow an amount of money today for a three months operation we have a certain LABOR rate, but after three months the condition of both counterparts can be different, so we cannot deduce the corresponding LIBOR in six months by putting a rollover position in terms of a spot times a forward. \\ % ???
 In other words, there is a \emph{spread} between the forward LIBOR and the usual forward rate associated to a riskless operation, which typically is a function of the tenor $\Delta\equiv T-S$:
 \begin{equation}
     s(t,\Delta) = L(t,S,T) - F(t,S,T)

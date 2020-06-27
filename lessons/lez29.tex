@@ -4,7 +4,7 @@
 \end{equation*}
 and the volatility follows the CIR process dynamics
 \begin{equation}
-    \dd v = K(\theta-v(t))\,dd t + \eta\sqrt{v(t)}(\rho\,\dd W(t) + \sqrt{1-\rho^2}\,\dd W(t)^{\perp})
+    \dd v = K(\theta-v(t))\,\dd t + \eta\sqrt{v(t)}(\rho\,\dd W(t) + \sqrt{1-\rho^2}\,\dd W(t)^{\perp})
 \end{equation}
 which is an affine process. Let's shift to the dynamics of the log-price (the returns) $x(t)=\ln S(t)$. Using Itô, we get
 \begin{equation}
@@ -23,11 +23,11 @@ with initial condition
 \begin{equation*}
     G(0,z,x,v) = e^{izx}
 \end{equation*}
-Since the couple $(x,v)$ is affine, we can guess that the solution could be written as a function of the time difference $\tau=T-t$
+Since the couple $(x,v)$ is affine, we can guess that the solution can be written as a function of the time difference $\tau=T-t$:
 \begin{equation*}
     G(\tau, z,x,v) = e^{A(\tau)+B(\tau)v(t)+C(\tau)x(t)}
 \end{equation*}
-so we save one parameter. This is our candidate solution, so now we have to imposte the structure we want:
+so we save one parameter. This is our candidate solution, so now we have to impose the structure we want:
 \begin{align*}
     -\pdv{G}{\tau} = -G(\dot{A}+\dot{B}v+\dot{C}x)
 \end{align*}
@@ -136,7 +136,7 @@ Consider the specific case of a call option. The main idea of this approach is t
 \begin{equation}
     \call(x,l,T) = e^{-r(T-t)}\int_{l}^{+\infty} (e^y - e^l)f_x(y)\,\dd y
 \end{equation}
-where $f_x(y)$ is the underlying density function. Notice that since the call, as a function of $l$, is not $L^1$, in fact
+where $f_x(y)$ is the underlying density function. Notice that the call, as a function of $l$, is not $L^1$, in fact
 \begin{equation*}
     \lim_{l\to-\infty}\call = e^{-r(T-t)}\expect_t[e^{x_T}]
 \end{equation*}
@@ -167,9 +167,9 @@ Putting the discount factor on the other side we have that
     \begin{equation*}
         \abs{e^{i(\xi+i\eta)l} (e^y - e^l)f_x(y)\mathds{1}_{y>l}}
     \end{equation*}
-    Regarding the imaginary part there is no problem because the function is circular, so we can bound with 1 the exponential. Let's focus on the imaginary part. If we replace the minus sign with the plus, we get the trivial inequality
+    Regarding the imaginary part there is no problem because the function is circular, so we can bound with 1 the exponential. Let's focus on the real part. If we replace the minus sign with the plus, we get the trivial inequality
     \begin{equation*}
-        \abs{e^{i(\xi+i\eta)l} (e^y - e^l)f_x(y)\mathds{1}_{y>l}} \le \mathds{1}_{y>l}f_x(y)e^ye^{-\eta l} + \mathds{1}_{y>l}f_x(y)e^{-l(\eta-1)}
+        \abs{e^{-\eta l} (e^y - e^l)f_x(y)\mathds{1}_{y>l}} \le \mathds{1}_{y>l}f_x(y)e^ye^{-\eta l} + \mathds{1}_{y>l}f_x(y)e^{-l(\eta-1)}
     \end{equation*}
     Now, let's integrate with respect to $l$:
     \begin{equation*}
@@ -189,7 +189,7 @@ So, if we take $\alpha = -\eta >0$ such that $\mathbb{E}[S^{1+\alpha}(T)]<\infty
 \begin{align}
     \notag\widehat{\call}(z) &= \widehat{\call}(\xi+i\eta) = \widehat{\call}(\xi-i\alpha) \\
     &=
-    e^{-r(T-t)}\widehat{\call}f_x(\xi - i(\alpha+1))\frac{1}{\alpha^2+\alpha-\xi^2+i(2\alpha-1)}
+    e^{-r(T-t)}f_x(\xi - i(\alpha+1))\frac{1}{\alpha^2+\alpha-\xi^2+i(2\alpha-1)}
 \end{align}
 In order to get the call price, we have to take the inverse LFT. Exploiting the symmetry of the integrand we can consider only the integral from $0$ to $\infty$:
 \begin{align}
