@@ -110,9 +110,9 @@ In conclusion, care must be taken when applying to multiple arguments functions 
 \subsection{2-Heston model for one asset}
 Consider an underlying that evolves under the risk neutral probability measure according to
 \begin{equation}
-    \frac{\dd S(t)}{S(t)} = r\,dd t + \sqrt{V_1(t)}\,\dd Z_1(t) + \sqrt{V_2(t)}\,\dd Z_2(t)
+    \frac{\dd S(t)}{S(t)} = r\,\dd t + \sqrt{V_1(t)}\,\dd Z_1(t) + \sqrt{V_2(t)}\,\dd Z_2(t)
 \end{equation}
-where $V_1$ and $V_2$ are respectively associated to the short term long term behavior of the volatility surface. The dynamics of $V_1$ and $V_2$ are given by the Heston model:
+where $V_1$ and $V_2$ are respectively associated to the short term and the long term behavior of the volatility surface. The dynamics of $V_1$ and $V_2$ are given by the Heston model:
 \begin{align}
     \dd V_1(t) &= K_1(\theta_1 - V_1(t))\,\dd t + \xi_1\sqrt{V_1(t)}\,\dd W_1(t) \\
     \dd V_2(t) &= K_2(\theta_2 - V_2(t))\,\dd t + \xi_2\sqrt{V_2(t)}\,\dd W_2(t)
@@ -124,7 +124,7 @@ The infinitesimal generator involves the first order as well the second order de
 \begin{equation*}
     \expval{Z_1,W_1} = \rho_1; \qquad \expval{Z_2,W_2} = \rho_2.
 \end{equation*}
-In fact, for example, if $\expval{W_1,W_2}\ne 0$ then there will be a term $\sqrt{V_1V_2}$ and the model will be not affine. However, if we introduce this constraints, there are some consequences. The fact that $W_1 \indep W_2$ implies tha the volatility factors are independent. This mean that $V_1$ (short term behavior) and $V_2$ (long term behavior) are independent, which is not very reasonable. In particular, if
+In fact, for example, if $\expval{W_1,W_2}\ne 0$ then there will be a term $\sqrt{V_1V_2}$ and the model will be not affine. However, if we introduce this constraints, there are some consequences. The fact that $W_1 \indep W_2$ implies that the volatility factors are independent. This means that $V_1$ (short term behavior) and $V_2$ (long term behavior) are independent, which is not very reasonable. In particular, if
 \begin{equation}
     Y(t) = \ln S(t)
 \end{equation}

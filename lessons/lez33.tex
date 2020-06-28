@@ -5,14 +5,14 @@ If we define the Laplace transform of the Wishart process $\Sigma$ as the condit
     \psi_{\Sigma}(\tau, \Sigma(t)) = \mathbb{E}_t\left[e^{-\Tr(\Lambda\Sigma(T))}\right],
 \end{equation}
 where $\Lambda\in S^+$ and $\tau = T-t$, then it satisfies the Feynman-Kac formula
-\begin{equation}
+\begin{equation}\label{nmnmnmnnm}
     \pdv{\psi}{\tau} = \mathcal{A}_{\Sigma}\psi.
 \end{equation}
 Since we know that the Wishart process is affine, we have a natural candidate solution:
 \begin{equation}
     \psi(\tau, \Sigma(t)) = e^{-\Tr(A(\tau)\Sigma(t))+ a(\tau)}.
 \end{equation}
-where $a(\tau)$ is a scalar deterministic function and $A(\tau)$ is a matrix-valued deterministic function. By replacing, we get
+where $a(\tau)$ is a scalar deterministic function and $A(\tau)$ is a matrix-valued deterministic function. Replacing in \eqref{nmnmnmnnm}, we get
 \begin{equation*}
     \begin{cases}
     -\Tr(\dot{A}(\tau)\Sigma(t)) + \dot{a}(\tau) = \Tr[(\beta Q^TQ + M\Sigma + \Sigma M^T)A(\tau) + 2\Sigma A(\tau)Q^TQA(\tau)] \\ % c'è un meno? \Tr[-(\beta Q^TQ + M\Sigma + ...
@@ -57,8 +57,8 @@ which can be written as
 \begin{equation}
     \dv{}{\tau} (G(\tau), F(\tau)) = (G(\tau), F(\tau))\underbrace{\mqty(M & 2Q^tQ \\ 0 & -M^T)}_{2d\times 2d}
 \end{equation}
-This linear system cn be solved by taking the exponential of the matrix:
-\begin{align}% discosone sul fatto che questo caso è semplice perchè gli elementi della matrice sono costanti
+This linear system can be solved by taking the exponential of the matrix:
+\begin{align}% discorsone sul fatto che questo caso è semplice perchè gli elementi della matrice sono costanti
     \notag(G(\tau), F(\tau)) &= \mqty(G(0) & F(0))\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
     &=
     \notag\mqty(\Lambda & \mathds{1})\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
@@ -76,8 +76,8 @@ Then, we can find $a(\tau)$:
     \dot{a}(\tau) &= -\beta\Tr(Q^TQA(\tau)) \\
     &=
     -\beta\Tr(Q^TQF^{-1}G) \\
+    \intertext{From $\dot{F} = -FM^T + 2GQ^TQ$ we have that $G = \tfrac{1}{2}(\dot{F}+FM^T)(Q^TQ)^{-1}$:}
     &=
-    \intertext{From $\dot{F} = -FM^T + 2GQ^TQ$ we have that $G = \tfrac{1}{2}(\dot{F}+FM^T)(Q^TQ)^{-1}$}
     -\frac{\beta}{2}\Tr(Q^TQF^{-1}(F+FM^T)(Q^TQ)^{-1}) \\
     \intertext{Recalling that $\partial_z\Tr(\ln A(z)) = \Tr((\partial_z A)A^{-1})$ we recognize the logarithm of $F$:}
     &=
@@ -159,11 +159,11 @@ where $Z(t)$ is a Brownian motion that drives the asset returns, which is partia
     \dd\Sigma(t) = (\beta Q^TQ + M\Sigma(t) + \Sigma(t)M^T)\dd t + \sqrt{\Sigma(t)}\,\dd W(t)Q + Q^T\,\dd W^T(t)\sqrt{\Sigma(t)},
 \end{equation}
 where $Q^TQ$ is invertible, $M$ is negative semi-definite (in order to have stationarity), $\beta\ge n-1$ (in order to have at least a weak solution) and $\Sigma(t)\in S^+_n$.\\
-Both $W$ and $Z$ are $n\times n$ Brownian motions, so there are $n^2$ possibilities of correlation. However, we have to keep the affinity property, for example setting
+Both $W$ and $Z$ are $(n\times n)$-Brownian motions, so there are $n^2$ possibilities of correlation. However, we have to keep the affinity property, for example setting
 \begin{equation}
     Z(t) = W(t)\cdot R^T + B(t)\sqrt{\mathds{1}-RR^T},
 \end{equation}
-where $R\in M_{n\times n}$ and $B(t)$ is a Brownian motions such that $W(t)\indep\, B(t)$.
+where $R\in M_{n\times n}$ and $B(t)$ is a Brownian motion such that $W(t)\indep\, B(t)$.
 \begin{proposition}
     If we define $Z$ as above, then it is a (matrix) Brownian motion.
 \end{proposition}
@@ -203,7 +203,7 @@ Let's introduce the function
 \end{align}
 where $Y(t) = \ln S(t)$ plays the role of the log-price. From the dynamics of the asset price we can deduce the dynamics of $Y(t)$:
 \begin{equation*}
-    \d Y(t) = \left(r-\frac{1}{2}\Tr(\Sigma(t))\right)\dd t + \Tr(\sqrt{\Sigma(t)}(\dd W(t)R^T+\dd B(t)\sqrt{\mathds{1}-RR^T})).
+    \dd Y(t) = \left(r-\frac{1}{2}\Tr(\Sigma(t))\right)\dd t + \Tr(\sqrt{\Sigma(t)}(\dd W(t)R^T+\dd B(t)\sqrt{\mathds{1}-RR^T})).
 \end{equation*}
 By Feynman-Kac we have that $\psi$ satisfies the PDE
 \begin{equation}

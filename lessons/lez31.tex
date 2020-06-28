@@ -1,7 +1,7 @@
-\subsection{Multiple asset Heston model}\lesson{31}{21/05/2020}
+\subsection{Multiple assets Heston model}\lesson{31}{21/05/2020}
 How can we extend the Heston model to the case of multiple assets, for example two stochastic assets? Notice that
 \begin{itemize}
-    \item if we correlate the Brownian motion of the 2-Hoston model we have no affine property. If there is no affinity we cannot explicitly write the LFT and so the Riccati equation too. Then, if we are not able to write the Riccati equation we cannot do option pricing in a quick way;
+    \item if we correlate the Brownian motions of the 2-Hoston model we have no affine property. If there is no affinity we cannot explicitly write the LFT and so the Riccati equation too. Then, if we are not able to write the Riccati equation we cannot do option pricing in a quick way;
     \item we want to generate dependence by keeping analytical tractability, i.e. affinity.
 \end{itemize}
 In order to solve this problems the idea is to introduce dependence between the two assets by taking a common volatility factor and some other specific volatility factors for each asset. Let's consider three processes
@@ -59,7 +59,7 @@ For fixed $t$, the ``matrix extension" of $X(t)$ follows the \emph{Wishart distr
 \end{equation}
 then
 \begin{equation}
-    B^TB_{d\times d} \sim \text{Wishart}
+    (B^TB)_{d\times d} \sim \text{Wishart}
 \end{equation}
 i.e. $B^TB$ follows a Wishart distribution, which is the matrix estension of the $\chi^2$. \\
 \begin{example}{}{}{}

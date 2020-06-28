@@ -1,4 +1,4 @@
-\lesson{32}{22/05/2020} Now we would like to prove that the Wishart process is affine, in the sense that the LFT is the exponential function of deterministic matrices that satisfy a certain ODE. We study a specific case in which we consider only the LFT of the Wishart process (without the integral) and we can find the solution without having to solve the Riccati equation. Then we will generalize this result.\\
+\lesson{32}{22/05/2020} Now we would like to prove that the Wishart process is affine, in the sense that the LFT is the exponential function of deterministic matrices that satisfy a certain ODE. We will study a specific case in which we consider only the LFT of the Wishart process (without the integral) and we can find the solution without having to solve the Riccati equation. Then we will generalize this result.\\
 
 \subsubsection{Laplace transform of the Wishart process}
 Given a $d\times d$ Brownian motion $B(t)$ with i.i.d components, whenever the SDE
@@ -21,7 +21,7 @@ for all $u\in S_d^+$ (in order to have convergence). This is a very strong resul
         U(T,s) = e^{-\Tr(u\cdot s)}
     \end{cases}
     \end{equation*}
-    For out convenience, it is better to transform this variable in time to maturity: let's introduce the auxiliary function $V(T-t,s) = U(t,s)$, so that the Feynman-Kac formula becomes
+    For our convenience, it is better to transform this variable in time to maturity: let's introduce the auxiliary function $V(T-t,s) = U(t,s)$, so that the Feynman-Kac formula becomes
     \begin{equation*}
     \begin{cases}
         -\pdv{V(T-t,s)}{t} + \mathcal{A}V(T-t,s) = 0 \\
@@ -44,7 +44,7 @@ for all $u\in S_d^+$ (in order to have convergence). This is a very strong resul
         \begin{equation*}
             \det(H) = \sum_k H_{ik}\com{H_{ki}}.
         \end{equation*}
-        Recall that the Com($M$) of a $n\times n$-matrix $M$ is the $n \times n$-matrix whose entry in $(i,k)$ is $(-1)^{i+k}$ times the determinant of the matrix which you get by deleting in $M$ the line $l$ and the row $k$.
+        Recall that the Com($M$) of a $(n\times n)$-matrix $M$ is the $(n \times n)$-matrix whose entry in $(i,k)$ is $(-1)^{i+k}$ times the determinant of the matrix which you get by deleting in $M$ the line $l$ and the row $k$.
     \end{proof}
     In this case
     \begin{equation*}
@@ -76,7 +76,7 @@ for all $u\in S_d^+$ (in order to have convergence). This is a very strong resul
     \end{equation*}
     where
     \begin{align*}
-        DV = \pdv{V}{S_{ij}} = -V(t,s)D\Tr(S(\mathds{1}+2tu)^{-1}u) \\
+        DV = \pdv{V}{S_{ij}} &= -V(t,s)D\Tr(S(\mathds{1}+2tu)^{-1}u) \\
         \overset{(a)}&{=}
         -V(t,s)(\mathds{1}+2tu)^{-1}u
     \end{align*}
@@ -113,7 +113,7 @@ Now that we proved that the Wishart process is affine, let's consider some prope
     Let $B(t)$ be a $d\times d$ Brownian motion with independent components and let $S(t)$ be the process satisfying the SDE
     \begin{equation}
     \begin{cases}
-    \dd S(t) = \sqrt{S(t)}\,\dd B(t) + \dd B(t)^T\sqrt{S(t)} + \alpha\mathds{1}\,\dd t, \qquad \alpha\in\mathbb{R}
+    \dd S(t) = \sqrt{S(t)}\,\dd B(t) + \dd B(t)^T\sqrt{S(t)} + \alpha\mathds{1}\,\dd t, \qquad \alpha\in\mathbb{R} \\
     S(0) = s_0 \in S_d^+.
     \end{cases}
     \end{equation}
@@ -144,7 +144,7 @@ Let us consider a $n\times d$-matrix $(X(t))_{n\times d}$ which is solution of t
         X(0) = x \in M_{n\times d}
     \end{cases}
 \end{equation}
-where $B(t)$ is a $n\times d$ Brownian motion matrix, $\gamma\in\mathbb{R}$ and $\beta\in\mathbb{R}^-$ (in order to keep the stationarity of the process). This SDE describes a Ornstein-Uhlenbeck process, which is a non-centered gaussian process. We would like to construct a Wishart process starting from this.
+where $B(t)$ is a $n\times d$ Brownian motion matrix, $\gamma\in\mathbb{R}$ and $\beta\in\mathbb{R}^-$ (in order to keep the stationarity of the process). This SDE describes a Ornstein-Uhlenbeck process, a stationary Gauss–Markov process which, over time, tends to drift towards its mean function (such a process is called \emph{mean-reverting}). We would like to construct a Wishart process starting from this.
 \begin{theorem}
     Set $S(t)=X(t)^TX(t)$ with initial condition $s=x^Tx$. Then
     \begin{equation}
@@ -166,7 +166,7 @@ where $B(t)$ is a $n\times d$ Brownian motion matrix, $\gamma\in\mathbb{R}$ and 
         &=
         \gamma\left(\sqrt{X(t)^TX(t)}\sqrt{X(t)^TX(t)}^{-1} X(t)^T\,\dd B(t) + \right.\\
         &\qquad
-        \left. + \dd B(t)^TX(t)(\sqrt{X(t)^TX(t)}\sqrt{X(t)^TX(t)}^{-1}\right) + 2\beta X(t)^TX(t)\,\dd t + \gamma^2 n \mathds{1}_d\,\dd t \\
+        \left. + \dd B(t)^TX(t)\sqrt{X(t)^TX(t)}\sqrt{X(t)^TX(t)}^{-1}\right) + 2\beta X(t)^TX(t)\,\dd t + \gamma^2 n \mathds{1}_d\,\dd t \\
         \intertext{We can define the Brownian motion $\dd\tilde{B}(t) \equiv \sqrt{X(t)^TX(t)}^{-1} X(t)^T\,\dd B(t)$, in fact $$\Cov(X(t)^T\,\dd B, X(t)^T\,\dd B) = X(t)^T\,\dd B\,\dd B^T X(t) = nX(t)^TX(t)$$ such that $\Cov(\tilde{B},\tilde{B}) = n\mathds{1}$.}
         &=
         \gamma(\sqrt{S(t)}\,\dd\tilde{B}(t) + \dd\tilde{B}^T\sqrt{S(t)}) + 2\beta S(t)\,\dd t + \gamma^2 n\mathds{1}_d\,\dd t
@@ -187,7 +187,7 @@ So, we can include a mean reverting drift just by taking a Ornstein-Uhlenbeck pr
     \end{equation}
     then
     \begin{equation}
-        \dd S(t) = \sqrt{S(t)}\,\dd W(t)\sqrt{a^Ta} + \sqrt{a^Ta}\,\dd W(t)^T\sqrt{S(t)} + (b^TS(t) + S(t)b)\,\dd t + na^Ta\,dd t
+        \dd S(t) = \sqrt{S(t)}\,\dd W(t)\sqrt{a^Ta} + \sqrt{a^Ta}\,\dd W(t)^T\sqrt{S(t)} + (b^TS(t) + S(t)b)\,\dd t + na^Ta\,\dd t
     \end{equation}
     where $na^Ta$ can be replaced by a matrix $C$ such that $C - (d-1)a^Ta \in S^+_d$.
 \end{theorem}

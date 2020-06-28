@@ -57,7 +57,10 @@
     \begin{equation*}
         \dot{c}(\tau) = -\frac{\beta}{2}\Tr(F^{-1}\dot{F} + M^T + 2\gamma RQ) + \gamma r
     \end{equation*}
-    and integrating we get eq. \eqref{characteristic-func}.
+    and integrating we get
+    \begin{align*}
+        c(\tau) = \frac{\beta}{2}\Tr(\ln F(\tau)+(M^T+2\gamma RQ)\tau)+\gamma r\tau.
+    \end{align*}
 \end{proof}
 We now have a model for the underlying with the volatility driven by a matrix. What is the advantage with respect to a multi-factor Hestom model?
 
@@ -75,11 +78,11 @@ and introduce the log-asset price
 \end{align*}
 which can be negative (conditionally gaussian). So, the starting point is a vector of three independent Brownian motions ($B, W_1, W_2$) such that if we consider the joint infinitesimal generator of the vector ($X_1, X_2, Y$) we get an affine process. Recall that the skew of the implied volatility surface is determined by the correlation
 \begin{align*}
-    \corr_t(\text{Noise}(\dd Y), \text{Noise}(Vol(S))) &= \frac{\expval{Y, X_1+X_2}}{\sqrt{\expval{Y}_t\expval{X_1+X_2}_t}} \\
+    \corr_t(\text{Noise}(\dd Y), \text{Noise}(\text{Vol}(S))) &= \frac{\expval{Y, X_1+X_2}}{\sqrt{\expval{Y}_t\expval{X_1+X_2}_t}} \\
     &=
     \frac{\rho_1\epsilon_1X_1 + \rho_2\epsilon_2X_2}{\sqrt{X_1+X_2}\sqrt{\epsilon_1X_2+\epsilon_2X_2}}
 \end{align*}
-The skew stochastic but it is a deterministic function of the volatility factors $X_1, X_2$, that is of the volatility level. So, even if we have the ``illusion" of having a stochastic skew, if we fix the volatility level there is no more possibility to manage the skew, which is not very good because we want a free variable to control the skew independently of the volatility.
+The skew is stochastic but it is a deterministic function of the volatility factors $X_1, X_2$, that is of the volatility level. So, even if we have the ``illusion" of having a stochastic skew, if we fix the volatility level there is no more possibility to manage the skew, which is not very good because we want a free variable to control the skew independently of the volatility.
 \begin{remark}
     If $X_2=0$ we get the classic Heston model, where
     \begin{align*}
@@ -90,13 +93,13 @@ The skew stochastic but it is a deterministic function of the volatility factors
 \begin{proposition}
     In the Wishart case
     \begin{align}
-        \corr_t(\text{Noise}(S), \text{Noise}(Vol(S))) &= \frac{\Tr(R)Q\Sigma(t))}{\sqrt{\Tr(\Sigma(t))\Tr(Q^TQ\Sigma(t))}}.
+        \corr_t(\text{Noise}(S), \text{Noise}(\text{Vol}(S))) &= \frac{\Tr(R)Q\Sigma(t))}{\sqrt{\Tr(\Sigma(t))\Tr(Q^TQ\Sigma(t))}}.
     \end{align}
 \end{proposition}%fine parte 1
 \begin{proof}
     Let's start considering the asset noise. From the dynamics of the underlying we have
     \begin{align*}
-        \frac{\dd S}{S} &_= r\,\dd t + \Tr[\sqrt{\Sigma}\,\dd Z] \\
+        \frac{\dd S}{S} &= r\,\dd t + \Tr[\sqrt{\Sigma}\,\dd Z] \\
         &=
         r\,\dd t + \sqrt{\Tr(\Sigma)}\frac{\Tr[\sqrt{\Sigma}\,\dd Z]}{\sqrt{\Tr(\Sigma)}} \\
         \intertext{It can be shown that this leads to a scalar Brownian motion $b(t)$:}
