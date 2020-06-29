@@ -183,7 +183,7 @@ If we consider the (normalized) quadratic covariation, since all the Brownian mo
 \begin{align*}
     \frac{\dd\expval{S_1,S_2}}{S_1S_2} = X_3(t) \,\dd t > 0
 \end{align*}
-because $X_3$ is a CIR process. This is a strong constraint, in fact it is reasonable to expect stochastic correlations among the assets. However, we have seen that if we naively try to extend the Heston model to the three factors case we end up with something which is very limited, because there is this constraint on the sign of the correlation.\\
+because $X_3$ is a CIR process. This is a strong constraint, in fact it is reasonable to expect stochastic correlations among the assets. So, if we naively try to extend the Heston model to the three factors case we end up with something which is very limited, because there is this constraint on the sign of the correlation.\\
 This is the preliminary remark that motivates the introduction of a more sophisticated model. The only assumption that we require is that the stochastic covariance matrix evolves according the dynamics of the Wishart process:
 \begin{align}
     \dd\Sigma(t) = (\beta Q^TQ + M\Sigma + \Sigma M^T)\dd t + \sqrt{\Sigma}\,\dd WQ + Q^T\,\dd W^T\sqrt{\Sigma}
@@ -219,9 +219,9 @@ where $Z$ is a vector Brownian motion.
     so we have a stochastic correlation.
 \end{remark}
 \begin{remark}
-    The general way to correlate the matrix BM $W$ and the vector BM $Z$ is to introduce a matrix $R_k\in M_n$ for $k=1,\dots,n$. So, in principle, there are many parameters because any element of $Z$ can be correlated with any elements of $W$:
+    The general way to correlate the matrix BM $W$ and the vector BM $Z$ is to introduce a matrix $R_k\in M_n$ for $k=1,\dots,n$. So, in principle, there are many parameters because any element of $Z$ can be correlated with any element of $W$:
     \begin{align}
         \dd Z_k = \Tr(R_k\,\dd W^T) + \sqrt{1-\Tr(R_kR_k^T)}\,\dd B_k(t)
     \end{align}
-    In other words, the element $R_k^{ij}$ plays the role of the covariation between $Z_k$ and $W_{i,j}$: $R_k^{ij} \cong \expval{Z_k, W_{ij}}$.
+    In other words, the element $R_k^{ij}$ plays the role of the covariation between $Z_k$ and $W_{ij}$: $R_k^{ij} \cong \expval{Z_k, W_{ij}}$.
 \end{remark}

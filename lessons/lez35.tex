@@ -77,9 +77,9 @@ is the Fourier transform of the payoff and
 \begin{align}
     \psi_{Y(t),\Sigma(t)}(\gamma,\Gamma,t,\tau) = e^{-r\tau} \expect\left[e^{\expval{\gamma,Y(t+\tau)}+\Tr[\Gamma \Sigma(t+\tau)]}\right]
 \end{align}
-This is the general Fourier transform: if we want to price calls or put we can skip the second term of the exponential whereas if we are interested in pricing volatility models we can skip the first term (in fact in \eqref{ftofpayoff} we set $\Gamma = 0$). By Feynman-Kac we can write
+This is the general Fourier transform: if we want to price calls or puts we can skip the second term of the exponential whereas if we are interested in pricing volatility models we can skip the first term (in fact in \eqref{ftofpayoff} we set $\Gamma = 0$). By Feynman-Kac we can write
 \begin{align}
-    \pdv{\psi_{Y,\Sigma}}{\tau} = (\mathcal{A}_{Y,\Sigma}-r)\psi
+    \pdv{\psi_{Y,\Sigma}}{\tau} = (\mathcal{A}_{Y,\Sigma}-r)\psi.
 \end{align}
 \begin{proposition}
     The infinitesimal generator of the WASC model is given by
@@ -146,7 +146,7 @@ This is the general Fourier transform: if we want to price calls or put we can s
 Now we would like to see which are the other advantages of introducing a Wishart model instead of a multiple Heston. We have already seen that the Wishart process allows to consider stochastic correlations between the assets. Now we analyze what happens in the skew of the vanillas. If we are interested in pricing a call option on the first asset, in principle we can forget about the other assets. However we will see that in this model all the assets communicate with each other, because in the matrix $\sigma$ there is a ``cocktail" involving all the volatility parameters.
 
 \subsection{Leverage in single name vanillas}
-If we consider the correlation between driving the first (log-)asset price and its volatility:
+If we consider the correlation between the noise driving the first (log-)asset price and the noise driving its volatility:
 \begin{align}
     \corr_t(\text{Noise}(Y_1),\text{Noise}(\text{Vol}(S_1))) &= \frac{\expval{Y_1,\Sigma_{11}}_t}{\sqrt{\Sigma_{11}(t)}\sqrt{\expval{\Sigma_{11}}_t}} \\
     &=
@@ -161,7 +161,7 @@ So, we have a constant skew, like in the classic Heston model. This is due to th
 \begin{remark}
     If the matrix $Q$ is diagonal
     \begin{align*}
-        \corr_t(\text{Noise}(Y_1),\text{Noise}(\text{Vol}(S_1))) &= \rho_1
+        \corr_t(\text{Noise}(Y_1),\text{Noise}(\text{Vol}(S_1))) &= \rho_1 \\
         \corr_t(\text{Noise}(Y_2),\text{Noise}(\text{Vol}(S_2))) &= \rho_2
     \end{align*}
     as in the classic Heston model. If $Q$ is not diagonal, the skew of the implied volatility on asset 1 depends on the volatility of asset 2.
@@ -198,7 +198,6 @@ We would like to see if there exists a model that can describe this effect. In t
     \begin{align*}
         \dd(\sqrt{\Sigma_{11}\Sigma_{22}}) = \frac{1}{2}\sqrt{\frac{\Sigma_{22}}{\Sigma_{11}}}\,\dd\Sigma_{11} + \frac{1}{2}\sqrt{\frac{\Sigma_{11}}{\Sigma_{22}}}\,\dd\Sigma_{22} + (\dots)\dd t.
     \end{align*}
-    So, we can write
     \begin{align*}
           \dd\rho_{12} = \frac{1}{\sqrt{\Sigma_{11}\Sigma_{22}}}\,\dd \Sigma_{12} - \frac{1}{2}\rho_{12}\left(
           \frac{1}{\Sigma_{11}}\,\dd\Sigma_{11} +
@@ -220,7 +219,7 @@ We would like to see if there exists a model that can describe this effect. In t
 \end{proof}
 We have that $(1-\rho_{12})\ge0$ and $\tfrac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}\ge0$, so
 \begin{equation*}
-    \frac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}(1-\rho_{12}^2) \ge 0
+    \frac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}(1-\rho_{12}^2) \ge 0.
 \end{equation*}
 Conversely, the term $\Tr(R_jQ)$ is related to the skew of the vanilla on the asset $j$, which typically is negative:
 \begin{align*}
