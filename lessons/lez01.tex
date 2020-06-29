@@ -1,6 +1,6 @@
 \chapter{Introduction} % 10 marzo 2020
 \section{Forward contract} \lesson{1}{10/03/2020}
-Let's assume that there are two counterparts interested in entering in a contract in the future. This means that at time $t=0$ they want to fix the price $K$ of whatever -- called \emph{strike price} -- (e.g. an asset, an interest rate, an exchange rate, the price of some good) at a future time $T$, called \emph{maturity} of the contract. The two counterparts are called:
+Let's assume that there are two counterparts interested in entering in a contract in the future. This means that at time $t=0$ they want to fix the price $K$ -- called \emph{strike price} -- of whatever (e.g. an asset, an interest rate, an exchange rate, the price of some good) at a future time $T$, called \emph{maturity} of the contract. The two counterparts are called:
 \begin{itemize}
     \item \emph{long position}, which at time $T$ has to buy the asset at the price $K$ fixed at $t=0$, regardless the market price;
     \item \emph{short position}, which has to sell the asset at maturity
@@ -15,7 +15,7 @@ What can we say about the payoff of the forward contract?
 \end{figure}
 If at time $T$ $S_T>K$ the long position is happy because it has the possibility to buy at $K$ and immediately sell at $S_T$ in the market, getting the payoff $S_T-K>0$. Conversely, if at time $T$ $S_T<K$ the long position is not happy because it buys at $K$ what is worth less in the market. For the short position the situation is symmetric. There are two important considerations:
 \begin{enumerate}
-    \item For the long position the loss is bounded and the gain is unbounded, whereas for the loss position the loss is unbounded and the gain is bounded;
+    \item For the long position the loss is bounded and the gain is unbounded, whereas for the short position the loss is unbounded and the gain is bounded;
     \item If $K$ changes, for example if $K_2>K_1$, then the long position will not be happy because it wants $K$ to be as small as possible. So, it will not agree to enter in the contract.
 \end{enumerate}
 So, there is a trade-off between the two counterparts. Our purpose is to find the value of $K$ such that both parts will agree in entering the contract. To do that we have to avoid the presence of an \emph{arbitrage opportunity}, i.e. a possibility of making money for free, without risk (if there is an arbitrage opportunity then fixing a price is meaningless). Quantitatively, an arbitrage opportunity is defined as:
@@ -52,7 +52,11 @@ In the end the sum at $t=0$ is $S_0-Ke^{-RT}$ and the sum at $t=T$ is zero. Sinc
 This is the value of $K$ such that both parts will agree in entering the contract.
 
 \section{Options}
-Options are financial instruments that are derivatives based on the value of underlying securities such as stocks. An options contract offers the buyer the opportunity to buy or sell—depending on the type of contract they hold—the underlying asset. There are two types of option. A \emph{call} option gives the holder the right to buy the underlying asset by a certain date for a certain price. A \emph{put option} gives the holder the right to sell the underlying asset by a certain date for a certain price.
+Options are derivatives based on the value of underlying securities, such as stocks. An option contract offers the buyer the opportunity to buy or sell -- depending on the type of contract they hold -- the underlying asset. There are two types of option:
+\begin{itemize}
+    \item a \emph{call} option gives the holder the right to buy the underlying asset by a certain date for a certain price;
+    \item a \emph{put option} gives the holder the right to sell the underlying asset by a certain date for a certain price.
+\end{itemize}
 
 \subsection{Long call option}
 In \emph{long call options} we have the possibility to buy the underlying at time $t=T$ at price $K$ decided at $t=0$. So, at maturity we will buy only if it is convenient.
