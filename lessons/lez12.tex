@@ -9,7 +9,7 @@ The call option payoff is given by
 \end{equation}
 Let's consider the case in which $t=0$, so that in the price of the call we have to compute an unconditional expected value:
 \begin{equation}
-    price_0(\call) = e^{-rt}\mathbb{E}^{\Qmeas}[(S_T-K)^+].
+    price_0(\call) = e^{-rT}\mathbb{E}^{\Qmeas}[(S_T-K)^+].
 \end{equation}
 We know that, under $\Qmeas$, $S_T$ is a Brownian motion:
 \begin{equation}
@@ -17,7 +17,7 @@ We know that, under $\Qmeas$, $S_T$ is a Brownian motion:
 \end{equation}
 where $W_T^{\Qmeas}=\sqrt{T}\mathcal{N}(0,1)$. So, we have to compute:
 \begin{equation}
-    price_0(\call) = e^{-rt}\int_{\mathbb{R}}\left(S_0\exp{\left(r-\dfrac{\sigma^2}{2}\right)T+\sigma \sqrt{T}y}-K\right)^+\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}\dd y.
+    price_0(\call) = e^{-rT}\int_{\mathbb{R}}\left(S_0\exp{\left(r-\dfrac{\sigma^2}{2}\right)T+\sigma \sqrt{T}y}-K\right)^+\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}\dd y.
 \end{equation}
 In order to remove the non-linearity given by the positive part, we study the sign of the expression:
 \begin{align}
@@ -36,13 +36,13 @@ So, if $y\ge\hat{y}$ we can remove the positive part:
     &\qquad
     \notag - Ke^{-rT}\int_{\hat{y}}^{+\infty}\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}\dd y \\
     \overset{(a)}&{=}
-    \notag \frac{S_0}{\sqrt{2\pi}}\int_{\hat{y}}^{+\infty}\exp{-\dfrac{\sigma^2}{2}T+\sigma\sqrt{T}y-\frac{y^2}{2}}\dd y - Ke^{-rt}\Phi(-\hat{y}) \\
+    \notag \frac{S_0}{\sqrt{2\pi}}\int_{\hat{y}}^{+\infty}\exp{-\dfrac{\sigma^2}{2}T+\sigma\sqrt{T}y-\frac{y^2}{2}}\dd y - Ke^{-rT}\Phi(-\hat{y}) \\
     \overset{(b)}&{=}
-    \notag \frac{S_0}{\sqrt{2\pi}}\int_{\hat{y}}^{+\infty}\exp{-\dfrac{1}{2}(y-\sigma\sqrt{T})^2}\dd y - Ke^{-rt}\Phi(-\hat{y}) \\
+    \notag \frac{S_0}{\sqrt{2\pi}}\int_{\hat{y}}^{+\infty}\exp{-\dfrac{1}{2}(y-\sigma\sqrt{T})^2}\dd y - Ke^{-rT}\Phi(-\hat{y}) \\
     \overset{(c)}&{=}
-    \notag \frac{S_0}{\sqrt{2\pi}}\int_{\hat{y}-\sigma\sqrt{T}}^{+\infty}e^{-\dfrac{z^2}{2}}\dd z - Ke^{-rt}\Phi(-\hat{y}) \\
+    \notag \frac{S_0}{\sqrt{2\pi}}\int_{\hat{y}-\sigma\sqrt{T}}^{+\infty}e^{-\dfrac{z^2}{2}}\dd z - Ke^{-rT}\Phi(-\hat{y}) \\
     &=
-    S_0\Phi(\sigma\sqrt{T}-\hat{y})-Ke^{-rt}\Phi(-\hat{y}),
+    S_0\Phi(\sigma\sqrt{T}-\hat{y})-Ke^{-rT}\Phi(-\hat{y}),
 \end{align}
 where:
 \begin{itemize}
@@ -52,7 +52,7 @@ where:
 \end{itemize}
 So we end up with the following Black \& Scholes formula:
 \begin{equation}
-    price_0(\call) = S_0\Phi(d_1)-Ke^{-rt}\Phi(d_2),
+    price_0(\call) = S_0\Phi(d_1)-Ke^{-rT}\Phi(d_2),
 \end{equation}
 where
 \begin{equation}

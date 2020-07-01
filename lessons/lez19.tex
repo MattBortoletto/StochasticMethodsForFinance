@@ -39,7 +39,7 @@ By Itô, we have that:
     &=
     \notag\Tilde{B}_f r_f\, \dd t + \Tilde{B}_f(\mu_X\,\dd t + \sigma_X\,\dd W^{\Pmeas}) \\
     &=
-    \Tilde{B}_f(\mu_X + r_f)\,\dd t + \sigma_X\,\dd W^{\Pmeas}
+    \Tilde{B}_f(\mu_X + r_f)\,\dd t + \Tilde{B}_f\sigma_X\,\dd W^{\Pmeas}
 \end{align}
 This is the general dynamics of a foreign riskless asset converted in the domestic currency. Now we want that
 \begin{equation*}
@@ -150,7 +150,7 @@ Now we can consider different problems involving different contract. For example
     \item pricing in euros a call on $S_f$ in dollars with $K$ in dollars, which has payoff $(S_f(T)-K)^+X_T^{\text{USDEUR}}$ (not a real quanto option);
     \item pricing in euros a call on $S_f$ in dollars with $K$ in euros, which has payoff $(S_fX_T-K)^+$ (real quanto option).
 \end{itemize}
-Now we have to characterize the probability measure $\Qmeas^d$ under which we price this payoffs. Again, we impose that under $\Qmeas^d$ all the domestic assets discounted by the domestic interest rate are a $\Qmeas^d$-martingale, i.e. the domestic assets evolve with drift $r_d$. Our domestic assets are $B_d, S_d, \Tilde{S}_f = S_fX_t$ and $\Tilde{B}_f = B_fX_t$, so this quantities have -- once discounted by $B_d$ -- must be $\Qmeas^d$-martingales.\\
+Now we have to characterize the probability measure $\Qmeas^d$ under which we price this payoffs. Again, we impose that under $\Qmeas^d$ all the domestic assets discounted by the domestic interest rate are $\Qmeas^d$-martingales, i.e. the domestic assets evolve with drift $r_d$. Our domestic assets are $B_d, S_d, \Tilde{S}_f = S_fX_t$ and $\Tilde{B}_f = B_fX_t$, so this quantities have -- once discounted by $B_d$ -- must be $\Qmeas^d$-martingales.\\
 Let's start from $S_d$ and rewrite \eqref{Sd} in such a way that the drift is $r_d$:
 \begin{align}
     \frac{\dd S_d}{S_d} = r_d\,\dd t + \sigma_d\left(\dd W^{\Pmeas} + \frac{\mu_d-r_d}{``\sigma_d"}\,\dd t\right)
@@ -158,7 +158,7 @@ Let's start from $S_d$ and rewrite \eqref{Sd} in such a way that the drift is $r
 This is only a formal expression because, since $\sigma_d$ is a row vector, $\nicefrac{1}{\sigma_d}$ is not well defined.\\
 Then we have:
 \begin{align}
-    \notag\frac{\dd\Tilde{S}_f}{\Tilde{S}_f} &= (\mu_f+\mu_X+\sigma_f+\sigma_T)\,\dd t + (\sigma_f + \sigma_d)\dd W^{\Pmeas} \\
+    \notag\frac{\dd\Tilde{S}_f}{\Tilde{S}_f} &= (\mu_f+\mu_X+\sigma_f\sigma^T_X)\,\dd t + (\sigma_f + \sigma_d)\dd W^{\Pmeas} \\
     &=
     r_d\,\dd t + (\sigma_f+\sigma_X)\left(\dd W^{\Pmeas}+\dfrac{\mu_f + \mu_X + \sigma_f\sigma_X^T - r_d}{``\sigma_f\sigma_X"}\,\dd t\right)
 \end{align}

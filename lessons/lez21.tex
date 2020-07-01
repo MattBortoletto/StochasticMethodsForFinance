@@ -16,7 +16,7 @@ where $\theta = \nicefrac{\mu}{\sigma}$. Now we change the BM
 \end{equation}
 in such a way that under the new probability measure $\Tilde{\Pmeas}$ associated to $\Tilde{W}$ there is no drift:
 \begin{equation}\label{212}
-    X(t) = \alpha + \sigma\Tilde{W(t)}
+    X(t) = \alpha + \sigma\Tilde{W}(t)
 \end{equation}
 The corresponding Radon-Nikodym derivative is:
 \begin{equation} % remark in the notes
@@ -107,7 +107,7 @@ where $\theta = \nicefrac{\mu}{\sigma}$.
     \end{equation*}
     So, if we consider the limit, we have:
     \begin{align}\label{lim22}
-        \notag 0 &= \lim_{t\to\infty}\mathbb{E}[B_{t\wedge T}] = \mathbb{E}[\lim_{t\to\infty} B_{t\wedge T}] = \mathbb{E}[B(T)] \\
+        \notag 0 &= \lim_{t\to\infty}\mathbb{E}[B_{t\wedge T}] = \mathbb{E}\left[\lim_{t\to\infty} B_{t\wedge T}\right] = \mathbb{E}[B(T)] \\
         &=
         \notag -a\Pmeas(B(T)=-a) + b\Pmeas(B(T)=b) + (?)\Pmeas(B(\infty)\in(a,b)) \\
         &=
@@ -149,7 +149,7 @@ where $\theta = \nicefrac{\mu}{\sigma}$.
 \end{example}
 
 \subsection{Barrier options: a classic approach}
-Consider a B\&S model in which the underlying under the risk probability measure is given by
+Consider a B\&S model in which the underlying under the risk neutral probability measure is given by
 \begin{align}
     \notag S(t) &= S(0)\exp{\left(r-\frac{1}{2}\sigma^2\right)t + \sigma B^{\Qmeas}(t)} \\
     &=

@@ -78,7 +78,7 @@ If we consider different values of the maturity $T$ and we introduce the time to
 \subsection{Put option pricing in the Black \& Scholes model}
 From the put-call parity we have that:
 \begin{align}
-    \notag put_t &= call_t + Ke^{-r(T-t)} - S_t \\
+    \notag \text{Put}_t &= \call_t + Ke^{-r(T-t)} - S_t \\
     &=
     \notag S_t\Phi(d_1) - Ke^{-r(T-t)}\Phi(d_2) + Ke^{-r(T-t)} - S_t \\
     &=
@@ -86,14 +86,14 @@ From the put-call parity we have that:
 \end{align}
 Now we want to understand how to hedge a put option, in particular to find the Greeks. We have:
 \begin{equation}
-    \Delta^{put} = \pdv{put_t}{S} = \Phi(d_1)-1.
+    \Delta^{\text{Put}} = \pdv{\text{Put}_t}{S} = \Phi(d_1)-1.
 \end{equation}
 In this case the delta of the put is always negative, as we can see in Figure \ref{fig:delta} (b). We also have
 \begin{equation}
-    \Gamma^{put} = \Gamma^{call},
+    \Gamma^{\text{Put}} = \Gamma^{\call},
 \end{equation}
 \begin{equation}\label{vegaput}
-    \mathcal{V}^{put} = \mathcal{V}^{call}.
+    \mathcal{V}^{\text{Put}} = \mathcal{V}^{\call}.
 \end{equation}
 Eq. \eqref{vegaput} is very important because it says that the price of the put is an increasing function of the corresponding volatility. This means that we can repeat the procedure of inverting the formula of the price of the put in terms of the volatility in order to get the quoted market price. Even in this case we will have the smile effect.\\
 \textbf{What happens to the Greeks and to the price if there is an upward shift in the volatility?} Consider a call option. In any case there are the constraints to start from zero and to converge to the straight line $(S_t-K)^+$. Then we know that for higher volatility we will have higher prices. So, for $\sigma_2>\sigma_1$ the curve will stay above the original price.

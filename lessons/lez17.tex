@@ -39,7 +39,7 @@ where $\sigma_Z$ is deterministic. Notice that the denominator of $Z(t)$ is a po
 \end{equation}
 The solution at time $T$ is:
 \begin{align}
-    Z(T) &= Z_0\exp{{-\frac{1}{2}\int_0^T\norm{\sigma_Z(t)}^2\,\dd t - \int_0^T\sigma_Z(t)\cdot\dd W^{\Qmeas^T}}} \\
+    Z(T) &= Z_0\exp{{-\frac{1}{2}\int_0^T\norm{\sigma_Z(t)}^2\,\dd t + \int_0^T\sigma_Z(t)\cdot\dd W^{\Qmeas^T}}} \\
     \overset{(a)}&{=}
     \dfrac{S(0)}{B(0,T)}\exp{{\mathcal{N}\left(-\frac{1}{2}\int_0^T\norm{\sigma_Z(t)}^2\,\dd t; \int_0^T\norm{\sigma_Z(t)}^2\dd t\right)}},
 \end{align}
@@ -74,7 +74,7 @@ Then, we can write:
 \end{equation}
 where
 \begin{equation}
-    \frac{1}{Z(T)} = \frac{B(T,T)}{S(T)} = \Qmeas^S-martingale
+    \frac{1}{Z(T)} = \frac{B(T,T)}{S(T)} = \Qmeas^s-martingale
 \end{equation}
 so that
 \begin{equation}
@@ -120,13 +120,13 @@ Eq. \eqref{stocrcall1} has the same shape as the B\&S formula and the only diffe
         \includegraphics[scale=0.3]{fig/tmp/fig30.png}
         \captionof{figure}{Dynamics of the interest rate $r_t$ with initial condition $r_0$ and asymptotic value $r_{\infty}$.}
     \end{center}
-    In order to find the solution of eq. \eqref{rdyn}, we consider the following differential:
+    In order to find the solution of eq. \eqref{vasmodel}, we consider the following differential:
     \begin{align}
         \notag \dd(r_te^{bt}) &= e^{bt}\dd r_t + r_t\dd e^{bt} \\
         &=
         \notag e^{bt}(a-br_t)\dd t + e^{bt}\sigma_r \dd W^{\Qmeas} + br_te^{bt}\dd t \\
         &=
-        ae^{bt}\dd t + \sigma_r e^{bt} + \sigma_r e^{bt} \dd W^{\Qmeas}(t)
+        ae^{bt}\dd t + \sigma_r e^{bt} \dd W^{\Qmeas}(t)
     \end{align}
     Integrating from 0 to $t$, we get:
     \begin{align}
@@ -182,13 +182,17 @@ Eq. \eqref{stocrcall1} has the same shape as the B\&S formula and the only diffe
     \end{equation}
     Now, if we consider the ratio
     \begin{equation}
-        \frac{\dd\frac{S(t)}{B(t,T)}}{\frac{S(t)}{B(t,T)}} = \hlc{mypink}{\left(\sigma-\sigma_r\frac{e^{-b(T-t)}-1}{b}\right)\dd W^{\Qmeas}} + (\dots)\,\dd t
+        \frac{\dd\frac{S(t)}{B(t,T)}}{\frac{S(t)}{B(t,T)}} = \hlc{mypink}{\left(\sigma-\sigma_r\frac{e^{-b(T-t)}-1}{b}\right)}\dd W^{\Qmeas} + (\dots)\,\dd t
     \end{equation}
     we have that the highlighted term is deterministic, so it is possible to find the B\&S formula for the price of a call in the Vašíček model. If we denote
     \begin{equation}
         \sigma-\sigma_r\frac{e^{-b(T-t)}-1}{b} \equiv \sigma_z
     \end{equation}
     then we have
+    \begin{align}
+        \call_t = S(t)\Phi(d_1)-KB(t,T)\Phi(d_2)
+    \end{align}
+    with
     \begin{align}
         d_1 = \dfrac{\ln\dfrac{S(t)}{B(t,T)K}-\frac{1}{2}\int_t^T\norm{\sigma_Z}^2\,\dd s}{\sqrt{\int_t^T\norm{\sigma_Z}^2\,\dd s}}
     \end{align} % d_1 o d_2?? prima questo era d_2

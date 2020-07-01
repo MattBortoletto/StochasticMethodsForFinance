@@ -146,7 +146,7 @@
 Let's consider the Black \& Scholes PDE
 \begin{equation}
     \begin{cases}
-    \pdv{F(t,S(t))}{t} + r\pdv{F(t,S(t))}{S(t)} S(t) + \dfrac{1}{2}\pdv[2]{F(t,S(t))}{S(t)}\sigma^2S(t)^2 - rF(t,S(t)) = 0\\
+    \pdv{F(t,S(t))}{t} + r\pdv{F(t,S(t))}{S(t)} S(t) + \frac{1}{2}\pdv[2]{F(t,S(t))}{S(t)}\sigma^2S(t)^2 - rF(t,S(t)) = 0\\
     F(T,S(T)) = \mbox{payoff}_T.
     \end{cases}
 \end{equation}
@@ -166,7 +166,7 @@ but now under the probability $\hat{\mathbb{P}}$ we have a new drift $r$. Now we
 \begin{proposition}[Risk neutral valuation]
     The arbitrage free price of a general payoff $\Phi(S(T))$ is given by
     \begin{equation}\label{rnv}
-        F(t,s) = e^{-r(T-t)}\mathbb{E}^{\mathbb{Q}}_t [\Phi(S(T))],
+        F(t,S(t)) = e^{-r(T-t)}\mathbb{E}^{\mathbb{Q}}_t [\Phi(S(T))],
     \end{equation}
     where the discounted asset $S_te^{-rt}$ is a $\mathbb{Q}$-martingale.
 \end{proposition}
@@ -257,7 +257,7 @@ Now we can use the shift \eqref{shift} in \eqref{s}:
     &=
     \cancel{\mu \dd t} + \sigma \left(\dd W^{\Qmeas} + \frac{r-\cancel{\mu}}{\sigma}\dd t\right) \\
     &=
-    r\dd t + \sigma e^{-rt}\dd W^{\Qmeas}.
+    r\dd t + \sigma\dd W^{\Qmeas}.
 \end{align}
 We end up with the same result we found using the PDEs, i.e. we are able to characterize the dynamics of the risky asset under the risk neutral probability measure $\Qmeas$. An important difference with respect to the PDE approach is that here we do not make any Markovianity assumption.\\
 In conclusion, we have that under $\Qmeas$:
