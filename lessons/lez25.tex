@@ -79,7 +79,7 @@ Under these regularity assumptions we have the following result.
         \end{align}
         \item If we know the dynamics of $f(t,T)$, then:
         \begin{align}
-            \frac{p(t,T)}{p(t,T)} = \left(r(t) + A(t,T) + \frac{1}{2}\norm{S(t,T)}^2\right)\,\dd t + S(t,T)\cdot \dd W(t)
+            \frac{\dd p(t,T)}{p(t,T)} = \left(r(t) + A(t,T) + \frac{1}{2}\norm{S(t,T)}^2\right)\,\dd t + S(t,T)\cdot \dd W(t)
         \end{align}
         where
         \begin{align}
@@ -182,7 +182,7 @@ We now go on computing the price of this bond. It is obvious that the coupon bon
 \begin{equation}
     price_t^{\text{FIX}}(t) = K\cdot p(t,T_n) + \sum_{i=1}^n c_i\cdot p(t,T_i)
 \end{equation}
-Very often the coupons are determined in terms of return, rather than in monetary (e.g. dollar) terms. The return for the $i$-th coupon is typically quoted as a simple rate acting on the face value $K$, over the period $[T_i-1,T_i]$. Thus, if, for example, the $i$-th coupon has a return equal to $r_i$, and the face value is $K$, this means that
+Very often the coupons are determined in terms of return, rather than in monetary (e.g. dollar) terms. The return for the $i$-th coupon is typically quoted as a simple rate acting on the face value $K$, over the period $[T_{i-1},T_i]$. Thus, if, for example, the $i$-th coupon has a return equal to $r_i$, and the face value is $K$, this means that
 \begin{equation*}
     c_i = r_i(T_i - T_{i-1})K.
 \end{equation*}
@@ -193,7 +193,7 @@ For a standardized coupon bond, the time intervals will be equally spaced, i.e.
 and the coupon rates $r_1,\dots,r_n$ will be equal to a common coupon rate $r$. The
 price of such a bond will, for $t \le T_1$, be given by
 \begin{equation}
-    price_t^{\text{FIX}}(t) = K\left(p(t,T_n) + r\delta\sum_{i=1}^n c_i\cdot p(t,T_i)\right)
+    price_t^{\text{FIX}}(t) = K\left(p(t,T_n) + r\delta\sum_{i=1}^n p(t,T_i)\right)
 \end{equation}
 
 \section{Floating rate bonds}

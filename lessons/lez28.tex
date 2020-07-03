@@ -85,7 +85,7 @@ so we can write the price of the payoff as
 \begin{align*}
     price_t(\pay_T) &= e^{-r(T-t)}\int_{\mathbb{R}}(e^{x_T}-K)^+ \left(\frac{1}{2\pi}\int_{\mathbb{R}}e^{-izx_T}\hat{f}(z)\,\dd z\right)\,\dd x_T \\
     &=
-    \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\,\dd z \int_{\mathbb{R}}(e^{x_T}-K)^+e^{-izx}\,\dd x \\
+    \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\,\dd z \int_{\mathbb{R}}(e^{x_T}-K)^+e^{-izx_T}\,\dd x_T \\
     &=
     \frac{e^{-r(T-t)}}{2\pi}\int_{\mathbb{R}}\hat{f}(z)\widehat{\pay}(-z)\,\dd z
 \end{align*}
@@ -191,7 +191,7 @@ so
 \end{equation}
 Provided that this condition is satisfied, the FT is given by
 \begin{equation}
-    \hat{g}(z) = \frac{K^{1+iz}}{iz} - \frac{K^{iz+1}}{z^2-iz} = -\frac{K^{iz+1}}{z^2-iz}.
+    \hat{g}(z) = \frac{K^{1+iz}}{iz} - \frac{K^{iz+1}}{iz+1} = -\frac{K^{iz+1}}{z^2-iz}.
 \end{equation}
 
 \subsection{Characteristic functions}

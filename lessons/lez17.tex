@@ -4,11 +4,11 @@
 \end{equation}
 so the price is
 \begin{align}\label{stocrcall}
-    \notag\call_t &= \expect_t\left[(S(T)-K)^+e^{\int_t^T r_s\,\dd s}\right]\\
+    \notag\call_t &= \expect_t\left[(S(T)-K)^+e^{-\int_t^T r_s\,\dd s}\right]\\
     &=
     \notag\expect_t\left[e^{-\int_t^T r_s\,\dd s}S(T)\mathds{1}_{S_T\ge K}\right] - K\expect_t\left[e^{-\int_t^T r_s\,\dd s}\mathds{1}_{S_T\ge K}\right]\\
     \overset{(a)}&{=}
-    \notag\expect_t\left[e^{-\int_t^T r_s\,\dd s}S(t)e^{-\int_t^T r_s\,\dd s  - \frac{\sigma^2}{2}(T-t)+\sigma(W_T^{\Qmeas}-W_t^{\Qmeas})}\mathds{1}_{S_T\ge K}\right] - KB(t,T)\expect_t\left[\mathds{1}_{S_T\ge K}\right]\\
+    \notag\expect_t\left[e^{-\int_t^T r_s\,\dd s}S(t)e^{\int_t^T r_s\,\dd s  - \frac{\sigma^2}{2}(T-t)+\sigma(W_T^{\Qmeas}-W_t^{\Qmeas})}\mathds{1}_{S_T\ge K}\right] - KB(t,T)\expect_t\left[\mathds{1}_{S_T\ge K}\right]\\
     &=
     \notag S(t)\expect_t\left[e^{-\frac{\sigma^2}{2}(T-t)+\sigma(W_T^{\Qmeas}-W_t^{\Qmeas})}\mathds{1}_{S_T\ge K}\right] - KB(t,T)\Qmeas^T(\mathds{1}_{S_T\ge K})\\
     \overset{(b)}&{=}

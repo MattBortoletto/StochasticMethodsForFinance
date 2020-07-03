@@ -69,7 +69,7 @@ Now we have to solve the Riccati equation. In order to do that we can double the
 \end{equation}
 which transforms the quadratic first order ODE into a linear second order ODE:
 \begin{equation*}
-    \dot{E} + (K-\rho\eta iz)\dot{E} - \frac{\eta^2}{4}(iz+z^2)E = 0
+    \ddot{E} + (K-\rho\eta iz)\dot{E} - \frac{\eta^2}{4}(iz+z^2)E = 0
 \end{equation*}
 and let's look for soluions of the form $e^{\lambda \tau}$. Substituting we get
 \begin{equation*}
@@ -153,7 +153,7 @@ Putting the discount factor on the other side we have that
     &=
     \int_{\mathbb{R}}f_x(y)\,\dd y \int_{-\infty}^y e^{i(\xi+i\eta)l} (e^y - e^l)\,\dd l \\
     &=
-    \int_{\mathbb{R}}f_x(y)\,\dd y \left(e^y \int_{-\infty}^y e^{i(\xi+i\eta)l}\,\dd l - \int_{-\infty}^y e^{i(\xi+i\eta)l + l}\right)\,\dd l \\
+    \int_{\mathbb{R}}f_x(y)\,\dd y \left(e^y \int_{-\infty}^y e^{i(\xi+i\eta)l}\,\dd l - \int_{-\infty}^y e^{i(\xi+i\eta)l + l}\,\dd l \right)\\
     \intertext{Since the real part of the integrand involves $il\cdot i\eta = -l\eta$, the integral converges only if $\eta<0$.}
     &=
     \frac{1}{i} \int_{\mathbb{R}}f_x(y) e^{y + iy(\xi+i\eta)}\left(\frac{1}{\xi+i\eta} - \frac{1}{\xi+i(\eta-1)}\right)\,\dd y \\

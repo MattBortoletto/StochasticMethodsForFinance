@@ -171,7 +171,7 @@ It is possible to use the square root of the instantaneous variance instead of t
 \end{equation}
 One of the pioneering models for stochastic volatility is due to Heston (1993), who borrowed the CIR process for the interest rate and applied it to the volatility:
 \begin{equation}
-    \dd V(t) = k(V(\infty)-V(t))\dd t + \eta\sqrt{V(t)}(\rho\,\dd W^{\Qmeas}(t) + \sqrt{1-\rho^2}\,\dd W^{\perp}(t))
+    \dd V(t) = K(V(\infty)-V(t))\dd t + \eta\sqrt{V(t)}(\rho\,\dd W^{\Qmeas}(t) + \sqrt{1-\rho^2}\,\dd W^{\perp}(t))
 \end{equation}% 14:00 ho skippato tutto il discorso che ha fatto
 where $W^{\Qmeas}\indep W^{\perp}$. The parameter $\eta$ is called \emph{volatility of volatility parameter} and the parameter $\rho$ is called \emph{correlation parameter}. One interesting feature of this model is that the quadratic covariation between the asset returns and the instantaneous variance is
 \begin{equation*}
@@ -183,7 +183,7 @@ The main advantage of this model is that it is analytically tractable, in the se
 \subsection{Review of Bessel squared processes}
 Let $V(t)$ be a time changed Bessel squared process (BESQ).
 \begin{proposition}[Feller condition]
-    If $2kV(\infty) \ge \eta^2$, then
+    If $2KV(\infty) \ge \eta^2$, then
     \begin{equation*}
         \text{Prob}(V(t)>0\,\forall t) = 1.
     \end{equation*}
