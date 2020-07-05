@@ -91,7 +91,7 @@ This is the general Fourier transform: if we want to price calls or puts we can 
     where $\rho$ is a column vector and $\nabla_Y$ is a row vector, so that $\rho\nabla_Y$ is a $n\times n$ matrix.
 \end{proposition}% fine prima parte
 \begin{proof}
-    We altready know the infinitesimal generator of the Wishart process, so let's look for the other two. For the vector $Y(t)$ the infinitesimal generator is given by the Itô formula:
+    We already know the infinitesimal generator of the Wishart process, so let's look for the other two. For the vector $Y(t)$ the infinitesimal generator is given by the Itô formula:
     \begin{align*}
         \mathcal{A}_Y = \sum_{i=1}^n\left(r-\frac{1}{2}\Sigma_{ii}\right)\pdv{}{y_i}+\frac{1}{2}\sum_{i,j=1}^n\Sigma_{ij}\pdv{}{y_i}{y_j}
     \end{align*}
@@ -181,7 +181,7 @@ We would like to see if there exists a model that can describe this effect. In t
 \begin{proposition}
     The covariation between the $i$-th asset price and the cross correlation $\rho_{12}$ is given by
     \begin{align}
-        \dd\expval{Y_i,\rho_{12}} = \frac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}(1-\rho_{12}^2)\Tr(R_jQ)\dd t
+        \dd\expval{Y_i,\rho_{12}} = \sqrt{\frac{\Sigma_{ii}}{\Sigma_{jj}}}(1-\rho_{12}^2)\Tr(R_jQ)\dd t
     \end{align}
     (where in our case $i,j=1,2$).
 \end{proposition}
@@ -214,7 +214,7 @@ We would like to see if there exists a model that can describe this effect. In t
         &=
         \Tr(R_2Q)\left(\frac{\Sigma_{11}}{\sqrt{\Sigma_{11}\Sigma_{22}}}-\rho_{12}\frac{\Sigma_{12}}{\Sigma_{22}}\right)\dd t \\
         &=
-        \Tr(R_2Q)\frac{\sqrt{\Sigma_{11}}}{\Sigma_{22}}(1-\rho_{12}). % questa dimostrazione ha un errore perchè dovrebbe essere rho_12 al quadrato
+        \Tr(R_2Q)\sqrt{\frac{\Sigma_{11}}{\Sigma_{22}}}(1-\rho_{12}^2).
     \end{align*}
 \end{proof}
 We have that $(1-\rho_{12})\ge0$ and $\tfrac{\sqrt{\Sigma_{ii}}}{\Sigma_{jj}}\ge0$, so

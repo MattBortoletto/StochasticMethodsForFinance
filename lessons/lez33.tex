@@ -55,13 +55,13 @@ This equation can be seen as the projection of a vector along the direction give
 \end{equation}
 which can be written as
 \begin{equation}
-    \dv{}{\tau} (G(\tau), F(\tau)) = (G(\tau), F(\tau))\underbrace{\mqty(M & 2Q^tQ \\ 0 & -M^T)}_{2d\times 2d}
+    \dv{(G(\tau), F(\tau))}{\tau} = (G(\tau), F(\tau))\underbrace{\mqty(M & 2Q^TQ \\ 0 & -M^T)}_{2d\times 2d}
 \end{equation}
 This linear system can be solved by taking the exponential of the matrix:
 \begin{align}% discorsone sul fatto che questo caso è semplice perchè gli elementi della matrice sono costanti
-    \notag(G(\tau), F(\tau)) &= \mqty(G(0) & F(0))\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
+    \notag(G(\tau), F(\tau)) &= \mqty(G(0) & F(0))\exp{\tau\mqty(M & 2Q^TQ \\ 0 & -M^T)} \\
     &=
-    \notag\mqty(\Lambda & \mathds{1})\exp{\tau\mqty(M & 2Q^tQ \\ 0 & -M^T)} \\
+    \notag\mqty(\Lambda & \mathds{1})\exp{\tau\mqty(M & 2Q^TQ \\ 0 & -M^T)} \\
     &=
     \notag\mqty(\Lambda & \mathds{1})\mqty(A_{11} & A_{12} \\ A_{21} & A_{22}) \\
     &=
@@ -191,11 +191,11 @@ where $R\in M_{n\times n}$ and $B(t)$ is a Brownian motion such that $W(t)\indep
 \end{remark}
 If we are interested in pricing a call:
 \begin{align*}
-    price_t(\call) = -\frac{e^{-r(T-t)}}{2\pi}\int_{\mathcal{Z}}\frac{K^{iZ+1}}{Z^2+iZ}\hat{f}(-Z)\,\dd Z
+    price_t(\call) = -\frac{e^{-r(T-t)}}{2\pi}\int_{\mathcal{Z}}\frac{K^{iz+1}}{z^2+iz}\hat{f}(-z)\,\dd z
 \end{align*}
 we need
 \begin{equation*}
-    \hat{f}(Z) = \mathbb{E}_t[e^{iZ\ln S(T)}].
+    \hat{f}(z) = \mathbb{E}_t[e^{iz\ln S(T)}].
 \end{equation*}
 Let's introduce the function
 \begin{align}

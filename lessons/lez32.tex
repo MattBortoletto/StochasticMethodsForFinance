@@ -194,9 +194,8 @@ So, we can include a mean reverting drift just by taking a Ornstein-Uhlenbeck pr
 \begin{proof}
     \colorbox{cyan}{Homework.}
 \end{proof}
-Now we have a Wishart process with mean reversion that evolves according to a matrix SDE with matrix coefficients, we can compute the Laplace transform.
-
-\subsubsection{Laplace transform}
+Now we have a Wishart process with mean reversion that evolves according to a matrix SDE with matrix coefficients, we can compute the Laplace transform.\\
+\\
 Let's denote our Wishart process representing the volatility as $\Sigma(t)$. Its dynamics is given by
 \begin{equation}
     \dd\Sigma(t) = (\beta Q^TQ + M\Sigma(t) + \Sigma(t)M^T)\dd t + \sqrt{\Sigma(t)}\,\dd WQ + Q^T(\dd W(t))^T\sqrt{\Sigma(t)}
@@ -210,7 +209,7 @@ The infinitesimal generator for this process is
     If we write the dynamics of the elements of the matrix $\Sigma$ in the case $d=2$, we have
     \begin{align*}
         \dd\Sigma^{11} &= \dots\,\dd t + 2\sigma^{11}(Q_{11}\,\dd W^{11} + Q_{21}\,\dd W^{12}) + 2\sigma^{12}(Q_{11}\,\dd W^{21}+Q_{21}\,\dd W^{22}) \\
-        \dd\Sigma^{11} &= \dots\,\dd t + 2\sigma^{12}(Q_{12}\,\dd W^{11} + Q_{22}\,\dd W^{12}) + 2\sigma^{22}(Q_{21}\,\dd W^{21}+Q_{22}\,\dd W^{22})
+        \dd\Sigma^{22} &= \dots\,\dd t + 2\sigma^{12}(Q_{12}\,\dd W^{11} + Q_{22}\,\dd W^{12}) + 2\sigma^{22}(Q_{21}\,\dd W^{21}+Q_{22}\,\dd W^{22})
     \end{align*}
     Then, if we compute the quadratic covariation between the first element in the diagonal and the last one (i.e. the product of the two dynamics), we get
     \begin{align*}
@@ -218,5 +217,6 @@ The infinitesimal generator for this process is
         &=
         4\Sigma^{12}(Q_{11}Q_{12} + Q_{21}Q_{22})\dd t \ne 0 \text{  if $Q$ is not diagonal.}
     \end{align*}
-    When we introduced the first specification of the Wishart process we took $Q = \mathds{1}$, which is diagonal. That's why we were not able to exploit the Wishart property that the covariation between the two positive factors is not trivial (equal to zero). If now $Q$ is not diagonal, the covariation between $\Sigma^{11}>0$ and $\Sigma^{22}>0$ is not zero (like in the usual affine model, where it is the condition to have affinity) and, even more, it is given by the off-diagonal element $\Sigma^{12}$. So, \emph{the Wishart process can be seen as a matrix fluctuating in time in a mean reversion way where there is the joint presence of the volatility factors (diagonal terms) together with the covariance (off-diagonal terms). So, also the correlations will be stochastic, even if we don't loose the analytical tractability.}
+    When we introduced the first specification of the Wishart process we took $Q = \mathds{1}$, which is diagonal. That's why we were not able to exploit the Wishart property that the covariation between the two positive factors is not trivial (equal to zero). If now $Q$ is not diagonal, the covariation between $\Sigma^{11}>0$ and $\Sigma^{22}>0$ is not zero (like in the usual affine model, where it is the condition to have affinity) and, even more, it is given by the off-diagonal element $\Sigma^{12}$.
 \end{remark}
+So, \emph{the Wishart process can be seen as a matrix fluctuating in time in a mean reversion way where there is the joint presence of the volatility factors (diagonal terms) together with the covariance (off-diagonal terms). So, also the correlations will be stochastic, even if we don't loose the analytical tractability.}

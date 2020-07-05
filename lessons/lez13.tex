@@ -3,7 +3,7 @@
 \subsection{Gamma} % riascolta se hai tempo
 The gamma ($\Gamma$) of a portfolio of options on an underlying asset is the rate of change of the portfolio's delta with respect to the price of the underlying asset. It is the second partial derivative of the portfolio with respect to asset price:
 \begin{equation}
-    \Gamma = \pdv[2]{price}{S} = \pdv{\Delta}{S} = \dfrac{1}{S\sigma\sqrt{T-t}}\dfrac{e^{-\frac{d_1}{2}}}{\sqrt{2\pi}}.
+    \Gamma = \pdv[2]{price}{S} = \pdv{\Delta}{S} = \dfrac{1}{S\sigma\sqrt{T-t}}\dfrac{e^{-\frac{d_1^2}{2}}}{\sqrt{2\pi}}.
 \end{equation}
 If gamma is small, the delta changes slowly and adjustments to keep a portfolio delta-neutral need to be made only relatively infrequently. If gamma is highly negative or highly positive, the delta is very sensitive to the price of the underlying asset and it is quite risky to leave a delta-neutral portfolio unchanged for any length of time.
 \begin{figure}[htp]

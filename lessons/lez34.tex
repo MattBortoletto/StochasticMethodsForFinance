@@ -162,7 +162,9 @@ The skew is stochastic but it is a deterministic function of the volatility fact
         &=
         \sum_{i,j}\frac{e^T_i\Sigma e_je_j^TQ^TR^Te_i\,\dd t}{\sqrt{\Tr(\Sigma)\Tr(\Sigma Q^TQ)}} \\
         &=
-        \frac{\Tr(\Sigma Q^TR^T)}{\sqrt{\Tr(\Sigma)\Tr(\Sigma Q^TQ)}}
+        \frac{\Tr(\Sigma Q^TR^T)}{\sqrt{\Tr(\Sigma)\Tr(\Sigma Q^TQ)}}\,\dd t \\
+        &=
+        \frac{\Tr(\Sigma RQ)}{\sqrt{\Tr(\Sigma)\Tr(\Sigma Q^TQ)}}\,\dd t
     \end{align*}
 \end{proof}
 The crucial difference is that now in the numerator we have a linear combination involving all the elements of the Wishart process, not only the positive volatility factors (diagonal elements) but also their covariance (off-diagonal elements). So, we have a dedicated factor to manage the skew.
@@ -214,7 +216,7 @@ where $Z$ is a vector Brownian motion.
 \begin{remark}
     If we consider, in analogy with the multiple-asset Heston model, the quadratic covariation between the first two assets, we get
     \begin{align*}
-        \frac{\dd\expval{S_1,S_2}}{S_1S_2} = \Sigma_12 \,dd t \gtrless 0
+        \frac{\dd\expval{S_1,S_2}}{S_1S_2} = \Sigma_{12} \,dd t \gtrless 0
     \end{align*}
     so we have a stochastic correlation.
 \end{remark}
