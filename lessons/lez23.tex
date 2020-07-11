@@ -2,7 +2,7 @@ This fact has the following consequence. \lesson{23}{30/04/2020}
 \begin{proposition}[Defaultable bond]
     The down-and-out bond with barrier $L$ is priced by the formula
     \begin{equation}
-        BO_{LO}(t,s) = \left[H(t,s,L) - \left(\dfrac{2\Tilde{r}}{\sigma^2}\right)H\left(t,\frac{L^2}{s},L\right)\right]\mathds{1}_{s>L}.
+        BO_{LO}(t,s) = \left[H(t,s,L) - \left(\frac{L}{s}\right)^{\tfrac{2\Tilde{r}}{\sigma^2}}H\left(t,\frac{L^2}{s},L\right)\right]\mathds{1}_{s>L}.
     \end{equation}
 \end{proposition}
 This contract will thus pay out 1 dollar at time $T$ only if the stock price is above the level $L$ during the entire contract period. \\
@@ -10,9 +10,9 @@ Now we consider something which is not quoted in the market but that is a buildi
 \begin{proposition}[Down-and-out on stock]
     The down-and-out contract on the underlying stock is given by
     \begin{align}
-        \notag ST_{LO}(t,s) &= \left[LH(t,s,L) - L\left(\dfrac{2\Tilde{r}}{\sigma^2}\right)H\left(t,\frac{L^2}{s},L\right) + \right. \\
+        \notag ST_{LO}(t,s) &= \left[LH(t,s,L) - L\left(\frac{L}{s}\right)^{\tfrac{2\Tilde{r}}{\sigma^2}}H\left(t,\frac{L^2}{s},L\right) + \right. \\
         &\qquad\qquad
-        \left. + C(t,s,L) - \left(\dfrac{2\Tilde{r}}{\sigma^2}\right)C\left(t,\frac{L^2}{s},L\right)\right]\mathds{1}_{s>L}.
+        \left. + C(t,s,L) - \left(\frac{L}{s}\right)^{\tfrac{2\Tilde{r}}{\sigma^2}}C\left(t,\frac{L^2}{s},L\right)\right]\mathds{1}_{s>L}.
     \end{align}
 \end{proposition}
 \begin{proof}
@@ -86,7 +86,7 @@ The result for the pricing function in these two cases is as follows.
 \end{proposition}
 In Section \ref{putcallparity} we used this linearity to prove the standard put–call parity relation for standard European options, and we can now derive the put–call parity result for down-and-out options, often called \textbf{DOC-DOP parity}. Recall that the payoff of a put option is given by
 \begin{align*}
-    P(x,K) = (K-x)^+ &= K - x - (x - K)^+ \\
+    P(x,K) = (K-x)^+ &= K - x + (x - K)^+ \\
     &=
     K\cdot BO(x) - ST(x) + C(x,K)
 \end{align*}
@@ -94,7 +94,7 @@ Using Corollary \ref{linearitycor} we immediately have the following result.
 \begin{proposition}[Down-and-out put pricing]
     The down-and-out put price $P_{LO}$, and call price $C_{LO}$, are related by the formula
     \begin{equation}
-        P_{LO}(t, s, K) = K\cdot B_{LO}(t, s) - ST_{LO}(t,s) + C_{LO}(t, s, K).
+        P_{LO}(t, s, K) = K\cdot BO_{LO}(t, s) - ST_{LO}(t,s) + C_{LO}(t, s, K).
     \end{equation}
 \end{proposition}
 Note that when $L = 0$ we have the usual put–call parity.\\
@@ -171,7 +171,7 @@ We can now formulate the basic result.
 \begin{proposition}[Down-and-in pricing]
     Consider a fixed $T$-contract $Z = \Phi(S(T))$. Then the price of the corresponding down-and-in contract $Z_{LI}$ is given by
     \begin{equation}
-        F_{LI}(t,s,\Phi) = \left[F(t,s,\Phi^L)-\left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F\left(t,\frac{L^2}{s},\Phi^L\right)\right]\mathds{1}_{s<L}.
+        F_{LI}(t,s,\Phi) = \left[F(t,s,\Phi^L)+\left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F\left(t,\frac{L^2}{s},\Phi^L\right)\right]\mathds{1}_{s<L}.
     \end{equation}
 \end{proposition}
 \begin{proof}
@@ -188,7 +188,7 @@ The treatment of up-and-in contracts is of course parallel to down-and-in contra
 \begin{proposition}[Up-and-in pricing]
     Consider a fixed $T$-contract $Z = \Phi(S(T))$. Then the price of the corresponding up-and-in contract $Z^{LI}$ is given by
     \begin{equation}
-        F^{LI}(t,s,\Phi) = \left[F(t,s,\Phi_L) - \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F\left(t,\frac{L^2}{s},\Phi_L\right)\right]\mathds{1}_{s<L}.
+        F^{LI}(t,s,\Phi) = \left[F(t,s,\Phi_L) + \left(\frac{L}{s}\right)^{\left(\frac{2\Tilde{r}}{\sigma^2}\right)} F\left(t,\frac{L^2}{s},\Phi^L\right)\right]\mathds{1}_{s>L}.
     \end{equation}
 \end{proposition}
 \begin{proof}
